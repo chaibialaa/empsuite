@@ -41,6 +41,17 @@ class SubjectController extends Controller {
 
 	}
 
+    function searchForUserID($id, $array) {
+        $res=null;
+        foreach ($array as $key => $val) {
+            if ($val->user_id === $id) {
+                $res = true;
+            }
+            else $res = false;
+        }
+        return $res;
+    }
+
     public function ModuleSubject(){
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
@@ -59,7 +70,6 @@ class SubjectController extends Controller {
                 ->join('users','users.id','=','role_user.user_id')
                 ->where('role_id','=',$r->id)
                 ->get();
-            // TODO how to get the union between the arrays
             array_push($pList, $topush);
         }
 
@@ -67,7 +77,7 @@ class SubjectController extends Controller {
         {
             foreach ($p as $p_item)
             {
-                if ((array_search($p_item->user_id,array_column($fpList,'id'))) == false) {
+                if ($this->searchForUserID($p_item->user_id,$fpList) == false) {
                 array_push($fpList, $p_item);
                 }
             }
@@ -92,7 +102,7 @@ class SubjectController extends Controller {
             ->with('cpmList', $cpmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
-            ->with('fpList', dd($fpList));
+            ->with('fpList', $fpList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
