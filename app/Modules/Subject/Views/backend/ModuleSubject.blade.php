@@ -116,20 +116,18 @@
             <h3 class="panel-title"><i class="fa fa-link"></i> Link subject to module</h3>
         </div>
         <div class="panel-body">
-            @if((isset($pList)) and (count($pList)>0))
+            @if((isset($fpList)) and (count($fpList)>0))
                 <form method="POST" action="/admin/subject/add" id="level-add-form">
                     {!! csrf_field() !!}
                     <div class="input-group">
                         <input class="form-control" name="coef" type="text">
-                        <!--
+
                         <select name="professor" class="form-control">
-                            @foreach($pList as $array)
-                                @foreach ($array as $p)
+                            @foreach($fpList as $p)
                                 <option value="{{ $p->id }}">{{$p->nom}}</option>
-                                @endforeach
                             @endforeach
                         </select>
-                        -->
+
                         <select name="subject" class="form-control">
                             @foreach($sList as $s)
                                 <option value="{{ $s->id }}">{{$s->title}}</option>

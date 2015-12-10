@@ -52,6 +52,7 @@ class SubjectController extends Controller {
             ->get();
 
         $pList = array();
+        $fpList = array();
         foreach ($rList as $r)
         {
             $topush = DB::table('role_user')
@@ -60,6 +61,16 @@ class SubjectController extends Controller {
                 ->get();
             // TODO how to get the union between the arrays
             array_push($pList, $topush);
+        }
+
+        foreach ($pList as $p)
+        {
+            foreach ($p as $p_item)
+            {
+                if ((array_search($p_item->user_id,array_column($fpList,'id'))) == false) {
+                array_push($fpList, $p_item);
+                }
+            }
         }
 
         $mList = Module::all();
@@ -81,7 +92,7 @@ class SubjectController extends Controller {
             ->with('cpmList', $cpmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
-            ->with('pList', $pList);
+            ->with('fpList', dd($fpList));
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
