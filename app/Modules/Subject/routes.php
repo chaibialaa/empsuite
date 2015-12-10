@@ -9,5 +9,5 @@ Route::group(array('module' => 'Subject', 'namespace' => 'App\Modules\Subject\Co
     Route::get('admin/subject/classModule', 'SubjectController@ClassSubject');
 
     Route::post('admin/subject/module/add', 'SubjectController@addModule');
-    
+    //Route::post('admin/subject/module/add', 'SubjectController@addModule');
 });	
