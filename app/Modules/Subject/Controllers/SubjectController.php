@@ -54,12 +54,12 @@ class SubjectController extends Controller {
         $pList = array();
         foreach ($rList as $r)
         {
-            $i = 0;
-            array_push($pList, DB::table('role_user')
+            $topush = DB::table('role_user')
                 ->join('users','users.id','=','role_user.user_id')
                 ->where('role_id','=',$r->id)
-                ->get());
-            $i++;
+                ->get();
+            // TODO how to get the union between the arrays
+            array_push($pList, $topush);
         }
 
         $mList = Module::all();

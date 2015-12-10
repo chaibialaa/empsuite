@@ -121,6 +121,7 @@
                     {!! csrf_field() !!}
                     <div class="input-group">
                         <input class="form-control" name="coef" type="text">
+                        <!--
                         <select name="professor" class="form-control">
                             @foreach($pList as $array)
                                 @foreach ($array as $p)
@@ -128,6 +129,7 @@
                                 @endforeach
                             @endforeach
                         </select>
+                        -->
                         <select name="subject" class="form-control">
                             @foreach($sList as $s)
                                 <option value="{{ $s->id }}">{{$s->title}}</option>

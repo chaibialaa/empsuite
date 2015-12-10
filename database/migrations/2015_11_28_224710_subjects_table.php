@@ -24,21 +24,33 @@ class SubjectsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('subject_cpm', function (Blueprint $table) {
+        Schema::create('subject_csm', function (Blueprint $table) {
+            $table->increments('id');
             $table->float('coefficient');
 
             $table->integer('subject_id')->unsigned();
-            $table->integer('professor_id')->unsigned();
             $table->integer('module_id')->unsigned();
 
             $table->foreign('subject_id')->references('id')->on('subjects');
-            $table->foreign('professor_id')->references('id')->on('users');
             $table->foreign('module_id')->references('id')->on('modules');
+        });
+
+        Schema::create('subject_pc',function (Blueprint $table){
+            $table->increments('id');
+
+            $table->integer('csm_id')->unsigned();
+            $table->integer('professor_id')->unsigned();
+            $table->integer('class_id')->unsigned();
+
+            $table->foreign('csm_id')->references('id')->on('subject_csm');
+            $table->foreign('class_id')->references('id')->on('classes');
+            $table->foreign('professor_id')->references('id')->on('users');
         });
 
         Schema::create('module_classes', function (Blueprint $table) {
             $table->integer('module_id')->unsigned();
             $table->integer('class_id')->unsigned();
+
             $table->foreign('module_id')->references('id')->on('modules');
             $table->foreign('class_id')->references('id')->on('classes');
         });
