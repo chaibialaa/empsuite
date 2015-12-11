@@ -47,14 +47,19 @@ class SubjectController extends Controller {
 	}
 
     function searchForUserID($id, $array) {
-        $res=null;
-        foreach ($array as $key => $val) {
-            if ($val->user_id === $id) {
-                $res = true;
-            }
-            else $res = false;
+        do {
+            $result = null;
+            foreach($array as $key => $val) {
+                if ($val->user_id === $id) {
+                    $result = true;
+                }
+                else $result = false;
         }
-        return $res;
+
+        }while ($result == null);
+
+
+        return;
     }
 
     public function ModuleSubject(){
@@ -78,27 +83,27 @@ class SubjectController extends Controller {
             array_push($pList, $topush);
         }
 
-        foreach ($pList as $p)
+        foreach ($pList as $p )
         {
             foreach ($p as $p_item)
             {
+
                 if ($this->searchForUserID($p_item->user_id,$fpList) == false) {
                 array_push($fpList, $p_item);
                 }
             }
+
         }
 
         $mList = Module::all();
         $sList = Subject::all();
-        $precmList = DB::table('subject_cm')
+        $cmList = DB::table('subject_cm')
             ->join('modules', 'modules.id', '=','subject_cm.module_id' )
             ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
             ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
-
+            //->groupBy('subject_cm.module_id')
             ->get();
-
-
-
+// TODO cleaner way to group modules depedencies
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
@@ -109,7 +114,7 @@ class SubjectController extends Controller {
             ->with('cmList', $cmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
-            ->with('fpList', $fpList);
+            ->with('fpList', dd($fpList));
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
