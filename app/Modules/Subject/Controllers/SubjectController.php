@@ -16,6 +16,11 @@ class SubjectController extends Controller {
         return redirect('/admin/subject');
     }
 
+    public function redirectSubjectModule()
+    {
+        return redirect('/admin/subject/subjectModule');
+    }
+
 	public function listModule()
 	{
         $module['Title'] = "Subject Manager";
@@ -85,13 +90,13 @@ class SubjectController extends Controller {
 
         $mList = Module::all();
         $sList = Subject::all();
-        $cpmList = DB::table('subject_cpm')
-            ->join('modules', 'modules.id', '=', 'subject_cpm.module_id')
-            ->join('subjects', 'subjects.id', '=', 'subject_cpm.subject_id')
-            ->join('users', 'users.id', '=', 'subject_cpm.professor_id')
-            ->select('modules.title as module_title','users.nom as professor_title','subjects.title as subject_title')
+        $cmList = DB::table('modules')
+            ->join('subject_cm', 'subject_cm.module_id', '=', 'modules.id')
+            ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
+            ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
+            //->groupBy('modules.id')
             ->get();
-
+// TODO cleaner way to group modules depedencies
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
@@ -99,7 +104,7 @@ class SubjectController extends Controller {
 
         $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.ModuleSubject')
-            ->with('cpmList', $cpmList)
+            ->with('cmList', $cmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
             ->with('fpList', $fpList);
@@ -109,13 +114,30 @@ class SubjectController extends Controller {
         return $view;
     }
 
+    public function addSubjectModule()
+    {
+        $data = Input::all();
+        $verify = DB::table('subject_cm')->where('subject_id','=',$data['subject'])->where('module_id','=',$data['module'])->first();
+        if (!$verify){
+        DB::table('subject_cm')->insert(
+            ['subject_id' => $data['subject'],
+              'module_id' => $data['module'],
+                'coefficient' => $data['coef'] ]);
+
+        alert()->success('Sujet ajoute au module avec success');
+        } else {
+            alert()->error('Sujet deja existant au module');
+        }
+        return $this->redirectSubjectModule();
+    }
+
     public function addModule()
     {
         $data = Input::all();
 
         Module::create(['title' => $data['title']]);
 
-        alert()->success('Module ajoutee avec success');
+        alert()->success('Module ajoute avec success');
 
         return $this->redirectSubject();
     }

@@ -24,7 +24,7 @@ class SubjectsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('subject_csm', function (Blueprint $table) {
+        Schema::create('subject_cm', function (Blueprint $table) {
             $table->increments('id');
             $table->float('coefficient');
 
@@ -38,11 +38,11 @@ class SubjectsTable extends Migration
         Schema::create('subject_pc',function (Blueprint $table){
             $table->increments('id');
 
-            $table->integer('csm_id')->unsigned();
+            $table->integer('cm_id')->unsigned();
             $table->integer('professor_id')->unsigned();
             $table->integer('class_id')->unsigned();
 
-            $table->foreign('csm_id')->references('id')->on('subject_csm');
+            $table->foreign('cm_id')->references('id')->on('subject_cm');
             $table->foreign('class_id')->references('id')->on('classes');
             $table->foreign('professor_id')->references('id')->on('users');
         });
@@ -65,7 +65,8 @@ class SubjectsTable extends Migration
     {
         Schema::drop('subjects');
         Schema::drop('modules');
-        Schema::drop('subject_cpm');
+        Schema::drop('subject_cm');
+        Schema::drop('subject_cp');
         Schema::drop('module_classes');
     }
 }

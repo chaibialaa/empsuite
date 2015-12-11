@@ -5,12 +5,12 @@
             <h3 class="panel-title"><i class="fa fa-plus"></i> Subjects Links to Modules</h3>
         </div>
         <div class="panel-body">
-            @if((isset($cpmList)) and (count($cpmList)>0))
-                @foreach($cpmList as $cpm)
+            @if((isset($cmList)) and (count($cmList)>0))
+                @foreach($cmList as $cm)
                     <div class="col-md-6">
                         <div class="panel panel-default ">
                             <div class="panel-heading">
-                                {{$m->module_title}}
+                                <i class="fa fa-tint"></i> Module : {{$cm->module_title}}
                             </div>
                             <div class="panel-body">
                                 <table id="modules" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -18,7 +18,6 @@
                                     <tr>
 
                                         <th>Subject</th>
-                                        <th>Professor</th>
                                         <th>Coefficient</th>
 
 
@@ -27,7 +26,6 @@
                                     <tfoot>
                                     <tr>
                                         <th>Subject</th>
-                                        <th>Professor</th>
                                         <th>Coefficient</th>
 
                                     </tr>
@@ -35,9 +33,8 @@
                                     <tbody>
 
                                     <tr>
-                                        <td>{{$m->subject_title}}</td>
-                                        <td>{{$m->professor_title}}</td>
-                                        <td>{{$m->coefficient}}</td>
+                                        <td>{{$cm->subject_title}}</td>
+                                         <td>{{$cm->coefficient}}</td>
                                     </tr>
 
                                     </tbody>
@@ -47,7 +44,7 @@
                     </div>
                 @endforeach
             @else
-                At least one subject is required !
+                At least one subject in a module is required !
             @endif
         </div>
     </div>
@@ -117,16 +114,11 @@
         </div>
         <div class="panel-body">
             @if((isset($fpList)) and (count($fpList)>0))
-                <form method="POST" action="/admin/subject/add" id="level-add-form">
+                <form method="POST" action="/admin/subject/subjectModule/add" id="level-add-form">
                     {!! csrf_field() !!}
                     <div class="input-group">
                         <input class="form-control" name="coef" type="text">
 
-                        <select name="professor" class="form-control">
-                            @foreach($fpList as $p)
-                                <option value="{{ $p->id }}">{{$p->nom}}</option>
-                            @endforeach
-                        </select>
 
                         <select name="subject" class="form-control">
                             @foreach($sList as $s)
