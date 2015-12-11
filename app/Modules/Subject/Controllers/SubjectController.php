@@ -90,13 +90,15 @@ class SubjectController extends Controller {
 
         $mList = Module::all();
         $sList = Subject::all();
-        $cmList = DB::table('modules')
-            ->join('subject_cm', 'subject_cm.module_id', '=', 'modules.id')
+        $precmList = DB::table('subject_cm')
+            ->join('modules', 'modules.id', '=','subject_cm.module_id' )
             ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
             ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
-            //->groupBy('modules.id')
+
             ->get();
-// TODO cleaner way to group modules depedencies
+
+
+
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";

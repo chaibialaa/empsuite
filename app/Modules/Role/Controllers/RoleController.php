@@ -189,6 +189,7 @@ class RoleController extends Controller {
                 DB::table('role_user')->insert(
                     ['user_id' => $id,
                         'role_id' => $role ]);
+
             }
         }
         alert()->success('User updated');

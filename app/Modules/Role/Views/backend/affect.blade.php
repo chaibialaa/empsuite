@@ -84,7 +84,7 @@
                                                 '@foreach($rList as $role)' +
                                                 '@foreach($rrList as $rr) @if (($rr->role_id == $role->id) and ($rr->user_id == $user->id))'+
                                                 '<tr>' +
-                                                '<td><input name="requestedRoles[]" checked type="checkbox" value="{{$role->id}}" @foreach($oList as $or) @if (($or->role_id == $role->id) and ($or->user_id == $user->id)) disabled @endif @endforeach/> '+
+                                                '<td><input name="requestedRoles[]" checked type="checkbox" value="{{$role->id}}"/> '+
                                                 '</td>' +
                                                 '<td>{{$role->display_name}}</td>'+
                                                 '<td>{{$role->description}}</td>'+
@@ -125,7 +125,7 @@
                         <th>eMail</th>
                         <th>Roles</th>
 
-                        <th>Acquired Roles</th>
+                        <th>Member since</th>
                     </tr>
                     </thead>
                     <tfoot>
@@ -135,7 +135,7 @@
                         <th>eMail</th>
                         <th>Roles</th>
 
-                        <th>Acquired Roles</th>
+                        <th>Member since</th>
                     </tr>
                     </tfoot>
                     <tbody>
@@ -171,8 +171,8 @@
                                     }
                                 </script>
                             </td>
+                            <td>{{$user->created_at}}</td>
 
-                            <td></td>
 
                         </tr>
                     @endforeach
