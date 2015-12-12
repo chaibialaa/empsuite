@@ -46,20 +46,28 @@ class SubjectController extends Controller {
 
 	}
 
-    function searchForUserID($id, $array) {
-        do {
-            $result = null;
-            foreach($array as $key => $val) {
-                if ($val->user_id === $id) {
-                    $result = true;
+    function searchUserExistence($id,$array){
+        if (!empty($array)){
+            $x = 0;
+            foreach($array as $element) { if ($element->user_id === $id) { $x++; } }
+            if ($x == 0){ return false; }
+        } else { return false; }
+    }
+
+    function searchModuleExistence($title,$array){
+        if (!empty($array)){
+            $x = 0;
+            foreach($array as $element ) {
+                foreach($element as $val=>$key)  {
+                    if ($val === $title) {
+                    // add under it
+                    } else {
+                        //add new in top
+                    }
                 }
-                else $result = false;
-        }
+            }
 
-        }while ($result == null);
-
-
-        return;
+        } else { return false; }
     }
 
     public function ModuleSubject(){
@@ -83,16 +91,11 @@ class SubjectController extends Controller {
             array_push($pList, $topush);
         }
 
-        foreach ($pList as $p )
-        {
-            foreach ($p as $p_item)
-            {
-
-                if ($this->searchForUserID($p_item->user_id,$fpList) == false) {
-                array_push($fpList, $p_item);
-                }
+        foreach ($pList as $p ){
+            foreach ($p as $p_item){
+                if($this->searchUserExistence($p_item->user_id,$fpList) === false)
+                    array_push($fpList, $p_item);
             }
-
         }
 
         $mList = Module::all();
@@ -104,6 +107,27 @@ class SubjectController extends Controller {
             //->groupBy('subject_cm.module_id')
             ->get();
 // TODO cleaner way to group modules depedencies
+
+        $fcmList = array();
+        foreach($cmList as $cm){
+            if (!empty($fcmList)){
+                foreach($fcmList as $element ) {
+                    foreach($element as $val=>$key)  {
+                        if ($val === $cm->module_title) {
+
+                        } else {
+                            $array = array ($cm->module_title => array($cm));
+                            array_push($fcmList, $array);
+                        }
+                    }
+                }
+
+            } else { $array = array ($cm->module_title => array($cm));
+                array_push($fcmList, $array);}
+
+        }
+
+        dd($fcmList);
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
@@ -114,7 +138,7 @@ class SubjectController extends Controller {
             ->with('cmList', $cmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
-            ->with('fpList', dd($fpList));
+            ->with('fpList', $fpList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
