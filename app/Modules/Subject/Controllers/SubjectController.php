@@ -88,25 +88,17 @@ class SubjectController extends Controller {
             ->join('modules', 'modules.id', '=','subject_cm.module_id' )
             ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
             ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
-            //->groupBy('subject_cm.module_id')
+            ->orderBy('subject_cm.module_id')
             ->get();
 // TODO cleaner way to group modules depedencies
 
         $fcmList = array();
         foreach($cmList as $cm){
-            if (!empty($fcmList)){
-                foreach($fcmList as $element ) {
-                        if ($element === $cm->module_title) {
-                        } else {
-                            $array = array($cm);
-                            $fcmList[$cm->module_title][] = $array;
-                        }
-                }
-            } else { $array = array($cm);
-                $fcmList[$cm->module_title][] = $array;}
-
+            $array = array($cm);
+            $fcmList[$cm->module_title][] = $array;
         }
-        dd($fcmList);
+
+
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
@@ -114,7 +106,7 @@ class SubjectController extends Controller {
 
         $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.ModuleSubject')
-            ->with('cmList', $fcmList)
+            ->with('fcmList', $fcmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
             ->with('fpList', $fpList);

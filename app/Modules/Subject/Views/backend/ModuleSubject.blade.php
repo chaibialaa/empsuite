@@ -5,12 +5,13 @@
             <h3 class="panel-title"><i class="fa fa-plus"></i> Subjects Links to Modules</h3>
         </div>
         <div class="panel-body">
-            @if((isset($cmList)) and (count($cmList)>0))
-                @foreach($cmList as $cm)
+            @if((isset($fcmList)) and (count($fcmList)>0))
+                @foreach($fcmList as $cm=>$value)
+
                     <div class="col-md-6">
                         <div class="panel panel-default ">
                             <div class="panel-heading">
-                                <i class="fa fa-tint"></i> Module : {{$cm->module_title}}
+                                <i class="fa fa-tint"></i> Module : {{$cm}}
                             </div>
                             <div class="panel-body">
                                 <table id="modules" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -31,18 +32,22 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-
+                                    @foreach($value as $sub_value=>$element)
+                                        @foreach($element as $sub_element=>$val)
                                     <tr>
-                                        <td>{{$cm->subject_title}}</td>
-                                         <td>{{$cm->coefficient}}</td>
+                                        <td>{{$val->subject_title}}</td>
+                                        <td>{{$val->coefficient}}</td>
                                     </tr>
+                                        @endforeach
+                                    @endforeach
 
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                    @endforeach
+
             @else
                 At least one subject in a module is required !
             @endif
