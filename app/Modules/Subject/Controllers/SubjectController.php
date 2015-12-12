@@ -54,22 +54,6 @@ class SubjectController extends Controller {
         } else { return false; }
     }
 
-    function searchModuleExistence($title,$array){
-        if (!empty($array)){
-            $x = 0;
-            foreach($array as $element ) {
-                foreach($element as $val=>$key)  {
-                    if ($val === $title) {
-                    // add under it
-                    } else {
-                        //add new in top
-                    }
-                }
-            }
-
-        } else { return false; }
-    }
-
     public function ModuleSubject(){
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
@@ -112,21 +96,16 @@ class SubjectController extends Controller {
         foreach($cmList as $cm){
             if (!empty($fcmList)){
                 foreach($fcmList as $element ) {
-                    foreach($element as $val=>$key)  {
-                        if ($val === $cm->module_title) {
-
+                        if ($element === $cm->module_title) {
                         } else {
-                            $array = array ($cm->module_title => array($cm));
-                            array_push($fcmList, $array);
+                            $array = array($cm);
+                            $fcmList[$cm->module_title][] = $array;
                         }
-                    }
                 }
-
-            } else { $array = array ($cm->module_title => array($cm));
-                array_push($fcmList, $array);}
+            } else { $array = array($cm);
+                $fcmList[$cm->module_title][] = $array;}
 
         }
-
         dd($fcmList);
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
@@ -135,7 +114,7 @@ class SubjectController extends Controller {
 
         $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.ModuleSubject')
-            ->with('cmList', $cmList)
+            ->with('cmList', $fcmList)
             ->with('mList', $mList)
             ->with('sList', $sList)
             ->with('fpList', $fpList);
