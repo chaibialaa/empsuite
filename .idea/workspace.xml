@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7442e83f-7387-4ae2-b64e-c615224a210f" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\laragon\www\empsuite\app\Modules\Subject\Views\backend\listModule.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/list.blade.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Role/Views/backend/affect.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Role/Views/backend/affect.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Subject/routes.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -41,8 +40,8 @@
       <file leaf-file-name="SubjectController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="15.653846">
-              <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
+            <state vertical-scroll-proportion="-11.653846">
+              <caret line="159" column="12" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -51,19 +50,21 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Subject/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.6153846">
-              <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
+            <state vertical-scroll-proportion="-5.230769">
+              <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ModuleSubject.blade.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php">
+      <file leaf-file-name="ClassModule.blade.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.70071685">
-              <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
-              <folding />
+            <state vertical-scroll-proportion="0.33512545">
+              <caret line="32" column="84" selection-start-line="32" selection-start-column="84" selection-end-line="32" selection-end-column="84" />
+              <folding>
+                <element signature="n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -112,9 +113,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/database/migrations/2015_11_15_211817_entrust_setup_tables.php" />
-        <option value="$PROJECT_DIR$/app/Modules/Message/Models/MessageUser.php" />
-        <option value="$PROJECT_DIR$/config/session.php" />
         <option value="$PROJECT_DIR$/.env" />
         <option value="$PROJECT_DIR$/app/Modules/User/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Message/Views/frontend/inbox.blade.php" />
@@ -159,10 +157,13 @@
         <option value="$PROJECT_DIR$/app/Modules/Subject/Controllers/ModuleController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Role/Controllers/RoleController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/listModule.blade.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Role/Views/backend/affect.blade.php" />
+        <option value="C:/Oracle/htdocs/wp-config.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Subject/routes.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" />
-        <option value="$PROJECT_DIR$/app/Modules/Subject/routes.php" />
-        <option value="$PROJECT_DIR$/app/Modules/Role/Views/backend/affect.blade.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.blade.php" />
       </list>
     </option>
   </component>
@@ -1201,12 +1202,6 @@
       <option name="number" value="Default" />
       <updated>1445362290500</updated>
     </task>
-    <task id="LOCAL-00059" summary="- Starting in Roles">
-      <created>1448302321318</created>
-      <option name="number" value="00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1448302321367</updated>
-    </task>
     <task id="LOCAL-00060" summary="- Roles Module Development">
       <created>1448320016219</created>
       <option name="number" value="00060" />
@@ -1495,7 +1490,13 @@
       <option name="project" value="LOCAL" />
       <updated>1449964979294</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="- Subjects Module by Class">
+      <created>1450040761688</created>
+      <option name="number" value="00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1450040761699</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1514,6 +1515,7 @@
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39409986" sideWeight="0.50653595" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2927383" sideWeight="0.49346405" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6650327" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1523,7 +1525,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39409986" sideWeight="0.50653595" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869282" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1585,35 +1586,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/app.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.5376344">
-          <caret line="230" column="56" selection-start-line="230" selection-start-column="56" selection-end-line="230" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Role/Views/frontend/request.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.45698926">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Announcement/Views/backend/edit.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.3817205">
-          <caret line="12" column="60" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Level/Views/frontend/teach.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
@@ -1917,22 +1889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="15.653846">
-          <caret line="23" column="27" selection-start-line="23" selection-start-column="27" selection-end-line="23" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6153846">
-          <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Role/Views/backend/affect.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.8846154">
@@ -1941,11 +1897,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Downloads/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/wp-settings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="221.11539">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Oracle/htdocs/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.4982079">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70071685">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.63978493">
+          <caret line="85" column="39" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="8" column="74" selection-start-line="8" selection-start-column="74" selection-end-line="8" selection-end-column="74" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.653846">
+          <caret line="159" column="12" selection-start-line="159" selection-start-column="12" selection-end-line="159" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33512545">
+          <caret line="32" column="84" selection-start-line="32" selection-start-column="84" selection-end-line="32" selection-end-column="84" />
+          <folding>
+            <element signature="n#div#1;n#div#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

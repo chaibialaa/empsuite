@@ -20,7 +20,7 @@
 
                                         <th>Subject</th>
                                         <th>Coefficient</th>
-
+                                        <th>Remove</th>
 
                                     </tr>
                                     </thead>
@@ -28,6 +28,7 @@
                                     <tr>
                                         <th>Subject</th>
                                         <th>Coefficient</th>
+                                        <th>Remove</th>
 
                                     </tr>
                                     </tfoot>
@@ -37,6 +38,7 @@
                                     <tr>
                                         <td>{{$val->subject_title}}</td>
                                         <td>{{$val->coefficient}}</td>
+                                        <td class="text-center"><button type="button" class="btn btn-flat btn-danger btn-xs"><i class="fa fa-trash"></i></button></td>
                                     </tr>
                                         @endforeach
                                     @endforeach

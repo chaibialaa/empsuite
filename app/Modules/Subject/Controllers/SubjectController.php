@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Modules\Level\Models\Classm;
 use App\Modules\Role\Models\Permission;
 use App\Modules\Role\Models\Role;
 use App\Modules\Subject\Models\Module;
@@ -58,30 +59,6 @@ class SubjectController extends Controller {
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
 
-        $TeachingPermission = Permission::where('name','TeachingStudents')->first();
-        $rList = DB::table('permission_role')
-            ->join('roles','roles.id','=','permission_role.role_id')
-            ->where('permission_id','=',$TeachingPermission->id)
-            ->get();
-
-        $pList = array();
-        $fpList = array();
-        foreach ($rList as $r)
-        {
-            $topush = DB::table('role_user')
-                ->join('users','users.id','=','role_user.user_id')
-                ->where('role_id','=',$r->id)
-                ->get();
-            array_push($pList, $topush);
-        }
-
-        foreach ($pList as $p ){
-            foreach ($p as $p_item){
-                if($this->searchUserExistence($p_item->user_id,$fpList) === false)
-                    array_push($fpList, $p_item);
-            }
-        }
-
         $mList = Module::all();
         $sList = Subject::all();
         $cmList = DB::table('subject_cm')
@@ -106,7 +83,80 @@ class SubjectController extends Controller {
         $ComposedSubView = View::make('Subject::backend.ModuleSubject')
             ->with('fcmList', $fcmList)
             ->with('mList', $mList)
+            ->with('sList', $sList);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        $view->with('additionalCsss', $additionalCsss);
+        $view->with('additionalLibs', $additionalLibs);
+        return $view;
+    }
+
+    public function ClassModule(){
+        $module['Title'] = "Subject Manager";
+        $module['SubTitle'] = "Subjects Dashboard";
+
+        $TeachingPermission = Permission::where('name','TeachingStudents')->first();
+        $rList = DB::table('permission_role')
+            ->join('roles','roles.id','=','permission_role.role_id')
+            ->where('permission_id','=',$TeachingPermission->id)
+            ->get();
+
+        $pList = array();
+        $fpList = array();
+        foreach ($rList as $r)
+        {
+            $topush = DB::table('role_user')
+                ->join('users','users.id','=','role_user.user_id')
+                ->where('role_id','=',$r->id)
+                ->get();
+            array_push($pList, $topush);
+        }
+
+        foreach ($pList as $p ){
+            foreach ($p as $p_item){
+                if($this->searchUserExistence($p_item->user_id,$fpList) === false)
+                    array_push($fpList, $p_item);
+            }
+        }
+
+        $cList = DB::table('level_classes')
+            ->join('classes', 'classes.id', '=','level_classes.class_id' )
+            ->join('levels', 'levels.id', '=','level_classes.level_id' )
+            ->select('classes.title as class_title','levels.title as level_title','classes.id as id')
+            ->orderBy('level_classes.level_id')
+            ->get();
+
+        $fcList = array();
+        foreach($cList as $c){
+            $array = array($c);
+            $fcList[$c->level_title][] = $array;
+        }
+
+        $mList = Module::all();
+        $sList = Subject::all();
+        $cmList = DB::table('subject_cm')
+            ->join('modules', 'modules.id', '=','subject_cm.module_id' )
+            ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
+            ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
+            ->orderBy('subject_cm.module_id')
+            ->get();
+
+        $fcmList = array();
+        foreach($cmList as $cm){
+            $array = array($cm);
+            $fcmList[$cm->module_title][] = $array;
+        }
+
+        $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+        $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+        $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
+        $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+
+        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $ComposedSubView = View::make('Subject::backend.ClassModule')
+            ->with('fcmList', $fcmList)
+            ->with('mList', $mList)
             ->with('sList', $sList)
+            ->with('cList', $fcList)
             ->with('fpList', $fpList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
