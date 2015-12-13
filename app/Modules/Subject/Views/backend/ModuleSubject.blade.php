@@ -2,14 +2,14 @@
 <div class="col-md-9">
     <div class="panel panel-default ">
         <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-plus"></i> Subjects Links to Modules</h3>
+            <i class="fa fa-plus"></i> Subjects Links to Modules
         </div>
         <div class="panel-body">
             @if((isset($fcmList)) and (count($fcmList)>0))
                 @foreach($fcmList as $cm=>$value)
 
                     <div class="col-md-6">
-                        <div class="panel panel-default ">
+                        <div class="panel panel-info ">
                             <div class="panel-heading">
                                 <i class="fa fa-tint"></i> Module : {{$cm}}
                             </div>

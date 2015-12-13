@@ -90,14 +90,12 @@ class SubjectController extends Controller {
             ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
             ->orderBy('subject_cm.module_id')
             ->get();
-// TODO cleaner way to group modules depedencies
 
         $fcmList = array();
         foreach($cmList as $cm){
             $array = array($cm);
             $fcmList[$cm->module_title][] = $array;
         }
-
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
