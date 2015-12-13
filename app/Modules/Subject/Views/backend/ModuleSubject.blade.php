@@ -54,57 +54,7 @@
         </div>
     </div>
 
-    <div class="panel panel-default ">
-        <div class="panel-heading">
-            <h3 class="panel-title"><i class="fa fa-plus"></i> Modules per Class  </h3>
-        </div>
-        <div class="panel-body">
-            @if((isset($mcList)) and (count($mcList)>0))
-                @foreach($mcList as $mc)
-                    <div class="col-md-6">
-                        <div class="panel panel-default ">
-                            <div class="panel-heading">
-                                {{$mc->module_title}}
-                            </div>
-                            <div class="panel-body">
-                                <table id="modules" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                    <thead>
-                                    <tr>
 
-                                        <th>Subject</th>
-                                        <th>Professor</th>
-                                        <th>Coefficient</th>
-
-
-                                    </tr>
-                                    </thead>
-                                    <tfoot>
-                                    <tr>
-                                        <th>Subject</th>
-                                        <th>Professor</th>
-                                        <th>Coefficient</th>
-
-                                    </tr>
-                                    </tfoot>
-                                    <tbody>
-
-                                    <tr>
-                                        <td>{{$m->subject_title}}</td>
-                                        <td>{{$m->professor_title}}</td>
-                                        <td>{{$m->coefficient}}</td>
-                                    </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            @else
-                At least one subject is required !
-            @endif
-        </div>
-    </div>
 </div>
 
 
@@ -118,7 +68,7 @@
             <h3 class="panel-title"><i class="fa fa-link"></i> Link subject to module</h3>
         </div>
         <div class="panel-body">
-            @if((isset($fpList)) and (count($fpList)>0))
+            @if((isset($mList)) and (count($mList)>0) and (isset($sList)) and (count($sList)>0))
                 <form method="POST" action="/admin/subject/subjectModule/add" id="level-add-form">
                     {!! csrf_field() !!}
                     <div class="input-group">
@@ -142,7 +92,7 @@
                 </form>
             @else
 
-                A subject need a professor, affect here LINK
+                You need at least one module and one subject.
 
             @endif
         </div>

@@ -2,7 +2,7 @@
 
 Route::group(array('module' => 'Subject', 'namespace' => 'App\Modules\Subject\Controllers'), function() {
 
-    Route::get('admin/subject/', 'SubjectController@listModule');
+    Route::get('admin/subject/', 'SubjectController@listAll');
     Route::post('admin/subject/add', 'SubjectController@addSubject');
 
     Route::get('admin/subject/subjectModule', 'SubjectController@ModuleSubject');

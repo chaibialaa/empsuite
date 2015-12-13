@@ -65,7 +65,7 @@ $('#subjects').DataTable();
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>Module</th>
+                            <th>Subject</th>
                             <th>Rename</th>
                             <th>Delete</th>
 

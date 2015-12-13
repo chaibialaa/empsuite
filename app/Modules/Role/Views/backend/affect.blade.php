@@ -77,7 +77,7 @@
                                     function uhaffect{!! $user->id !!} () {
                                         return  '<form method="POST" action="/admin/role/affect/manageRequested/{{$user->id}}">{!! csrf_field() !!}'+
                                                 '<table class="table table-striped table-bordered">' +
-                                                '<th width="15%">Affect/Revoke</th>'+
+                                                '<th width="15%">Accept/Refuse</th>'+
                                                 '<th width="20%">Role Title</th>'+
                                                 '<th width="30%">Role Description</th>'+
                                                 '<th width="35%">Additional Informations of Request</th>'+

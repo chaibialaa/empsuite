@@ -21,7 +21,7 @@ class SubjectController extends Controller {
         return redirect('/admin/subject/subjectModule');
     }
 
-	public function listModule()
+	public function listAll()
 	{
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
@@ -36,7 +36,7 @@ class SubjectController extends Controller {
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Subject::backend.listModule')
+        $ComposedSubView = View::make('Subject::backend.list')
             ->with('mList', $mList)
             ->with('sList', $sList);
         $view->with('content', $ComposedSubView)->with('module', $module);
