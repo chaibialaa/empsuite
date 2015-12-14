@@ -22,6 +22,11 @@ class SubjectController extends Controller {
         return redirect('/admin/subject/subjectModule');
     }
 
+    public function redirectModuleClass()
+    {
+        return redirect('/admin/subject/classModule');
+    }
+
 	public function listAll()
 	{
         $module['Title'] = "Subject Manager";
@@ -64,7 +69,7 @@ class SubjectController extends Controller {
         $cmList = DB::table('subject_cm')
             ->join('modules', 'modules.id', '=','subject_cm.module_id' )
             ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
-            ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
+            ->select('modules.title as module_title','subjects.title as subject_title','coefficient','subject_cm.id')
             ->orderBy('subject_cm.module_id')
             ->get();
 
@@ -136,7 +141,7 @@ class SubjectController extends Controller {
         $cmList = DB::table('subject_cm')
             ->join('modules', 'modules.id', '=','subject_cm.module_id' )
             ->join('subjects', 'subjects.id', '=', 'subject_cm.subject_id')
-            ->select('modules.title as module_title','subjects.title as subject_title','coefficient')
+            ->select('modules.title as module_title','subjects.title as subject_title','coefficient','subject_cm.id')
             ->orderBy('subject_cm.module_id')
             ->get();
 
@@ -162,6 +167,23 @@ class SubjectController extends Controller {
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         return $view;
+    }
+
+    public function attachClassModule(){
+        $data = Input::all();
+        // verify if the class has that mod already with its id else ->
+
+
+        foreach($data['professors'] as $key=>$value)
+        {
+            DB::table('subject_pc')->insert([
+                'cm_id' => $key,
+                'professor_id' => $value,
+                'class_id' => $data['class']
+            ]);
+        }
+        alert()->success('Module attache a la classe avec success');
+        return $this->redirectModuleClass();
     }
 
     public function addSubjectModule()

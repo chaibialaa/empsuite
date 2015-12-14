@@ -67,30 +67,31 @@
     <div class="panel panel-default ">
         <div class="panel-heading">
 
-            <h3 class="panel-title"><i class="fa fa-link"></i> Link subject to module</h3>
+            <h3 class="panel-title"><i class="fa fa-link"></i> Attach Subject to Module</h3>
         </div>
         <div class="panel-body">
             @if((isset($mList)) and (count($mList)>0) and (isset($sList)) and (count($sList)>0))
                 <form method="POST" action="/admin/subject/subjectModule/add" id="level-add-form">
                     {!! csrf_field() !!}
-                    <div class="input-group">
+                        <label>Coefficient :</label>
                         <input class="form-control" name="coef" type="text">
 
-
+                    <label>Subject :</label>
                         <select name="subject" class="form-control">
                             @foreach($sList as $s)
                                 <option value="{{ $s->id }}">{{$s->title}}</option>
                             @endforeach
                         </select>
+                        <label>Module :</label>
                         <select name="module" class="form-control">
                             @foreach($mList as $m)
                                 <option value="{{ $m->id }}">{{$m->title}}</option>
                             @endforeach
                         </select>
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-success">Add</button>
-                        </div>
-                    </div>
+                    <br/>
+                        <button type="submit" class="btn btn-success btn-flat btn-block">Attach</button>
+
+
                 </form>
             @else
 

@@ -14,6 +14,9 @@
                                     <i class="fa fa-tint"></i> Module : {{$cm}}
                                 </div>
                                 <div class="panel-body">
+                                    <form action="/admin/subject/classModule/attach" method="post">
+                                        {!! csrf_field() !!}
+
                                     <table id="modules" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                         <tr>
@@ -34,7 +37,7 @@
                                                             <div class="input-group-btn">
                                                                 <button type="submit" class="btn btn-success btn-sm">Attach to</button>
                                                             </div>
-                                                            <select name="module" class="form-control input-sm col-md-6">
+                                                            <select name="class" class="form-control input-sm col-md-6">
                                                                 @foreach($cList as $c=>$v)
                                                                     <optgroup label="Level : {{$c}}">
                                                                         @foreach($v as $s_v=>$e)
@@ -57,11 +60,12 @@
                                         @foreach($value as $sub_value=>$element)
                                             @foreach($element as $sub_element=>$val)
                                                 <tr>
+
                                                     <td>{{$val->subject_title}}</td>
                                                     <td>{{$val->coefficient}}</td>
                                                     <td>
 
-                                                        <select name="module" class="form-control input-sm">
+                                                        <select name="professors[{{$val->id}}]" class="form-control input-sm">
                                                         @foreach($fpList as $p)
                                                             <option value="{{ $p->id }}">{{$p->nom}}</option>
                                                         @endforeach
@@ -71,6 +75,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -94,6 +99,7 @@
             </div>
             <div class="panel-body">
                 <select name="module" class="form-control input-sm col-md-6">
+                    <option selected disabled>Select here</option>
                     @foreach($cList as $c=>$v)
                         <optgroup label="Level : {{$c}}">
                             @foreach($v as $s_v=>$e)
