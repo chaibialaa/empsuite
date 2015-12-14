@@ -91,7 +91,7 @@ class SubjectController extends Controller
         }
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
-        $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
@@ -163,7 +163,7 @@ class SubjectController extends Controller
         }
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
-        $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
@@ -183,14 +183,13 @@ class SubjectController extends Controller
     public function attachClassModule()
     {
         $data = Input::all();
-        // verify if the class has that mod already with its id else ->
 
         $verify = DB::table('subject_pc')
             ->where('cm_id', '=', key($data['professors']))
-            ->where('class_id','=',$data['class'])
+            ->where('class_id', '=', $data['class'])
             ->first();
 
-        if(!$verify) {
+        if (!$verify) {
             foreach ($data['professors'] as $key => $value) {
                 DB::table('subject_pc')->insert([
                     'cm_id' => $key,
@@ -199,11 +198,74 @@ class SubjectController extends Controller
                 ]);
                 alert()->success('Module attache a la classe avec success');
             }
-        }else{
-            alert()->error('Module existe en cette classe avec success');
+        } else {
+            alert()->error('Module existe deja en cette classe !');
         }
 
         return $this->redirectModuleClass();
+    }
+
+    public function moduleClassView()
+    {
+        $module['Title'] = "Subject Manager";
+
+
+
+        $data = Input::all();
+        $c = classm::where('id','=',$data['class'])->first();
+
+        $module['SubTitle'] = "Class " . $c->title . " Modules";
+        if (array_key_exists('all', $data)) {
+            $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+            $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+            $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
+            $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+
+            $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+            $ComposedSubView = View::make('Subject::backend.listClassModule');
+            $view->with('content', $ComposedSubView)->with('module', $module);
+            $view->with('additionalCsss', $additionalCsss);
+            $view->with('additionalLibs', $additionalLibs);
+        } else {
+
+            $mList = DB::table('subject_pc')
+                ->where('class_id','=',$data['class'])
+                ->join('subject_cm','subject_cm.id','=','cm_id')
+                ->join('modules','modules.id','=','module_id')
+                ->join('subjects','subjects.id','=','subject_id')
+                ->join('users','users.id','=','professor_id')
+                ->select('modules.title as module_title','subjects.title as subject_title','users.nom','modules.id as id','subject_cm.coefficient as coefficient')
+                ->orderBy('id')
+                ->get();
+
+
+
+            if (!$mList){
+                alert()->error('Aucun module attache a cette classe !');
+                return $this->redirectModuleClass();
+            }
+
+            $fmList = array();
+            foreach ($mList as $m) {
+                $array = array($m);
+                $fmList[$m->module_title][] = $array;
+            }
+
+            $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+            $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+            $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
+            $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+
+            $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+            $ComposedSubView = View::make('Subject::backend.listClassModule')
+                ->with('fmList', $fmList)
+                ->with('class', $c->title);
+            $view->with('content', $ComposedSubView)->with('module', $module);
+            $view->with('additionalCsss', $additionalCsss);
+            $view->with('additionalLibs', $additionalLibs);
+        }
+
+        return $view;
     }
 
     public function addSubjectModule()
