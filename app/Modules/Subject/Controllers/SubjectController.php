@@ -209,6 +209,28 @@ class SubjectController extends Controller
     {
         $module['Title'] = "Subject Manager";
 
+        $TeachingPermission = Permission::where('name', 'TeachingStudents')->first();
+        $rList = DB::table('permission_role')
+            ->join('roles', 'roles.id', '=', 'permission_role.role_id')
+            ->where('permission_id', '=', $TeachingPermission->id)
+            ->get();
+
+        $pList = array();
+        $fpList = array();
+        foreach ($rList as $r) {
+            $topush = DB::table('role_user')
+                ->join('users', 'users.id', '=', 'role_user.user_id')
+                ->where('role_id', '=', $r->id)
+                ->get();
+            array_push($pList, $topush);
+        }
+
+        foreach ($pList as $p) {
+            foreach ($p as $p_item) {
+                if ($this->searchUserExistence($p_item->user_id, $fpList) === false)
+                    array_push($fpList, $p_item);
+            }
+        }
 
 
         $data = Input::all();
@@ -234,7 +256,8 @@ class SubjectController extends Controller
                 ->join('modules','modules.id','=','module_id')
                 ->join('subjects','subjects.id','=','subject_id')
                 ->join('users','users.id','=','professor_id')
-                ->select('modules.title as module_title','subjects.title as subject_title','users.nom','modules.id as id','subject_cm.coefficient as coefficient')
+                ->select('modules.title as module_title','subjects.title as subject_title',
+                    'users.nom','modules.id as id','subject_cm.coefficient as coefficient','subject_pc.cm_id as cm_id')
                 ->orderBy('id')
                 ->get();
 
@@ -252,14 +275,14 @@ class SubjectController extends Controller
             }
 
             $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
-            $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
-            $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
+            $additionalLibs[1] = "libraries/spin.js/spin.js";
+            $additionalLibs[1] = "libraries/jQueryUI/jquery-ui.js";
             $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
             $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
             $ComposedSubView = View::make('Subject::backend.listClassModule')
                 ->with('fmList', $fmList)
-                ->with('class', $c->title);
+                ->with('class', $c->title)->with('fpList', $fpList);
             $view->with('content', $ComposedSubView)->with('module', $module);
             $view->with('additionalCsss', $additionalCsss);
             $view->with('additionalLibs', $additionalLibs);
