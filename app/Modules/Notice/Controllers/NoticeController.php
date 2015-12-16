@@ -31,7 +31,7 @@ class NoticeController extends Controller
             return redirect('/admin/notice/category');
         }
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.add')->with('categoriesList', $categories);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
@@ -111,7 +111,7 @@ class NoticeController extends Controller
         $additionalCsss[1] = "libraries/jssocials/jssocials-theme-flat.css";
         $additionalLibs[0] = "libraries/jssocials/jssocials.min.js";
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.notice')
             ->with('notice', $notice)
             ->with('user', $user)
@@ -137,7 +137,7 @@ class NoticeController extends Controller
             ->paginate(10);
 
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
         $view->with('content', $ComposedSubView);
@@ -162,7 +162,7 @@ class NoticeController extends Controller
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.list')
             ->with('notices', $notices);
         $view->with('content', $ComposedSubView);
@@ -209,7 +209,7 @@ class NoticeController extends Controller
         $additionalLibs[1] = "libraries/ckeditor/ckeditor.js";
         $additionalLibs[2] = "libraries/bootstrap-fileinput/js/fileinput.min.js";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.edit')->with('categoriesList', $categories)->with('notice', $notice);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);

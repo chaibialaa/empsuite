@@ -23,13 +23,13 @@ class CoreTable extends Migration
         Schema::create('core', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titre');
-            $table->integer('backend-theme')->unsigned();
-            $table->integer('frontend-theme')->unsigned();
+            $table->integer('backend_theme')->unsigned();
+            $table->integer('frontend_theme')->unsigned();
             $table->string('catchmail');
             $table->timestamps();
 
-            $table->foreign('backend-theme')->references('id')->on('themes');
-            $table->foreign('frontend-theme')->references('id')->on('themes');
+            $table->foreign('backend_theme')->references('id')->on('themes');
+            $table->foreign('frontend_theme')->references('id')->on('themes');
         });
 
         Schema::create('language', function (Blueprint $table) {

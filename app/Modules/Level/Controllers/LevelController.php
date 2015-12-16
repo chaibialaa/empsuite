@@ -34,7 +34,7 @@ class LevelController extends Controller {
 		$additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
 		$additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-		$view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+		$view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
 		$ComposedSubView = View::make('Level::backend.list')
 			->with('classes', $classes)
 			->with('lList', $lList);

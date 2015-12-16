@@ -30,7 +30,7 @@ class CategoryController extends Controller
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.listCat')->with('categories', $categories)->with('cList', $cList);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
@@ -104,7 +104,7 @@ class CategoryController extends Controller
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
         $view->with('content', $ComposedSubView);

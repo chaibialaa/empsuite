@@ -21,7 +21,21 @@ class ConfigFromDB {
                 {
                     $columns = Schema::getColumnListing('core');
                     foreach ($columns as $column) {
-                        Cache::forever('core_' . $column, $setting->$column);
+                        if ($column == "backend_theme") {
+                            $additional = DB::table('themes')
+                                ->where('id', '=', $setting->backend_theme)
+                                ->select()
+                                ->first();
+                            Cache::forever('core_' . $column, $additional->title);
+                        } elseif ($column == "frontend_theme") {
+                            $additional = DB::table('themes')
+                                ->where('id', '=', $setting->frontend_theme)
+                                ->select()
+                                ->first();
+                            Cache::forever('core_' . $column, $additional->title);
+                        } else {
+                            Cache::forever('core_' . $column, $setting->$column);
+                        }
                     }
                     $setting = Cache::get('core_' . $option);
                 }

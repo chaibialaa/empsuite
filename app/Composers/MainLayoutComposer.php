@@ -10,15 +10,15 @@ class MainLayoutComposer extends ServiceProvider
 // This builds the frontend homepage and backend homepage
     public function boot()
     {
-        view()->composer('frontend.'.ConfigFromDB::setting('frontend-theme').'.layout', function ($view)   {
+        view()->composer('frontend.'.ConfigFromDB::setting('frontend_theme').'.layout', function ($view)   {
                 $view->with('titre', ConfigFromDB::setting('titre'));
-                $view->with('theme', ConfigFromDB::setting('frontend-theme'));
+                $view->with('theme', ConfigFromDB::setting('frontend_theme'));
 
         });
 
-        view()->composer('backend.'.ConfigFromDB::setting('backend-theme').'.layout', function ($view)   {
+        view()->composer('backend.'.ConfigFromDB::setting('backend_theme').'.layout', function ($view)   {
             $view->with('titre', ConfigFromDB::setting('titre'));
-            $view->with('theme', ConfigFromDB::setting('backend-theme'));
+            $view->with('theme', ConfigFromDB::setting('backend_theme'));
         });
     }
 

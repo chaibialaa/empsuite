@@ -37,7 +37,7 @@ class MessageController extends Controller {
 		$additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
         $sidebars[0] = View::make('Message::widgets.menu');
 
-		$view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+		$view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
 		$ComposedSubView = View::make('Message::frontend.inbox')
 			->with('inbox', $inbox);
 		$view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
@@ -73,7 +73,7 @@ class MessageController extends Controller {
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
         $sidebars[0] = View::make('Message::widgets.menu');
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.sent')
             ->with('inbox', $inbox);
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
@@ -108,7 +108,7 @@ class MessageController extends Controller {
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
         $sidebars[0] = View::make('Message::widgets.menu');
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.draft')
             ->with('inbox', $inbox);
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
@@ -141,7 +141,7 @@ class MessageController extends Controller {
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
         $sidebars[0] = View::make('Message::widgets.menu');
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.inbox')
             ->with('inbox', $inbox);
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
@@ -162,7 +162,7 @@ class MessageController extends Controller {
         $module['SubTitle'] = "Send New Message";
         $module['URL'] = "/message";
 		$users = DB::table('users')->get();
-		$view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+		$view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
 		$ComposedSubView = View::make('Message::frontend.send')->with('userList', $users);
 		$view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
         $view->with('additionalCsss', $additionalCsss);
@@ -228,7 +228,7 @@ class MessageController extends Controller {
                 ;
         }
         $module['SubTitle'] = "Subject : ".$message->subject;
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.message')->with('message', $message);
         $sidebars[0] = View::make('Message::widgets.menu');
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
@@ -252,7 +252,7 @@ class MessageController extends Controller {
             ->first();
         $module['SubTitle'] = "Subject : ".$message->subject;
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.message')->with('message', $message);
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
 
@@ -277,7 +277,7 @@ class MessageController extends Controller {
         $module['SubTitle'] = "Subject : ".$message->subject;
         $module['URL'] = "/message";
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Message::frontend.message')->with('message', $message);
         $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
 

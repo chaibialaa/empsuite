@@ -16,7 +16,7 @@ class RoleController extends Controller {
         $module['Title'] = "Role Manager";
         $module['SubTitle'] = "Add New Role";
         $Permissions = Permission::all();
-		$view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+		$view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
 		$ComposedSubView = View::make('Role::backend.addRole')->with('permissionList',$Permissions);
 		$view->with('content', $ComposedSubView)->with('module', $module);
         return $view;
@@ -35,7 +35,7 @@ class RoleController extends Controller {
         $module['Title'] = "Role Manager";
         $module['SubTitle'] = "Edit Role : ".$role->display_name;
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Role::backend.edit')
             ->with('permissionList',$Permissions)
             ->with('permissionChecked',$PermissionsChecked)
@@ -150,7 +150,7 @@ class RoleController extends Controller {
         $additionalLibs[0] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Role::backend.affect')
             ->with('rList',$rolesList)
             ->with('oList',$obtainedRolesList)
