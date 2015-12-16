@@ -236,18 +236,14 @@ class SubjectController extends Controller
         $data = Input::all();
         $c = classm::where('id','=',$data['class'])->first();
 
+
         $module['SubTitle'] = "Class " . $c->title . " Modules";
         if (array_key_exists('all', $data)) {
-            $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
-            $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
-            $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
-            $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-            $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-            $ComposedSubView = View::make('Subject::backend.listClassModule');
-            $view->with('content', $ComposedSubView)->with('module', $module);
-            $view->with('additionalCsss', $additionalCsss);
-            $view->with('additionalLibs', $additionalLibs);
+
+
+            $ComposedSubView = View::make('Subject::backend.listClassesModules');
+
         } else {
 
             $mList = DB::table('subject_pc')
@@ -274,20 +270,22 @@ class SubjectController extends Controller
                 $fmList[$m->module_title][] = $array;
             }
 
-            $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
-            $additionalLibs[1] = "libraries/spin.js/spin.js";
-            $additionalLibs[2] = "libraries/jQueryUI/jquery-ui.js";
-            $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
-            $additionalCsss[1] = "libraries/jQueryUI/themes/smoothness/jquery-ui.css";
-
-            $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-            $ComposedSubView = View::make('Subject::backend.listClassModule')
+            $ComposedSubView = View::make('Subject::backend.listClassModules')
                 ->with('fmList', $fmList)
                 ->with('class', $c->title)->with('fpList', $fpList);
-            $view->with('content', $ComposedSubView)->with('module', $module);
-            $view->with('additionalCsss', $additionalCsss);
-            $view->with('additionalLibs', $additionalLibs);
+
         }
+
+        $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+        $additionalLibs[1] = "libraries/spin.js/spin.js";
+        $additionalLibs[2] = "libraries/jQueryUI/jquery-ui.js";
+        $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+        $additionalCsss[1] = "libraries/jQueryUI/themes/smoothness/jquery-ui.css";
+        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view->with('additionalCsss', $additionalCsss);
+        $view->with('additionalLibs', $additionalLibs);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+
 
         return $view;
     }
