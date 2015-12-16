@@ -27,6 +27,7 @@ class SubjectsTable extends Migration
         Schema::create('subject_cm', function (Blueprint $table) {
             $table->increments('id');
             $table->float('coefficient');
+            $table->integer('week_duration');
 
             $table->integer('subject_id')->unsigned();
             $table->integer('module_id')->unsigned();
