@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
 use App\Modules\Role\Models\Permission;
-use App\Modules\Role\Models\Role;
 use App\Modules\Subject\Models\Module;
 use App\Modules\Subject\Models\Subject;
 use Input, View, DB, App\Helpers\ConfigFromDB;
