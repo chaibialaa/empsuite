@@ -257,7 +257,7 @@ class SubjectController extends Controller
                 ->join('subjects','subjects.id','=','subject_id')
                 ->join('users','users.id','=','professor_id')
                 ->select('modules.title as module_title','subjects.title as subject_title',
-                    'users.nom','modules.id as id','subject_cm.coefficient as coefficient','subject_pc.cm_id as cm_id')
+                    'users.nom','modules.id as id','subject_cm.coefficient as coefficient','subject_pc.cm_id as cm_id','users.id as user_id')
                 ->orderBy('id')
                 ->get();
 
@@ -276,8 +276,9 @@ class SubjectController extends Controller
 
             $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
             $additionalLibs[1] = "libraries/spin.js/spin.js";
-            $additionalLibs[1] = "libraries/jQueryUI/jquery-ui.js";
+            $additionalLibs[2] = "libraries/jQueryUI/jquery-ui.js";
             $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+            $additionalCsss[1] = "libraries/jQueryUI/themes/smoothness/jquery-ui.css";
 
             $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
             $ComposedSubView = View::make('Subject::backend.listClassModule')

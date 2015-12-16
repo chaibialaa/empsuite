@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-9">
         <div class="panel panel-default ">
@@ -76,15 +75,14 @@
                                                                             <form action="" method="post">
                                                                             <div class="modal-header">
                                                                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                                                <h4 class="modal-title">Update {{$val->subject_title}}  </h4><small>for Class {{$class}}</small>
+                                                                                <h4 class="modal-title">Update {{$val->subject_title}}  </h4><small>Class {{$class}}</small>
                                                                             </div>
                                                                             <div class="modal-body">
                                                                                 <p>Professor : <select name="professor" class="form-control input-sm">
                                                                                         @foreach($fpList as $p)
-                                                                                            @if (Auth::user()->id == $p->id)
+                                                                                            @if ($val->user_id == $p->id)
                                                                                             <optgroup label="Current">
-
-                                                                                                <option disabled value="{{ $p->id }}">{{$p->nom}}</option>
+                                                                                                <option selected value="{{ $p->id }}">{{$p->nom}}</option>
                                                                                             </optgroup>
                                                                                             @else
                                                                                             <optgroup label="Change to">

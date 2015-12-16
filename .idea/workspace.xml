@@ -5,6 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7442e83f-7387-4ae2-b64e-c615224a210f" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_flat_75_ffffff_40x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_glass_65_ffffff_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_glass_75_dadada_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-icons_222222_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-icons_2e83ff_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-icons_454545_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-icons_888888_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/images/ui-icons_cd0a0a_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/jquery-ui.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/jquery-ui.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/theme.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/listClassModule.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Subject/Views/backend/listClassModule.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -38,13 +54,13 @@
       <file leaf-file-name="SubjectController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.653846">
-              <caret line="278" column="46" selection-start-line="278" selection-start-column="46" selection-end-line="278" selection-end-column="46" />
+            <state vertical-scroll-proportion="-11.0">
+              <caret line="259" column="125" selection-start-line="259" selection-start-column="125" selection-end-line="259" selection-end-column="125" />
               <folding>
                 <element signature="e#2110#3559#0#PHP" expanded="false" />
                 <element signature="e#4951#5066#0#PHP" expanded="false" />
                 <element signature="e#5549#5670#0#PHP" expanded="false" />
-                <element signature="e#8346#10820#0#PHP" expanded="false" />
+                <element signature="e#8346#10929#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -53,11 +69,9 @@
       <file leaf-file-name="listClassModule.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/listClassModule.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51792115">
-              <caret line="95" column="129" selection-start-line="95" selection-start-column="129" selection-end-line="95" selection-end-column="129" />
-              <folding>
-                <element signature="n#div#2;n#form#0;n#div#0;n#div#0;n#div#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.63978493">
+              <caret line="87" column="120" selection-start-line="87" selection-start-column="120" selection-end-line="87" selection-end-column="120" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,7 +130,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Modules/User/Controllers/UserController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Message/Views/frontend/inbox.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/Role/Views/frontend/request.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/User/routes.php" />
@@ -165,6 +178,7 @@
         <option value="$PROJECT_DIR$/app/Modules/Subject/routes.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ClassModule.blade.php" />
+        <option value="$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/jquery-ui.css" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/listClassModule.blade.php" />
       </list>
@@ -368,6 +382,40 @@
               <option name="myItemId" value="assets" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="theme" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="default" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -440,6 +488,66 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="jQueryUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jQueryUI" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="themes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="smoothness" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="font-awesome" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1159,18 +1267,6 @@
       <option name="number" value="Default" />
       <updated>1445362290500</updated>
     </task>
-    <task id="LOCAL-00065" summary="- Roles Module Development and ClassLevel">
-      <created>1448487876435</created>
-      <option name="number" value="00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1448487876435</updated>
-    </task>
-    <task id="LOCAL-00066" summary="- Roles Module Development and ClassLevel">
-      <created>1448571936502</created>
-      <option name="number" value="00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1448571936503</updated>
-    </task>
     <task id="LOCAL-00067" summary="- Roles Module Development and ClassLevel">
       <created>1448573398693</created>
       <option name="number" value="00067" />
@@ -1453,7 +1549,19 @@
       <option name="project" value="LOCAL" />
       <updated>1450134709555</updated>
     </task>
-    <option name="localTasksCounter" value="114" />
+    <task id="LOCAL-00114" summary="-  Module Class [Module Subject]">
+      <created>1450221399248</created>
+      <option name="number" value="00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1450221399259</updated>
+    </task>
+    <task id="LOCAL-00115" summary="-  Module Class [Module Subject]">
+      <created>1450221413936</created>
+      <option name="number" value="00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1450221413936</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1472,6 +1580,7 @@
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39409986" sideWeight="0.50653595" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30181542" sideWeight="0.49346405" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6650327" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1481,7 +1590,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39409986" sideWeight="0.50653595" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="SVN Repositories" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39869282" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1543,13 +1651,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/resources/views/frontend/default/layout.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.83553874">
-          <caret line="1288" column="58" selection-start-line="1288" selection-start-column="58" selection-end-line="1288" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Level/Views/frontend/study.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21326165">
@@ -1897,26 +1998,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/libraries/jQueryUI/themes/smoothness/jquery-ui.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36396396">
+          <caret line="849" column="1" selection-start-line="849" selection-start-column="1" selection-end-line="849" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Controllers/SubjectController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.653846">
-          <caret line="278" column="46" selection-start-line="278" selection-start-column="46" selection-end-line="278" selection-end-column="46" />
+        <state vertical-scroll-proportion="-11.0">
+          <caret line="259" column="125" selection-start-line="259" selection-start-column="125" selection-end-line="259" selection-end-column="125" />
           <folding>
             <element signature="e#2110#3559#0#PHP" expanded="false" />
             <element signature="e#4951#5066#0#PHP" expanded="false" />
             <element signature="e#5549#5670#0#PHP" expanded="false" />
-            <element signature="e#8346#10820#0#PHP" expanded="false" />
+            <element signature="e#8346#10929#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/listClassModule.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51792115">
-          <caret line="95" column="129" selection-start-line="95" selection-start-column="129" selection-end-line="95" selection-end-column="129" />
-          <folding>
-            <element signature="n#div#2;n#form#0;n#div#0;n#div#0;n#div#0;n#td#3;n#tr#0;n#tbody#0;n#table#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.63978493">
+          <caret line="87" column="120" selection-start-line="87" selection-start-column="120" selection-end-line="87" selection-end-column="120" />
+          <folding />
         </state>
       </provider>
     </entry>
