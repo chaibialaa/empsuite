@@ -4,8 +4,7 @@ use DB;
 use Cache;
 use Schema;
 class ConfigFromDB {
-
-    public static function setting($option)
+     public static function setting($option)
     {
         if (Cache::has('core_' . $option))
         {
@@ -13,10 +12,11 @@ class ConfigFromDB {
         }
         else
         {
-            $core = DB::table('core')->count();
-            if ( $core == 1)
-            {
-                $setting = DB::table('core')->select()->first();
+
+                $setting = DB::table('core')
+                    ->select()
+                    ->first();
+
                 if ($setting)
                 {
                     $columns = Schema::getColumnListing('core');
@@ -29,13 +29,10 @@ class ConfigFromDB {
                 else $setting = null;
 
 
-            }elseif ($option == 'theme'){
-               $setting = 'default';
-            } else $setting = null;
-
         }
 
         return $setting;
     }
+
 
 }

@@ -11,7 +11,7 @@
 </script>
 
 <div class="row">
-    <form method="POST" action="/admin/announcement/add" enctype="multipart/form-data" class="form" id="announcement-add-form">
+    <form method="POST" action="/admin/notice/add" enctype="multipart/form-data" class="form" id="notice-add-form">
         <div class="col-md-9">
         <div class="panel panel-default ">
             <div class="panel-body">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div>
-                    <input value="Add announcement" type="submit" class="btn btn-primary pull-right">
+                    <input value="Add notice" type="submit" class="btn btn-primary pull-right">
                 </div>
 
             </div>

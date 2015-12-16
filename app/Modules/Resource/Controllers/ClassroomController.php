@@ -21,7 +21,7 @@ class ClassroomController extends Controller {
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
         $ComposedSubView = View::make('Resource::backend.listClassroom');
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);

@@ -12,7 +12,7 @@
 
 @if((isset($categoriesList)) and (count($categoriesList)>0))
 
-    <form method="POST" action="/admin/announcement/edit/{{$announcement->id}}" enctype="multipart/form-data" class="form" id="announcement-edit-form">
+    <form method="POST" action="/admin/notice/edit/{{$notice->id}}" enctype="multipart/form-data" class="form" id="notice-edit-form">
         <div class="row">
             <div class="col-md-9">
                 <div class="panel panel-default ">
@@ -22,13 +22,13 @@
 
                         <div>
                             <div>
-                                <label>Title </label> <input type="text" id="title" name="title" class="form-control" value="{{ $announcement->title }}" >
+                                <label>Title </label> <input type="text" id="title" name="title" class="form-control" value="{{ $notice->title }}" >
                             </div>
                         </div>
                         <div>
                             <div>
                                 <label>Content </label> <textarea id="formcontent" name="content"
-                                                                  class="form-control">{!! $announcement->content !!}</textarea>
+                                                                  class="form-control">{!! $notice->content !!}</textarea>
                             </div>
 
                         </div>
@@ -39,7 +39,7 @@
             <div class="col-md-3">
                 <div class="panel panel-default ">
                     <div class="panel-body">
-                        @if ($announcement->user_id !=  Auth::user()->id)
+                        @if ($notice->user_id !=  Auth::user()->id)
                             <div class="form-group">
                                 <label style="color: #F39C12;">Transfer ownership to me </label>
 
@@ -68,7 +68,7 @@
                             <label>Category </label>
                             <select name="category" class="form-control">
                                 @foreach($categoriesList as $category)
-                                    @if ($announcement->category_id == $category->id)
+                                    @if ($notice->category_id == $category->id)
                                         <option selected value="{{ $category->id }}">{{$category->title}}</option>
                                         @else
                                     <option value="{{ $category->id }}">{{$category->title}}</option>
@@ -78,7 +78,7 @@
                         </div>
                         <div>
                             <label>Status </label><select name="status" class="form-control">
-                                @if ($announcement->status == 1)
+                                @if ($notice->status == 1)
                                 <option selected value="1">Published</option>
                                 <option value="0">On Hold</option>
                                     @else
@@ -89,7 +89,7 @@
                         </div>
                         <div>
                             <label>End Date </label> <input type="text" name="end_at" id="end_at"
-                                                            data-date-format="yyyy-mm-dd" class="form-control" value="{{ $announcement->end_at }}">
+                                                            data-date-format="yyyy-mm-dd" class="form-control" value="{{ $notice->end_at }}">
                         </div>
                         <div>
 
@@ -97,7 +97,7 @@
                                 <label>Comments </label>
 
                                 <div class="radio">
-                                    @if ($announcement->comments == 1)
+                                    @if ($notice->comments == 1)
                                     <label>
                                         <input type="radio" name="comments" value="1" checked="true">Enabled
                                     </label>
@@ -118,7 +118,7 @@
 
                         </div>
                         <div>
-                            <input value="Update announcement" type="submit" class="btn btn-primary pull-right">
+                            <input value="Update notice" type="submit" class="btn btn-primary pull-right">
                         </div>
 
                     </div>
@@ -130,8 +130,8 @@
                 });
                 $("#mainimage").fileinput(
                         {
-                            @if (strpos($announcement->thumbpath,'fallback') == false)
-                            defaultPreviewContent: '<img src="{{$announcement->thumbpath}}" width="210" height="210">',
+                            @if (strpos($notice->thumbpath,'fallback') == false)
+                            defaultPreviewContent: '<img src="{{$notice->thumbpath}}" width="210" height="210">',
                             @endif
 
 

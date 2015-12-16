@@ -31,5 +31,12 @@ class BasicPermission extends Seeder
             'description' => 'Edit Any Announcement',
             'created_at' => date("Y-m-d H:i:s")
         ]);
+
+        DB::table('permissions')->insert([
+            'name' => 'TeachingStudents',
+            'display_name' => 'Teach Students',
+            'description' => 'Teach Students',
+            'created_at' => date("Y-m-d H:i:s")
+        ]);
     }
 }

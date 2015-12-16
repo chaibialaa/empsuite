@@ -1,17 +1,17 @@
-<h1>{{$announcement->title}}</h1>
+<h1>{{$notice->title}}</h1>
 <hr>
-<p><span class="glyphicon glyphicon-time"></span> Posted on {{$announcement->created_at}} <span
-            class="glyphicon glyphicon-user"></span> by <a href="#">{{$user->nom}}</a> <span class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/announcement/'.$category}}">{{ $category }}</a>
+<p><span class="glyphicon glyphicon-time"></span> Posted on {{$notice->created_at}} <span
+            class="glyphicon glyphicon-user"></span> by <a href="#">{{$user->nom}}</a> <span class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/notice/'.$category}}">{{ $category }}</a>
 
 </p>
 <hr>
-<p class="lead">{!! $announcement->content !!}</p>
+<p class="lead">{!! $notice->content !!}</p>
 <hr>
 <div id="share"></div>
 <script>
     $("#share").jsSocials({
         url: "{{ Request::url() }}",
-        text: "{{$announcement->title}}",
+        text: "{{$notice->title}}",
         showCount: true,
         showLabel: true,
         shares: [
@@ -23,7 +23,7 @@
         ]
     });
 </script>
-@if ($announcement->comments == 1)
+@if ($notice->comments == 1)
     <script>
         var disqus_config = function () {
             this.language = "{{ Config::get('app.locale') }}";

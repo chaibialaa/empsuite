@@ -103,7 +103,7 @@
                                                     '<tr>' +
                                                     '<td>Rename Category&nbsp;</td>' +
                                                     '<td>{!! $c->title !!} :&nbsp;</td>' +
-                                                    '<td><form method="POST" action="/admin/announcement/category/rename/{{$c->id }}" class="form">' +
+                                                    '<td><form method="POST" action="/admin/notice/category/rename/{{$c->id }}" class="form">' +
                                                     '<div class="input-group input-group-sm">'+
                                                     '{!! csrf_field() !!}' +
                                                     '<input class="form-control" type="text" name="title">' +
@@ -135,7 +135,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form method="POST"
-                                                          action="/admin/announcement/category/delete/{{$c->id }}"
+                                                          action="/admin/notice/category/delete/{{$c->id }}"
                                                           class="form">
                                                         @if (count($cList) > 1)
                                                             if the category have posts :
@@ -201,7 +201,7 @@
                 <div class="panel-body">
 
 
-                    <form method="POST" action="/admin/announcement/category/add">
+                    <form method="POST" action="/admin/notice/category/add">
 
                         <div class="input-group">
 
@@ -248,7 +248,7 @@
                 <div class="panel-body">
 
 
-                    <form method="POST" action="/admin/announcement/category/add" id="announcement-category-add-form">
+                    <form method="POST" action="/admin/notice/category/add" id="notice-category-add-form">
 
                         <div class="input-group">
 

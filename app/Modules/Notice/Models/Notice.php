@@ -1,12 +1,12 @@
-<?php namespace App\Modules\Announcement\Models;
+<?php namespace App\Modules\Notice\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model {
-    protected $table = 'announcements';
+class Notice extends Model {
+    protected $table = 'notices';
     public function categories()
     {
-        return $this->hasOne('Statements::Models.AnnouncementCategories');
+        return $this->hasOne('Notice::Models.NoticeCategories');
     }
     public function users()
     {

@@ -41,7 +41,7 @@ class SubjectController extends Controller
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.list')
             ->with('mList', $mList)
             ->with('sList', $sList);
@@ -94,7 +94,7 @@ class SubjectController extends Controller
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.ModuleSubject')
             ->with('fcmList', $fcmList)
             ->with('mList', $mList)
@@ -166,7 +166,7 @@ class SubjectController extends Controller
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
         $ComposedSubView = View::make('Subject::backend.ClassModule')
             ->with('fcmList', $fcmList)
             ->with('mList', $mList)
@@ -280,7 +280,8 @@ class SubjectController extends Controller
         $additionalLibs[2] = "libraries/jQueryUI/jquery-ui.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
         $additionalCsss[1] = "libraries/jQueryUI/themes/smoothness/jquery-ui.css";
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
+
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         $view->with('content', $ComposedSubView)->with('module', $module);

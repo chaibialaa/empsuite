@@ -1,28 +1,28 @@
-<?php namespace App\Modules\Announcement\Controllers;
+<?php namespace App\Modules\Notice\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon;
-use App\Modules\Announcement\Models\AnnouncementCategories as AnnouncementCategory;
+use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 
 class CategoryController extends Controller
 {
     public function redirectCategory()
     {
-        return redirect('/admin/announcement/category');
+        return redirect('/admin/notice/category');
     }
 
     public function listCategory()
     {
-        $categories = DB::table('announcements')
-            ->select('*', DB::raw("COUNT('announcements.id') AS post_count"))
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
+        $categories = DB::table('notices')
+            ->select('*', DB::raw("COUNT('notices.id') AS post_count"))
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
             ->orderBy('post_count', 'desc')
-            ->groupBy('announcement_categories.id')
+            ->groupBy('notice_categories.id')
             ->take(5)
             ->get();
 
-        $cList = DB::table('announcement_categories')
+        $cList = DB::table('notice_categories')
             ->get();
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
@@ -30,8 +30,8 @@ class CategoryController extends Controller
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::backend.listCat')->with('categories', $categories)->with('cList', $cList);
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::backend.listCat')->with('categories', $categories)->with('cList', $cList);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
@@ -40,7 +40,7 @@ class CategoryController extends Controller
 
     public function renameCategory($id)
     {
-        DB::table('announcement_categories')
+        DB::table('notice_categories')
             ->where('id', $id)
             ->update(['title' => Input::get('title'),'updated_at' => Carbon::now()]);
         alert()->success('Categorie renommee avec success');
@@ -50,30 +50,30 @@ class CategoryController extends Controller
 
     public function deleteCategory($id)
     {
-        $rowcount = DB::table('announcements')
-            ->select('*', DB::raw("COUNT('announcements.id') AS post_count"))
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
+        $rowcount = DB::table('notices')
+            ->select('*', DB::raw("COUNT('notices.id') AS post_count"))
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
             ->count();
         if ($rowcount == 1){
-            DB::table('announcements')
+            DB::table('notices')
                 ->where('category_id', $id)
                 ->delete();
         } else {
 
             if (Input::get('action')==1) {
 
-                DB::table('announcements')
+                DB::table('notices')
                     ->where('category_id', $id)
                     ->delete();
 
             } else {
-                DB::table('announcements')
+                DB::table('notices')
                     ->where('category_id', $id)
                     ->update(['category_id' => Input::get('moveto'),'updated_at' => Carbon::now()]);
             }
 
         }
-        DB::table('announcement_categories')
+        DB::table('notice_categories')
             ->where('id', $id)
             ->delete();
         alert()->success('Categorie effacee avec success');
@@ -84,7 +84,7 @@ class CategoryController extends Controller
     public function addCategory()
     {
         $data = Input::all();
-        AnnouncementCategory::create([
+        NoticeCategory::create([
             'title' => $data['title']
         ]);
         alert()->success('Categorie ajoutee avec success');
@@ -92,21 +92,21 @@ class CategoryController extends Controller
         return $this->redirectCategory();
     }
 
-    public function categoryAnnouncement($category)
+    public function categoryNotice($category)
     {
-        $announcements = DB::table('announcements')
-            ->join('users', 'users.id', '=', 'announcements.user_id')
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
-            ->select('announcements.*', 'users.nom', 'announcement_categories.title as title_cat')
+        $notices = DB::table('notices')
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
             ->where('end_at', '>', date('Y-m-d'))
-            ->where('announcements.status', '=', '1')
-            ->where('announcement_categories.title', '=', $category)
+            ->where('notices.status', '=', '1')
+            ->where('notice_categories.title', '=', $category)
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::frontend.list')
-            ->with('announcements', $announcements);
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::frontend.list')
+            ->with('notices', $notices);
         $view->with('content', $ComposedSubView);
         return $view;
     }

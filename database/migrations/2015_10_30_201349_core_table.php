@@ -12,12 +12,24 @@ class CoreTable extends Migration
      */
     public function up()
     {
+        Schema::create('themes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('type');
+            $table->integer('status')->default(0)->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('core', function (Blueprint $table) {
             $table->increments('id');
             $table->string('titre');
-            $table->string('theme');
+            $table->integer('backend-theme')->unsigned();
+            $table->integer('frontend-theme')->unsigned();
             $table->string('catchmail');
             $table->timestamps();
+
+            $table->foreign('backend-theme')->references('id')->on('themes');
+            $table->foreign('frontend-theme')->references('id')->on('themes');
         });
 
         Schema::create('language', function (Blueprint $table) {
@@ -28,6 +40,8 @@ class CoreTable extends Migration
             $table->integer('status')->default(0)->nullable();
             $table->timestamps();
         });
+
+
 
         Schema::create('sessions', function ($table) {
             $table->string('id')->unique();
@@ -48,6 +62,7 @@ class CoreTable extends Migration
         Schema::drop('core');
         Schema::drop('language');
         Schema::drop('sessions');
+        Schema::drop('themes');
 
     }
 }

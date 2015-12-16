@@ -1,22 +1,22 @@
-<?php namespace App\Modules\Announcement\Controllers;
+<?php namespace App\Modules\Notice\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Models\User;
 use View, Auth, Input, DB, App\Helpers\ConfigFromDB;
 use Intervention\Image\Facades\Image;
-use App\Modules\Announcement\Models\AnnouncementCategories as AnnouncementCategory;
-use App\Modules\Announcement\Models\Announcement as Announcement;
+use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
+use App\Modules\Notice\Models\Notice as Notice;
 
-class AnnouncementController extends Controller
+class NoticeController extends Controller
 {
-    public function redirectAnnouncement()
+    public function redirectNotice()
     {
-        return redirect('/admin/announcement/');
+        return redirect('/admin/notice/');
 
     }
 
-    public function formaddAnnouncement()
+    public function formaddNotice()
     {
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
 
@@ -24,15 +24,15 @@ class AnnouncementController extends Controller
         $additionalLibs[1] = "libraries/ckeditor/ckeditor.js";
         $additionalLibs[2] = "libraries/bootstrap-fileinput/js/fileinput.min.js";
 
-        $categories = DB::table('announcement_categories')->get();
+        $categories = DB::table('notice_categories')->get();
 
         if (!$categories) {
             alert()->warning('Au moins 1 categorie');
-            return redirect('/admin/announcement/category');
+            return redirect('/admin/notice/category');
         }
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::backend.add')->with('categoriesList', $categories);
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::backend.add')->with('categoriesList', $categories);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
@@ -40,7 +40,7 @@ class AnnouncementController extends Controller
         return $view;
     }
 
-    public function addAnnouncement()
+    public function addNotice()
     {
         $data = Input::all();
         $user = Auth::user();
@@ -48,7 +48,7 @@ class AnnouncementController extends Controller
 
             $image = $data['mainimage'];
             $filename = time() . $user->id . 'emps' . $image->getClientOriginalName();
-            $path_tmb = public_path('/storage/uploads/announcements/thumbs/' . $filename);
+            $path_tmb = public_path('/storage/uploads/notices/thumbs/' . $filename);
             $h = Image::make($image)->width();
             $w = Image::make($image)->height();
             if ($h > $w) {
@@ -60,10 +60,10 @@ class AnnouncementController extends Controller
                 ->crop($wh, $wh)
                 ->save($path_tmb);
 
-            $thumb = url('/') . '/storage/uploads/announcements/thumbs/' . $filename;
+            $thumb = url('/') . '/storage/uploads/notices/thumbs/' . $filename;
         } else {
 
-            $thumb = url('/') . '/storage/fallback/announcements/thumbs/default.png';
+            $thumb = url('/') . '/storage/fallback/notices/thumbs/default.png';
         }
 
         $url = strtolower($data['title']);
@@ -75,7 +75,7 @@ class AnnouncementController extends Controller
 
         }
 
-        Announcement::create([
+        Notice::create([
             'title' => $data['title'],
             'end_at' => $data['end_at'],
             'content' => $data['content'],
@@ -88,58 +88,58 @@ class AnnouncementController extends Controller
         ]);
         alert()->success('Annonce ajoutee avec success');
 
-        return $this->redirectAnnouncement();
+        return $this->redirectNotice();
     }
 
-    public function showAnnouncement($category, $id, $link)
+    public function showNotice($category, $id, $link)
     {
 
-        $categories = AnnouncementCategory::where('title', '=', $category)->first();
-        $announcement = Announcement::where('id', '=', $id)
+        $categories = NoticeCategory::where('title', '=', $category)->first();
+        $notice = Notice::where('id', '=', $id)
             ->where('category_id', '=', $categories->id)
             ->where('link', '=', $link)
             ->where('status', '=', 1)
             ->where('end_at', '>', date('Y-m-d'))
             ->first();
-        if (!$announcement) {
+        if (!$notice) {
             alert()->warning('Aucune annonce trouvee');
-            return redirect('/announcement');
+            return redirect('/notice');
         }
-        $user = User::where('id', '=', $announcement->user_id)->first();
+        $user = User::where('id', '=', $notice->user_id)->first();
 
         $additionalCsss[0] = "libraries/jssocials/jssocials.css";
         $additionalCsss[1] = "libraries/jssocials/jssocials-theme-flat.css";
         $additionalLibs[0] = "libraries/jssocials/jssocials.min.js";
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::frontend.announcement')
-            ->with('announcement', $announcement)
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::frontend.notice')
+            ->with('notice', $notice)
             ->with('user', $user)
             ->with('category', ucfirst($category));
         $view->with('content', $ComposedSubView)
-            ->with('module_title', 'Announcement');
+            ->with('module_title', 'Notice');
 
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         return $view;
     }
 
-    public function listAnnouncementFrontend()
+    public function listNoticeFrontend()
     {
 
-        $announcements = DB::table('announcements')
-            ->join('users', 'users.id', '=', 'announcements.user_id')
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
-            ->select('announcements.*', 'users.nom', 'announcement_categories.title as title_cat')
+        $notices = DB::table('notices')
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
             ->where('end_at', '>', date('Y-m-d'))
-            ->where('announcements.status', '=', '1')
+            ->where('notices.status', '=', '1')
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
 
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::frontend.list')
-            ->with('announcements', $announcements);
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::frontend.list')
+            ->with('notices', $notices);
         $view->with('content', $ComposedSubView);
         return $view;
 
@@ -147,12 +147,12 @@ class AnnouncementController extends Controller
 
 
 
-    public function listAnnouncementBackend()
+    public function listNoticeBackend()
     {
-        $announcements = DB::table('announcements')
-            ->join('users', 'users.id', '=', 'announcements.user_id')
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
-            ->select('announcements.*', 'users.nom', 'announcement_categories.title as title_cat')
+        $notices = DB::table('notices')
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
             ->orderBy('updated_at', 'asc')
             ->get();
 
@@ -162,9 +162,9 @@ class AnnouncementController extends Controller
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::backend.list')
-            ->with('announcements', $announcements);
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::backend.list')
+            ->with('notices', $notices);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
@@ -173,35 +173,35 @@ class AnnouncementController extends Controller
 
     }
 
-    public function publishAnnouncement($id)
+    public function publishNotice($id)
     {
-        Announcement::where('id', '=', $id)
+        Notice::where('id', '=', $id)
             ->update(['status' => 1]);
         alert()->success('Publication reussie');
-        return redirect('/admin/announcement/');
+        return redirect('/admin/notice/');
     }
 
-    public function holdonAnnouncement($id)
+    public function holdonNotice($id)
     {
-        Announcement::where('id', '=', $id)
+        Notice::where('id', '=', $id)
             ->update(['status' => 0]);
         alert()->success('Mise en attente reussie');
-        return $this->redirectAnnouncement();
+        return $this->redirectNotice();
     }
 
-    public function deleteAnnouncement($id)
+    public function deleteNotice($id)
     {
-        Announcement::where('id', '=', $id)
+        Notice::where('id', '=', $id)
             ->delete();
         alert()->success('Suppression reussie');
-        return $this->redirectAnnouncement();
+        return $this->redirectNotice();
     }
 
-    public function formeditAnnouncement($id)
+    public function formeditNotice($id)
     {
-        $announcement = Announcement::where('id', '=', $id)
+        $notice = Notice::where('id', '=', $id)
             ->first();
-        $categories = DB::table('announcement_categories')->get();
+        $categories = DB::table('notice_categories')->get();
 
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
 
@@ -209,8 +209,8 @@ class AnnouncementController extends Controller
         $additionalLibs[1] = "libraries/ckeditor/ckeditor.js";
         $additionalLibs[2] = "libraries/bootstrap-fileinput/js/fileinput.min.js";
 
-        $view = View::make('backend.' . ConfigFromDB::setting('theme') . '.layout');
-        $ComposedSubView = View::make('Announcement::backend.edit')->with('categoriesList', $categories)->with('announcement', $announcement);
+        $view = View::make('backend.' . ConfigFromDB::setting('backend-theme') . '.layout');
+        $ComposedSubView = View::make('Notice::backend.edit')->with('categoriesList', $categories)->with('notice', $notice);
         $view->with('content', $ComposedSubView);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
@@ -218,7 +218,7 @@ class AnnouncementController extends Controller
         return $view;
     }
 
-    public function updateAnnouncement($id)
+    public function updateNotice($id)
     {
         $user = Auth::user();
         $data = Input::all();
@@ -227,7 +227,7 @@ class AnnouncementController extends Controller
             $image = $data['mainimage'];
             $filename = time() . $user->id . 'emps' . $image->getClientOriginalName();
 
-            $path_tmb = public_path('/storage/uploads/announcements/thumbs/' . $filename);
+            $path_tmb = public_path('/storage/uploads/notices/thumbs/' . $filename);
             $h = Image::make($image)->width();
             $w = Image::make($image)->height();
             if ($h > $w) {
@@ -239,7 +239,7 @@ class AnnouncementController extends Controller
                 ->crop($wh, $wh)
                 ->save($path_tmb);
 
-            $thumb = url('/') . '/storage/uploads/announcements/thumbs/' . $filename;
+            $thumb = url('/') . '/storage/uploads/notices/thumbs/' . $filename;
             $data['thumbpath'] = $thumb;
         }
         $data['category_id'] = Input::get('category');
@@ -247,7 +247,7 @@ class AnnouncementController extends Controller
         $url = preg_replace('/[^a-z0-9 -]+/', '', $url);
         $url = str_replace(' ', '-', $url);
 
-        $update = Announcement::findOrFail($id);
+        $update = Notice::findOrFail($id);
         if (array_key_exists('owner', $data)) {
             if ($data['owner'] == 1) {
                 $data['user_id'] = $user->id;
@@ -258,21 +258,21 @@ class AnnouncementController extends Controller
 
         $update->fill($data)->save();
         alert()->success('Modification reussie');
-        return $this->redirectAnnouncement();
+        return $this->redirectNotice();
 
     }
 
     public function showSlider(){
-        $announcements = DB::table('announcements')
-            ->join('users', 'users.id', '=', 'announcements.user_id')
-            ->join('announcement_categories', 'announcement_categories.id', '=', 'announcements.category_id')
-            ->select('announcements.*', 'users.nom', 'announcement_categories.title as title_cat')
+        $notices = DB::table('notices')
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
             ->where('end_at', '>', date('Y-m-d'))
             ->orderBy('created_at', 'desc')
             ->limit(4)
             ->get();
 
-        $ComposedSubView = View::make('Announcement::widgets.flexslider')->with('announcements', $announcements);
+        $ComposedSubView = View::make('Notice::widgets.flexslider')->with('notices', $notices);
         return $ComposedSubView;
     }
 }

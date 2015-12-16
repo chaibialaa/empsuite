@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AnnouncementsTable extends Migration
+class NoticesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,13 @@ class AnnouncementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('announcement_categories', function (Blueprint $table) {
+        Schema::create('notice_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->timestamps();
         });
 
-        Schema::create('announcements', function (Blueprint $table) {
+        Schema::create('notices', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->longText('content');
@@ -28,7 +28,7 @@ class AnnouncementsTable extends Migration
             $table->string('thumbpath')->nullable();
             $table->integer('user_id')->unsigned();
             $table->integer('category_id')->unsigned();
-            $table->foreign('category_id')->references('id')->on('announcement_categories');
+            $table->foreign('category_id')->references('id')->on('notice_categories');
             $table->foreign('user_id')->references('id')->on('users');
             $table->date('end_at');
             $table->timestamps();
@@ -44,7 +44,7 @@ class AnnouncementsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('announcements');
-        Schema::drop('announcement_categories');
+        Schema::drop('notices');
+        Schema::drop('notice_categories');
     }
 }

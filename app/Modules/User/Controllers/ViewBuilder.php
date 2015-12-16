@@ -14,7 +14,7 @@ class ViewBuilder extends Controller
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
         $additionalLibs[0] = "libraries/datepicker/bootstrap-datepicker.js";
 
-        $view = View::make('frontend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
         $view->nest('content', 'User::frontend.register');
         $view->with('sidebars', $sidebars);
         $view->with('additionalCsss',$additionalCsss);
@@ -36,7 +36,7 @@ class ViewBuilder extends Controller
         $ComposedSubView = View::make('User::frontend.dash')
             ->with('roleCount',$roles)
             ->with('requestRole',$external->formrequestRole());
-        $view = View::make('frontend.' . ConfigFromDB::setting('theme') . '.layout');
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend-theme') . '.layout');
         $view->with('sidebars', $sidebars);
         $view->with('content', $ComposedSubView)->with('module',$module);
 

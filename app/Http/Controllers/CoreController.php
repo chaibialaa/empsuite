@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Modules\Announcement\Controllers\AnnouncementController;
+use App\Modules\Notice\Controllers\NoticeController;
 use Session, Config, Redirect, Auth, Route, DB;
 use Illuminate\Support\Facades\View;
 use App\Helpers\ConfigFromDB;
@@ -11,8 +11,8 @@ class CoreController extends Controller {
 
 	public function home()
 	{
-		$view = View::make('frontend.'.ConfigFromDB::setting('theme').'.layout');
-        $return = new AnnouncementController();
+		$view = View::make('frontend.'.ConfigFromDB::setting('frontend-theme').'.layout');
+        $return = new NoticeController();
 		$view->with('topcontent',$return->showSlider());
 		return $view;
 
@@ -20,7 +20,7 @@ class CoreController extends Controller {
 	public function admin()
 	{
 
-			$view = View::make('backend.'.ConfigFromDB::setting('theme').'.layout');
+			$view = View::make('backend.'.ConfigFromDB::setting('backend-theme').'.layout');
 
 
 			return $view;
@@ -42,70 +42,6 @@ class CoreController extends Controller {
              }
         }
         return Redirect::back();
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
 	}
 
 }
