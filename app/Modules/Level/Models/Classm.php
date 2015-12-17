@@ -8,6 +8,6 @@ class Classm extends Model {
 
     protected $table = 'classes';
 
-    protected $fillable = ['title'];
+    protected $fillable = ['title','level_id','section_id'];
 
 }

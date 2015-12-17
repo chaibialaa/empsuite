@@ -26,9 +26,9 @@ class BasicConfig extends Seeder
         ]);
 
         DB::table('core')->insert([
-            'titre' => 'EMPsuite v2',
-            'backend-theme' => '1',
-            'frontend-theme' => '2',
+            'title' => 'EMPsuite v2',
+            'backend_theme' => '1',
+            'frontend_theme' => '2',
             'created_at' => date("Y-m-d H:i:s"),
             'catchmail' => 'bounce@bluepenlabs.com'
         ]);

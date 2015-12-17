@@ -14,28 +14,18 @@ class ConfigFromDB {
         {
 
                 $setting = DB::table('core')
-                    ->select()
+                    ->join('themes AS T1','T1.id','=','core.backend_theme')
+                    ->join('themes AS T2','T2.id','=','core.frontend_theme')
+                    ->select('core.id as id','core.catchmail as catchmail','core.title as title',
+                        'T2.title as frontend_theme','T1.title as backend_theme','core.created_at','core.updated_at')
                     ->first();
 
                 if ($setting)
                 {
                     $columns = Schema::getColumnListing('core');
                     foreach ($columns as $column) {
-                        if ($column == "backend_theme") {
-                            $additional = DB::table('themes')
-                                ->where('id', '=', $setting->backend_theme)
-                                ->select()
-                                ->first();
-                            Cache::forever('core_' . $column, $additional->title);
-                        } elseif ($column == "frontend_theme") {
-                            $additional = DB::table('themes')
-                                ->where('id', '=', $setting->frontend_theme)
-                                ->select()
-                                ->first();
-                            Cache::forever('core_' . $column, $additional->title);
-                        } else {
+
                             Cache::forever('core_' . $column, $setting->$column);
-                        }
                     }
                     $setting = Cache::get('core_' . $option);
                 }

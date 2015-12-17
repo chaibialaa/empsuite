@@ -18,9 +18,9 @@ class LevelController extends Controller {
         $module['Title'] = "Level Manager";
         $module['SubTitle'] = "Levels Dashboard";
 
-		$classes = DB::table('level_classes')
+		$classes = DB::table('classes')
 			->select('*', DB::raw("COUNT('classes.id') AS class_count"))
-			->join('levels', 'levels.id', '=', 'level_classes.level_id')
+			->join('levels', 'levels.id', '=', 'classes.level_id')
   			->orderBy('class_count', 'desc')
 			->groupBy('levels.id')
 			->take(5)

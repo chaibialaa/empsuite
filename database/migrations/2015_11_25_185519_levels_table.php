@@ -18,31 +18,25 @@ class LevelsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('classes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->timestamps();
-        });
-
         Schema::create('sections', function (Blueprint $table){
             $table->increments('id');
             $table->string('title');
             $table->timestamps();
         });
 
-        Schema::create('section_classes', function (Blueprint $table) {
-            $table->integer('section_id')->unsigned();
-            $table->integer('class_id')->unsigned();
+
+        Schema::create('classes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+
+            $table->integer('section_id')->unsigned()->nullable();
             $table->foreign('section_id')->references('id')->on('sections');
-            $table->foreign('class_id')->references('id')->on('classes');
+            $table->integer('level_id')->unsigned();
+            $table->foreign('level_id')->references('id')->on('levels');
+            $table->timestamps();
         });
 
-        Schema::create('level_classes', function (Blueprint $table) {
-            $table->integer('level_id')->unsigned();
-            $table->integer('class_id')->unsigned();
-            $table->foreign('level_id')->references('id')->on('levels');
-            $table->foreign('class_id')->references('id')->on('classes');
-        });
+
 
         Schema::create('user_classes', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
@@ -63,8 +57,6 @@ class LevelsTable extends Migration
         Schema::drop('levels');
         Schema::drop('classes');
         Schema::drop('sections');
-        Schema::drop('section_classes');
-        Schema::drop('level_classes');
         Schema::drop('user_classes');
     }
 }

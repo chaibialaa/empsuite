@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
 use App\Modules\Level\Models\Level;
+use App\Modules\Level\Models\Section;
 use Input, View, DB, App\Helpers\ConfigFromDB;
 class ClassController extends Controller
 {
@@ -27,14 +28,14 @@ class ClassController extends Controller
             ->take(5)
             ->get();
 
-        $cList = DB::table('level_classes')
-            ->join('classes', 'classes.id', '=', 'level_classes.class_id')
-            ->join('levels', 'levels.id', '=', 'level_classes.level_id')
+        $cList = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
             ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id', 'classes.created_at as created_at')
             ->get();
 
 
         $lList = Level::all();
+        $sList = Section::all();
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
@@ -45,6 +46,7 @@ class ClassController extends Controller
         $ComposedSubView = View::make('Level::backend.listClass')
             ->with('classes', $MostClassHavingStudents)
             ->with('cList', $cList)
+            ->with('sList', $sList)
             ->with('lList', $lList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
@@ -54,14 +56,19 @@ class ClassController extends Controller
 
     public function addClass(){
         $data = Input::all();
+        if (array_key_exists('section', $data)){
+            Classm::create([
+                'title' => $data['title'],
+                'level_id' => $data['level'],
+                'section_id' => $data['section']
+            ]);
+        }else {
+            Classm::create([
+                'title' => $data['title'],
+                'level_id' => $data['level']
+            ]);
+        }
 
-        $ClassData = Classm::create([
-            'title' => $data['title']
-        ]);
-
-        DB::table('level_classes')->insert(
-            ['level_id' => $data['level'],
-             'class_id' => $ClassData->id ]);
 
         alert()->success('Class ajoutee avec success');
 

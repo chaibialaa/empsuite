@@ -59,7 +59,8 @@
 
                             <th>Class</th>
                             <th>Level</th>
-                            <th>Manage</th>
+                            <th>Section</th>
+                                                       <th>Manage</th>
                             <th>Rename</th>
                             <th>Delete</th>
                             <th>Created at</th>
@@ -70,6 +71,7 @@
                         <tr>
                             <th>Class</th>
                             <th>Level</th>
+                            <th>Section</th>
                             <th>Manage</th>
                             <th>Rename</th>
                             <th>Delete</th>
@@ -84,6 +86,7 @@
                             <tr>
                                 <td>{{$c->title}}</td>
                                 <td>{{$c->level_title}}</td>
+                                <td>{{$c->section_id or 'None'}}</td>
                                 <td><a class="btn btn-block btn-xs btn-info btn-flat" href="/admin/level/class/{{$c->id }}" target="_blank">
                                         Manage
                                     </a>
@@ -194,6 +197,12 @@
                                 @endforeach
                             </select>
 
+                            <select name="section" class="form-control">
+                                @foreach($sList as $s)
+                                    <option value="{{ $s->id }}">{{$s->title}}</option>
+                                @endforeach
+                            </select>
+
                             <input class="form-control" name="title" type="text">
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-success">Add</button>
@@ -244,6 +253,12 @@
                             <select name="level" class="form-control">
                                 @foreach($lList as $level)
                                     <option value="{{ $level->id }}">{{$level->title}}</option>
+                                @endforeach
+                            </select>
+
+                            <select name="section" class="form-control">
+                                @foreach($sList as $s)
+                                    <option value="{{ $s->id }}">{{$s->title}}</option>
                                 @endforeach
                             </select>
 
