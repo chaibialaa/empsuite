@@ -52,13 +52,21 @@
         <div class="col-md-9">
             <div class="panel panel-default ">
                 <div class="panel-body">
+                    @foreach($cList as $m=>$value)
+                        <div class="col-md-12">
+                            <div class="panel panel-info ">
+                                <div class="panel-heading">
+                                    <a data-toggle="collapse" href="#collapse-{{$value[0][0]->id}}"> <i class="fa fa-tint"></i> Level : {{$m}}</a>
+                                </div>
+                                <div id="collapse-{{$value[0][0]->id}}" class="panel-collapse collapse in">
+                                    <div class="panel-body">
 
-                    <table id="levels" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                               <table id="levelClass" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
 
                             <th>Class</th>
-                            <th>Level</th>
+
                             <th>Section</th>
                                                        <th>Manage</th>
                             <th>Rename</th>
@@ -70,8 +78,9 @@
                         <tfoot>
                         <tr>
                             <th>Class</th>
-                            <th>Level</th>
+
                             <th>Section</th>
+
                             <th>Manage</th>
                             <th>Rename</th>
                             <th>Delete</th>
@@ -81,97 +90,43 @@
                         </tfoot>
                         <tbody>
 
-
-                        @foreach($cList as $c)
+                        @foreach($value as $sub_value=>$element)
+                            @foreach($element as $sub_element=>$val)
                             <tr>
-                                <td>{{$c->title}}</td>
-                                <td>{{$c->level_title}}</td>
-                                <td>{{$c->section_id or 'None'}}</td>
-                                <td><a class="btn btn-block btn-xs btn-info btn-flat" href="/admin/level/class/{{$c->id }}" target="_blank">
-                                        Manage
-                                    </a>
-                                </td>
-                                <td><a class="btn btn-block btn-xs btn-success btn-flat" data-toggle="modal" data-target="#rename-{{$c->id }}">
-                                        Rename
-                                    </a>
-                                    <div class="modal fade" id="rename-{{$c->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-                                         style="display: none;">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title">Rename Category</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST" action="/admin/level/rename/{{$c->id }}" class="form">
-                                                        {!! csrf_field() !!}
-                                                        <input type="text" name="title">
-                                                        <input value="Rename" type="submit">
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <button type="button" class="btn btn-primary">Rename</button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                    </div>
-                                </td>
-                                <td><a class="btn btn-block btn-xs btn-danger btn-flat" data-toggle="modal" data-target="#delete-{{$c->id }}">
-                                        Delete
-                                    </a>
-                                    <div class="modal fade" id="delete-{{$c->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-                                         style="display: none;">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                    <h4 class="modal-title">Delete Category</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST" action="/admin/level/delete/{{$c->id }}" class="form">
-                                                        @if (count($cList) > 1)
-                                                            if the category have posts :
-                                                            <label>
-                                                                <input type="radio" name="action" value="1" >Delete Category and Posts
-                                                            </label>
-                                                            <label>
-                                                                <input type="radio" name="action" value="0" checked>Move Posts then Delete
-                                                            </label>
-                                                            <select name="moveto" class="form-control">
-                                                                @foreach($cList as $l)
-                                                                    @if ($c->id != $c->id)
-                                                                        <option value="{{ $c->id }}">{{$c->title}}</option>
-                                                                    @endif
+                                <td>{{$val->title}}</td>
 
-                                                                @endforeach
-                                                            </select>
-
-                                                            {!! csrf_field() !!}
-                                                        @else
-                                                            if the category have posts they will be delete as your only category is being deleted !
-                                                        @endif
-                                                        <input value="Daldoul" type="submit">
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                                    <button type="button" class="btn btn-primary">Rename</button>
-                                                </div>
-                                            </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                    </div>
+                                <td>{{$val->section_id or 'None'}}</td>
+                                <td class="text-center">
+                                    <button type="button"
+                                            class="btn btn-flat btn-success btn-xs"><i
+                                                class="fa fa-edit"></i> View</button>
                                 </td>
-                                <td>{{$c->created_at }}</td>
+                                <td class="text-center">
+                                    <button type="button"
+                                            class="btn btn-flat btn-info btn-xs"><i
+                                                class="fa fa-edit"></i> Rename</button>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button"
+                                            class="btn btn-flat btn-danger btn-xs"><i
+                                                class="fa fa-trash"></i> Delete</button>
+                                </td>
+                                <td>{{$val->created_at }}</td>
 
 
                             </tr>
+                        @endforeach
                         @endforeach
 
 
 
                         </tbody></table>
 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -181,7 +136,7 @@
                 <div class="panel-heading">
 
 
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new level</h3>
+                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new class</h3>
 
                 </div>
                 <div class="panel-body">

@@ -37,6 +37,14 @@ class ClassController extends Controller
         $lList = Level::all();
         $sList = Section::all();
 
+        $fcList = array();
+
+            foreach ($cList as $m) {
+                $array = array($m);
+                $fcList[$m->level_title][] = $array;
+            }
+
+
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
@@ -45,7 +53,7 @@ class ClassController extends Controller
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Level::backend.listClass')
             ->with('classes', $MostClassHavingStudents)
-            ->with('cList', $cList)
+            ->with('cList', $fcList)
             ->with('sList', $sList)
             ->with('lList', $lList);
         $view->with('content', $ComposedSubView)->with('module', $module);
