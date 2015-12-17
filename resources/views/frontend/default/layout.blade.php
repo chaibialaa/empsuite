@@ -4,7 +4,7 @@
 <!--[if (gt IE 9)|!(IE)]><!-->
 <html lang="en"><!--<![endif]-->
 <head>
-    <title>{!! $titre or 'EMPSuite' !!}</title>
+    <title>{!! $title or 'EMPSuite' !!}</title>
     <!--meta info-->
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">

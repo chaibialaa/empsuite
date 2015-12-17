@@ -11,13 +11,13 @@ class MainLayoutComposer extends ServiceProvider
     public function boot()
     {
         view()->composer('frontend.'.ConfigFromDB::setting('frontend_theme').'.layout', function ($view)   {
-                $view->with('titre', ConfigFromDB::setting('titre'));
+                $view->with('title', ConfigFromDB::setting('title'));
                 $view->with('theme', ConfigFromDB::setting('frontend_theme'));
 
         });
 
         view()->composer('backend.'.ConfigFromDB::setting('backend_theme').'.layout', function ($view)   {
-            $view->with('titre', ConfigFromDB::setting('titre'));
+            $view->with('title', ConfigFromDB::setting('title'));
             $view->with('theme', ConfigFromDB::setting('backend_theme'));
         });
     }

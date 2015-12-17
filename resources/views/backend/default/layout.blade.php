@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{{ $page_title or "EMPsuite" }}</title>
+    <title>{{ $title or "EMPsuite" }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <script src="{{ asset("/assets/libraries/jQuery/jQuery-2.1.4.min.js") }}"></script>
     @if((isset($additionalLibs)) and (count($additionalLibs)>0))

@@ -22,7 +22,7 @@ class CoreTable extends Migration
 
         Schema::create('core', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('titre');
+            $table->string('title');
             $table->integer('backend_theme')->unsigned();
             $table->integer('frontend_theme')->unsigned();
             $table->string('catchmail');

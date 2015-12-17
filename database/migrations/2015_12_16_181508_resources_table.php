@@ -21,7 +21,7 @@ class ResourcesTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->integer('status')->unsigned();
-            $table->integer('places');
+            $table->integer('capacity');
             $table->timestamps();
             $table->foreign('status')->references('id')->on('classroom_statuses');
         });
