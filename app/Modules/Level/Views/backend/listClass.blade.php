@@ -1,5 +1,5 @@
 <div class="row">
-    @if((isset($cList)) and (count($cList)>0))
+
         <script>
             function getRandomColor() {
                 var letters = '0123456789ABCDEF'.split('');
@@ -141,6 +141,11 @@
                             </div>
                         </div>
                     @endforeach
+                        @if(count($cList)==0)
+
+                            <div class="col-md-12"> No Classes Found !
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -216,48 +221,7 @@
                 </div>
             </div>
         </div>
-    @else
-        <div class="col-md-12">
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-                    <i class="fa fa-plus"></i>
 
-                    <h3 class="panel-title">Add new category</h3>
-
-                </div>
-                <div class="panel-body">
-
-
-
-                    <form method="POST" action="/admin/level/class/add" id="level-add-form">
-                        {!! csrf_field() !!}
-                        <div class="input-group">
-                            <select name="level" class="form-control">
-                                @foreach($lList as $level)
-                                    <option value="{{ $level->id }}">{{$level->title}}</option>
-                                @endforeach
-                            </select>
-
-                            <select name="section" class="form-control">
-                                @foreach($sList as $s)
-                                    <option value="{{ $s->id }}">{{$s->title}}</option>
-                                @endforeach
-                            </select>
-
-                            <input class="form-control" name="title" type="text">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-
-                        </div></form>
-
-
-
-
-                </div></div>
-
-        </div>
-    @endif
 </div>
 
 

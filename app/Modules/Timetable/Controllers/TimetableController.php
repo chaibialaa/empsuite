@@ -3,82 +3,51 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use App\Modules\Level\Models\Classm;
+use Hamcrest\Core\Is;
+use Input, View, DB, App\Helpers\ConfigFromDB;
 
 class TimetableController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		return view("Timetable::index");
-	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
+	public function listAll()
 	{
-		//
-	}
+		$module['Title'] = "Timetables Manager";
+		$module['SubTitle'] = "Timetables Dashboard";
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		//
-	}
+		$cList = classm::whereNull('timetable_id')->get();
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
+		$fList = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
+            ->where('timetable_id', '=',not(null))
+            ->orderBy('classes.level_id', 'classes.section_id')
+            ->get();
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
+        $fcList = array();
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
+        foreach ($fList as $m) {
+            $array = array($m);
+            if($m->section_id) {
+                $fcList[$m->level_title][$m->section_id][] = $array;
+            } else {
+                $fcList[$m->level_title]['No Section'][] = $array;
+            }
+        }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+		$additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+		$additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+		$additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
+		$additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+
+		$view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
+		$ComposedSubView = View::make('Timetable::backend.list')
+			->with('fcList', $fcList)
+			->with('cList', $cList);
+		$view->with('content', $ComposedSubView)->with('module', $module);
+		$view->with('additionalCsss', $additionalCsss);
+		$view->with('additionalLibs', $additionalLibs);
+		return $view;
 	}
 
 }

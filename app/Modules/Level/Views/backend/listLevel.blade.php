@@ -1,5 +1,5 @@
 <div class="row">
-    @if((isset($lList)) and (count($lList)>0))
+
         <script>
             function getRandomColor() {
                 var letters = '0123456789ABCDEF'.split('');
@@ -155,8 +155,6 @@
                             </tr>
                         @endforeach
 
-
-
                         </tbody></table>
 
                 </div>
@@ -211,38 +209,7 @@
                 </div>
             </div>
         </div>
-    @else
-        <div class="col-md-12">
-            <div class="panel panel-default ">
-                <div class="box-header">
-                    <i class="fa fa-plus"></i>
 
-                    <h3 class="box-title">Add new category</h3>
-
-                </div>
-                <div class="panel-body">
-
-
-
-                    <form method="POST" action="/admin/level/add" id="level-add-form">
-
-                        <div class="input-group">
-
-                            {!! csrf_field() !!}
-                            <input class="form-control" name="title" type="text">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-
-                        </div></form>
-
-
-
-
-                </div></div>
-
-        </div>
-    @endif
 </div>
 
 
