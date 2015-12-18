@@ -30,7 +30,8 @@ class ClassController extends Controller
 
         $cList = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id', 'classes.created_at as created_at')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
+            ->orderBy('classes.level_id', 'classes.section_id')
             ->get();
 
 
@@ -41,7 +42,11 @@ class ClassController extends Controller
 
             foreach ($cList as $m) {
                 $array = array($m);
-                $fcList[$m->level_title][] = $array;
+                if($m->section_id) {
+                    $fcList[$m->level_title][$m->section_id][] = $array;
+                } else {
+                    $fcList[$m->level_title]['No Section'][] = $array;
+                }
             }
 
 
@@ -65,11 +70,17 @@ class ClassController extends Controller
     public function addClass(){
         $data = Input::all();
         if (array_key_exists('section', $data)){
+            if ($data['section']=='No Section'){
+                Classm::create([
+                    'title' => $data['title'],
+                    'level_id' => $data['level']
+                ]);
+            } else {
             Classm::create([
                 'title' => $data['title'],
                 'level_id' => $data['level'],
                 'section_id' => $data['section']
-            ]);
+            ]);}
         }else {
             Classm::create([
                 'title' => $data['title'],

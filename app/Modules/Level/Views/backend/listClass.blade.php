@@ -45,33 +45,42 @@
                 pieChart.Doughnut(PieData, pieOptions);
             });
 
-            $(document).ready(function() {
-                $('#levels').DataTable();
-            } );
         </script>
         <div class="col-md-9">
             <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> Manage Classes</h3>
+                </div>
                 <div class="panel-body">
+                    <div class="row">
                     @foreach($cList as $m=>$value)
                         <div class="col-md-12">
                             <div class="panel panel-info ">
                                 <div class="panel-heading">
-                                    <a data-toggle="collapse" href="#collapse-{{$value[0][0]->id}}"> <i class="fa fa-tint"></i> Level : {{$m}}</a>
+                                    <a data-toggle="collapse" href="#collapse-{{$m}}"> <i class="fa fa-tint"></i> Level : {{$m}}</a>
                                 </div>
-                                <div id="collapse-{{$value[0][0]->id}}" class="panel-collapse collapse in">
+                                <div id="collapse-{{$m}}" class="panel-collapse collapse in">
                                     <div class="panel-body">
-
+                                        <div class="row">
+                                        @foreach($value as $v=>$k)
+                                            <div class="col-md-6">
+                                                <div class="panel panel-info ">
+                                                    <div class="panel-heading">
+                                                        <a data-toggle="collapse" href="#collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}"> <i class="fa fa-list"></i> Section : {{$v}}</a>
+                                                    </div>
+                                                    <div id="collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}" class="panel-collapse collapse in">
+                                                        <div class="panel-body">
                                <table id="levelClass" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
 
                             <th>Class</th>
 
-                            <th>Section</th>
+
                                                        <th>Manage</th>
                             <th>Rename</th>
                             <th>Delete</th>
-                            <th>Created at</th>
+
 
                         </tr>
                         </thead>
@@ -79,23 +88,23 @@
                         <tr>
                             <th>Class</th>
 
-                            <th>Section</th>
+
 
                             <th>Manage</th>
                             <th>Rename</th>
                             <th>Delete</th>
-                            <th>Created at</th>
+
 
                         </tr>
                         </tfoot>
                         <tbody>
 
-                        @foreach($value as $sub_value=>$element)
+                        @foreach($k as $sub_value=>$element)
                             @foreach($element as $sub_element=>$val)
                             <tr>
                                 <td>{{$val->title}}</td>
 
-                                <td>{{$val->section_id or 'None'}}</td>
+
                                 <td class="text-center">
                                     <button type="button"
                                             class="btn btn-flat btn-success btn-xs"><i
@@ -111,7 +120,7 @@
                                             class="btn btn-flat btn-danger btn-xs"><i
                                                 class="fa fa-trash"></i> Delete</button>
                                 </td>
-                                <td>{{$val->created_at }}</td>
+
 
 
                             </tr>
@@ -121,12 +130,18 @@
 
 
                         </tbody></table>
-
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        @endforeach
+                                            </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     @endforeach
+                    </div>
                 </div>
             </div>
         </div>
@@ -140,36 +155,48 @@
 
                 </div>
                 <div class="panel-body">
-
-
-
                     <form method="POST" action="/admin/level/class/add">
                         {!! csrf_field() !!}
-                        <div class="input-group">
+                        <label>Title :</label>
+                        <input class="form-control" name="title" type="text">
+
+                        <label>Level :</label>
                             <select name="level" class="form-control">
                                 @foreach($lList as $level)
                                     <option value="{{ $level->id }}">{{$level->title}}</option>
                                 @endforeach
                             </select>
-
+                        <label>Section :</label>
+                            @if (count($sList)==0)
+                            <div class="input-group">
+                                <input class="form-control" type="text" disabled value="No sections founds">
+                                <div class="input-group-btn">
+                                    <a class="btn btn-success" href="/admin/level/section">Add New</a>
+                                </div>
+                            </div>
+                            @else
                             <select name="section" class="form-control">
+
+                                <option selected>No Section</option>
                                 @foreach($sList as $s)
                                     <option value="{{ $s->id }}">{{$s->title}}</option>
                                 @endforeach
+
                             </select>
+                            @endif
 
-                            <input class="form-control" name="title" type="text">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
+                        <br/>
+                            <button type="submit" class="btn btn-success btn-block">Add</button>
 
-                        </div></form>
+
+                        </form>
 
 
 
 
                 </div>
             </div>
+
             <div class="panel panel-default ">
                 <div class="panel-heading">
 

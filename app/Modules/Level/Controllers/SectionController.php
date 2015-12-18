@@ -1,4 +1,4 @@
-<?php namespace App\Modules\Section\Controllers;
+<?php namespace App\Modules\Level\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -18,13 +18,6 @@ class SectionController extends Controller {
         $module['Title'] = "Section Manager";
         $module['SubTitle'] = "Sections Dashboard";
 
-        $classes = DB::table('classes')
-            ->select('*', DB::raw("COUNT('classes.id') AS class_count"))
-            ->join('sections', 'sections.id', '=', 'classes.section_id')
-            ->orderBy('class_count', 'desc')
-            ->groupBy('sections.id')
-            ->take(5)
-            ->get();
 
         $sList = DB::table('sections')
             ->get();
@@ -35,8 +28,7 @@ class SectionController extends Controller {
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
-        $ComposedSubView = View::make('Section::backend.list')
-            ->with('classes', $classes)
+        $ComposedSubView = View::make('Level::backend.listSection')
             ->with('sList', $sList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
