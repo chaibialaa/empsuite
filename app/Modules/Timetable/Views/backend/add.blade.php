@@ -12,7 +12,13 @@
             allDaySlot: false,
             defaultView: 'agendaWeek',
             columnFormat: 'dddd',
-            titleFormat:'YYYY'
+            titleFormat:'YYYY',
+            header: {
+                left: '',
+                center: 'title',
+                right: ''
+            },
+            defaultDate : moment().format('YYYY')+'-06-06'
         })
     });
 </script>
@@ -20,11 +26,25 @@
     <div class="col-md-9">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list"></i>  Class {{ $class->title }} Timetable </h3>
+                <h3 class="panel-title"><i class="fa fa-calendar"></i>  Class {{ $class->title }} Timetable </h3>
             </div>
             <div class="panel-body">
 
                     <div id='calendar'></div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default ">
+            <div class="panel-heading">
+
+                <h3 class="panel-title"><i class="fa fa-list"></i> Events List</h3>
+
+            </div>
+            <div class="panel-body">
+
 
             </div>
         </div>
