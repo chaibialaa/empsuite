@@ -6,7 +6,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    @if((isset($fcmList)) and (count($fcmList)>0))
+
                         @foreach($fcmList as $cm=>$value)
 
                             <div class="col-md-6">
@@ -55,15 +55,25 @@
                                 </div>
                             </div>
                         @endforeach
+                    @if(count($fcmList)>0)
+                    <div class="col-md-12">
+                            <div class="alert alert-sm alert-warning fade in "><a href="#" class="close" data-dismiss="alert"
+                                                                                 aria-label="close">&times;</a>Deleting a subject in
+                                a module would delete all related data (Subject Professor relations in classes included)
+                            </div>
+                    </div>
+                            @else
+                                <div class="col-md-12"> No Linked Subjects to Modules Found !
+                                </div>
+                        @endif
 
-                    @else
-                        At least one subject in a module is required !
-                    @endif
+
+
                 </div>
-                <div class="alert alert-sm alert-warning fade in"><a href="#" class="close" data-dismiss="alert"
-                                                                     aria-label="close">&times;</a>Deleting a subject in
-                    a module would delete all related data (Subject Professor relations in classes included)
-                </div>
+
+
+
+
             </div>
 
         </div>
@@ -85,6 +95,19 @@
                         {!! csrf_field() !!}
                         <label>Coefficient :</label>
                         <input class="form-control" name="coef" type="text">
+                        <label>Duration <small>(weekly)</small> :</label>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input class="form-control" name="hours" value="0"  type="text">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input class="form-control" name="minutes" value="0" type="text">
+                                </div>
+                            </div>
+
+
+                        </div>
 
                         <label>Subject :</label>
                         <select name="subject" class="form-control">

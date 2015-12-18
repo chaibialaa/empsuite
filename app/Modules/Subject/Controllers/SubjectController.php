@@ -299,8 +299,13 @@ class SubjectController extends Controller
             ->first();
 
         if (!$verify) {
+            if (!array_key_exists('hours', $data)){ $data['hours'] = 0; }
+            if (!array_key_exists('minutes', $data)) { $data['minutes'] = 0; }
+
+            $duration = $data['minutes'] + ($data['hours']*60);
             DB::table('subject_cm')->insert(
                 ['subject_id' => $data['subject'],
+                    'week_duration' => $duration,
                     'module_id' => $data['module'],
                     'coefficient' => $data['coef']]);
 

@@ -69,22 +69,17 @@ class ClassController extends Controller
 
     public function addClass(){
         $data = Input::all();
-        if (array_key_exists('section', $data)){
-            if ($data['section']=='No Section'){
-                Classm::create([
-                    'title' => $data['title'],
-                    'level_id' => $data['level']
-                ]);
-            } else {
+        if ((!array_key_exists('section', $data)) or (($data['section']=='No Section'))){
+            Classm::create([
+                'title' => $data['title'],
+                'level_id' => $data['level']
+            ]);
+
+        }else {
             Classm::create([
                 'title' => $data['title'],
                 'level_id' => $data['level'],
                 'section_id' => $data['section']
-            ]);}
-        }else {
-            Classm::create([
-                'title' => $data['title'],
-                'level_id' => $data['level']
             ]);
         }
 

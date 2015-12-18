@@ -4,7 +4,7 @@ $('#modules').DataTable();
 $('#subjects').DataTable();
 } );
 </script>
-@if(((isset($mList)) and (count($mList)>0)) or ((isset($sList)) and (count($sList)>0)) )
+
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-default ">
@@ -135,47 +135,3 @@ $('#subjects').DataTable();
 
         </div>
         </div>
-@else
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new subject</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="/admin/subject/add" id="level-add-form">
-                        {!! csrf_field() !!}
-                        <div class="input-group">
-
-                            <input class="form-control" name="title" type="text">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="panel panel-default ">
-                <div class="panel-heading">
-
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new module</h3>
-                </div>
-                <div class="panel-body">
-                    <form method="POST" action="/admin/subject/module/add" id="level-add-form">
-                        {!! csrf_field() !!}
-                        <div class="input-group">
-
-                            <input class="form-control" name="title" type="text">
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-@endif

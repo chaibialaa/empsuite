@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(BasicConfig::class);
         $this->call(BasicPermission::class);
+        $this->call(BasicClassroomStatus::class);
 
         Model::reguard();
     }
