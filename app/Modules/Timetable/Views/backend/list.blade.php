@@ -144,9 +144,9 @@
                             </div>
                         </div>
                     @endforeach
-                    @if(count($cList)==0)
+                    @if(count($fcList)==0)
                         <div class="col-md-12">
-                            No Classes Found !
+                            No Timetables Found !
                         </div>
                     @endif
                 </div>

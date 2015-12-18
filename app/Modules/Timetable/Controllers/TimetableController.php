@@ -9,6 +9,9 @@ use Input, View, DB, App\Helpers\ConfigFromDB;
 
 class TimetableController extends Controller {
 
+    public function redirectTimetable(){
+        return redirect('/admin/timetable');
+    }
 
 	public function listAll()
 	{
@@ -19,8 +22,8 @@ class TimetableController extends Controller {
 
 		$fList = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->join('timetables','timetables.id','=','classes.timetable_id')
             ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
-            ->where('timetable_id', '=',not(null))
             ->orderBy('classes.level_id', 'classes.section_id')
             ->get();
 
@@ -49,5 +52,31 @@ class TimetableController extends Controller {
 		$view->with('additionalLibs', $additionalLibs);
 		return $view;
 	}
+
+    public function addformTimetable(){
+        $data = Input::all();
+        $module['Title'] = "Timetable Manager";
+        $module['SubTitle'] = "New Timetable";
+
+        $class = classm::where('id',$data['class'])->first();
+
+        $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
+        $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
+        $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
+        $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
+
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
+        $ComposedSubView = View::make('Timetable::backend.add')
+            ->with('class', $class);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        $view->with('additionalCsss', $additionalCsss);
+        $view->with('additionalLibs', $additionalLibs);
+        return $view;
+    }
+
+    public function addTimetable(){
+
+        return $this->redirectTimetable();
+    }
 
 }

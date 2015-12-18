@@ -5,13 +5,83 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7442e83f-7387-4ae2-b64e-c615224a210f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php" />
-      <change type="MOVED" beforePath="C:\laragon\www\empsuite\app\Modules\Timetable\Views\backend\addClass.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php" />
-      <change type="MOVED" beforePath="C:\laragon\www\empsuite\database\migrations\2015_12_16_002312_timetables_table.php" afterPath="$PROJECT_DIR$/database/migrations/2015_11_16_002312_timetables_table.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/database/migrations/2015_11_25_185519_levels_table.php" afterPath="$PROJECT_DIR$/database/migrations/2015_11_25_185519_levels_table.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/animated-overlay.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_flat_15_cd0a0a_40x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_glass_100_e4f1fb_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_glass_50_3baae3_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_glass_80_d7ebf9_1x400.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_highlight-hard_70_000000_1x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_highlight-soft_100_deedf7_1x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-icons_2694e8_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-icons_2e83ff_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-icons_3d80b3_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-icons_72a7cf_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/images/ui-icons_ffffff_256x240.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ar-ma.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ar-sa.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ar-tn.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ar.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/bg.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ca.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/cs.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/da.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/de-at.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/de.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/el.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/en-au.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/en-ca.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/en-gb.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/es.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/fa.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/fi.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/fr-ca.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/fr.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/gcal.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/he.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/hi.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/hr.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/hu.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/id.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/is.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/it.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ja.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/jquery-ui.custom.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/cupertino/jquery-ui.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/jquery.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ko.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang-all.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/lt.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/lv.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lib/moment.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/nb.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/nl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/pl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/pt-br.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/pt.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ro.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/ru.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/sk.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/sl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/sr-cyrl.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/sr.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/sv.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/th.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/tr.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/uk.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/vi.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/zh-cn.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/lang/zh-tw.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Level/Views/backend/listClass.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Level/Views/backend/listClass.blade.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Level/Views/backend/listLevel.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Level/Views/backend/listLevel.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.css" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.js" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.min.css" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.min.js" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.print.css" afterPath="$PROJECT_DIR$/public/assets/libraries/fullcalendar/fullcalendar.print.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/routes.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/routes.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -44,23 +114,11 @@
       <file leaf-file-name="listClass.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Level/Views/backend/listClass.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.8461539">
-              <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="151" selection-end-column="14" />
+            <state vertical-scroll-proportion="-7.6538463">
+              <caret line="151" column="14" selection-start-line="149" selection-start-column="16" selection-end-line="151" selection-end-column="14" />
               <folding>
                 <element signature="n#script#0;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimetableController.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.1218638">
-              <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
-              <folding>
-                <element signature="e#52#74#0#PHP" expanded="true" />
+                <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -69,10 +127,20 @@
       <file leaf-file-name="list.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.846154">
-              <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+            <state vertical-scroll-proportion="-9.153846">
+              <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TimetableController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.42114696">
+              <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
               <folding>
-                <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+                <element signature="e#52#74#0#PHP" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -81,18 +149,18 @@
       <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/routes.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9230769">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state vertical-scroll-proportion="-4.576923">
+              <caret line="7" column="45" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="45" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClassController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Modules/Level/Controllers/ClassController.php">
+      <file leaf-file-name="add.blade.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.653846">
-              <caret line="49" column="13" selection-start-line="40" selection-start-column="8" selection-end-line="49" selection-end-column="13" />
+            <state vertical-scroll-proportion="-10.461538">
+              <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -103,8 +171,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -132,8 +200,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Modules/Resource/Controllers/ResourceController.php" />
-        <option value="$PROJECT_DIR$/app/Modules/Resource/Translations/en/example.php" />
         <option value="$PROJECT_DIR$/database/migrations/2015_11_04_222755_announcements_table.php" />
         <option value="$PROJECT_DIR$/app/Modules/Notice/Controllers/AnnouncementController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Notice/Models/Announcement.php" />
@@ -180,9 +246,11 @@
         <option value="$PROJECT_DIR$/app/Modules/Subject/Views/backend/ModuleSubject.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/Level/Views/backend/listLevel.blade.php" />
         <option value="$PROJECT_DIR$/app/Modules/Level/Views/backend/listClass.blade.php" />
-        <option value="$PROJECT_DIR$/app/Modules/Timetable/routes.php" />
         <option value="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Timetable/routes.php" />
+        <option value="$PROJECT_DIR$/public/assets/libraries/moment/moment.js" />
         <option value="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php" />
       </list>
     </option>
   </component>
@@ -470,6 +538,72 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fullcalendar" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="database" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -688,7 +822,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Subject" />
+              <option name="myItemId" value="Notice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -710,15 +844,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Subject" />
+              <option name="myItemId" value="Notice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="backend" />
+              <option name="myItemId" value="Models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -740,7 +870,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Subject" />
+              <option name="myItemId" value="Notice" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -1041,12 +1171,6 @@
       <option name="number" value="Default" />
       <updated>1445362290500</updated>
     </task>
-    <task id="LOCAL-00079" summary="- ClassLevel and Subjects Architecture">
-      <created>1449265206001</created>
-      <option name="number" value="00079" />
-      <option name="project" value="LOCAL" />
-      <updated>1449265206012</updated>
-    </task>
     <task id="LOCAL-00080" summary="- ClassLevel and Subjects Architecture">
       <created>1449268549491</created>
       <option name="number" value="00080" />
@@ -1335,7 +1459,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450459146761</updated>
     </task>
-    <option name="localTasksCounter" value="128" />
+    <task id="LOCAL-00128" summary="-  TimeTable add TimeTable to Class">
+      <created>1450463738924</created>
+      <option name="number" value="00128" />
+      <option name="project" value="LOCAL" />
+      <updated>1450463738924</updated>
+    </task>
+    <option name="localTasksCounter" value="129" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1349,10 +1479,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39409986" sideWeight="0.50653595" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34266263" sideWeight="0.49346405" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34266263" sideWeight="0.49346405" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32843137" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6650327" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
@@ -1425,27 +1555,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/database/migrations/2015_11_15_220518_messages_table.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.55376345">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/LanguageController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.4623656">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Models/Core.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15232974">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/User/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.2692308">
@@ -1625,22 +1734,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/list.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88351256">
-          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Message/Controllers/MessageController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.38530466">
@@ -1763,14 +1856,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/routes.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9230769">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Level/Models/Classm.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3046595">
@@ -1789,37 +1874,75 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Level/Controllers/ClassController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.653846">
-          <caret line="49" column="13" selection-start-line="40" selection-start-column="8" selection-end-line="49" selection-end-column="13" />
+        <state vertical-scroll-proportion="-1.8028674">
+          <caret line="20" column="50" selection-start-line="19" selection-start-column="8" selection-end-line="20" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Views/backend/list.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5645162">
+          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Notice/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Notice/Controllers/CategoryController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0967742">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/routes.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="7" column="45" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Level/Views/backend/listClass.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8461539">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="151" selection-end-column="14" />
+        <state vertical-scroll-proportion="-7.6538463">
+          <caret line="151" column="14" selection-start-line="149" selection-start-column="16" selection-end-line="151" selection-end-column="14" />
           <folding>
             <element signature="n#script#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/list.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.846154">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="-9.153846">
+          <caret line="165" column="71" selection-start-line="165" selection-start-column="71" selection-end-line="165" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/add.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.461538">
+          <caret line="16" column="7" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1218638">
-          <caret line="17" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.42114696">
+          <caret line="64" column="40" selection-start-line="64" selection-start-column="40" selection-end-line="64" selection-end-column="40" />
           <folding>
             <element signature="e#52#74#0#PHP" expanded="true" />
           </folding>
