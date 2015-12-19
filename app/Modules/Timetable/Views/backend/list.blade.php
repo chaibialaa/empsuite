@@ -164,17 +164,23 @@
                 <div class="panel-body">
 
                     <form method="POST" action="/admin/timetable/add">
-                        <div class="input-group">
+
                             {!! csrf_field() !!}
                             <select name="class" class="form-control">
                                 @foreach($cList as $c)
                                     <option value="{{ $c->id }}">Class {{$c->title}}</option>
                                 @endforeach
                             </select>
-                            <div class="input-group-btn">
+
+                        <select name="type" class="form-control">
+                            @foreach($tList as $t)
+                                <option value="{{ $t->id }}">Class {{$t->title}}</option>
+                            @endforeach
+                        </select>
+
                                 <button type="submit" class="btn btn-success">Create</button>
-                            </div>
-                        </div>
+
+
                     </form>
 
                 </div>

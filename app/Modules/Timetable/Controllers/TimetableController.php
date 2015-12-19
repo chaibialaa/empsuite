@@ -4,7 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
-use Hamcrest\Core\Is;
+use App\Modules\Resource\Models\Classroom;
 use Input, View, DB, App\Helpers\ConfigFromDB;
 
 class TimetableController extends Controller {
@@ -55,18 +55,22 @@ class TimetableController extends Controller {
 
     public function addformTimetable(){
         $data = Input::all();
+
         $module['Title'] = "Timetable Manager";
         $module['SubTitle'] = "New Timetable";
 
         $class = classm::where('id',$data['class'])->first();
+
         $events= DB::table('subject_pc')
             ->where('class_id','=',$data['class'])
             ->join('users','users.id','=','subject_pc.professor_id')
             ->join('subject_cm AS s','s.id','=','subject_pc.cm_id')
             ->join('subjects','subjects.id','=','s.subject_id')
             ->join('modules','modules.id','=','s.module_id')
-            ->select('subjects.title as subject','modules.title as module','users.nom as professor')
+            ->select('subjects.title as subject','modules.title as module','users.nom as professor','subject_pc.id as subject_pc')
             ->get();
+
+        $classroom = classroom::all();
 
         $feList = array();
         foreach ($events as $e) {
@@ -74,16 +78,24 @@ class TimetableController extends Controller {
             $feList[$e->module][] = $array;
         }
 
-
         $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
         $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
         $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
-        $ComposedSubView = View::make('Timetable::backend.add')
-            ->with('class', $class)
-            ->with('feList', $feList);
+        if ($data['class'] == 1){
+            $ComposedSubView = View::make('Timetable::backend.addRroutine')
+                ->with('class', $class)
+                ->with('classroom', $classroom)
+                ->with('feList', $feList);
+        } else {
+            $ComposedSubView = View::make('Timetable::backend.addSpecial')
+                ->with('class', $class)
+                ->with('classroom', $classroom)
+                ->with('feList', $feList);
+        }
+
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
