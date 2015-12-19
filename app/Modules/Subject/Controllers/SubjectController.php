@@ -297,7 +297,12 @@ class SubjectController extends Controller
             ->where('module_id', '=', $data['module'])
             ->first();
 
-        if (!$verify) {
+        $verify2 = DB::table('subject_pc')
+            ->join('subject_cm as s','s.id','=','subject_pc.cm_id')
+            ->where('s.module_id', '=', $data['module'])
+            ->first();
+
+        if (!$verify and !$verify2) {
             if (!array_key_exists('hours', $data)){ $data['hours'] = 0; }
             if (!array_key_exists('minutes', $data)) { $data['minutes'] = 0; }
 
@@ -309,6 +314,8 @@ class SubjectController extends Controller
                     'coefficient' => $data['coef']]);
 
             alert()->success('Sujet ajoute au module avec success');
+        } elseif($verify2){
+            alert()->error('Module utilise dans une classe !');
         } else {
             alert()->error('Sujet deja existant au module');
         }

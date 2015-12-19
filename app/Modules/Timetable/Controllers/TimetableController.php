@@ -67,7 +67,13 @@ class TimetableController extends Controller {
             ->join('modules','modules.id','=','s.module_id')
             ->select('subjects.title as subject','modules.title as module','users.nom as professor')
             ->get();
-        dd($events);
+
+        $feList = array();
+        foreach ($events as $e) {
+            $array = array($e);
+            $feList[$e->module] = $array;
+        }
+        dd($feList);
 
         $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
