@@ -166,19 +166,20 @@
                     <form method="POST" action="/admin/timetable/add">
 
                             {!! csrf_field() !!}
+                        <label>Class</label>
                             <select name="class" class="form-control">
                                 @foreach($cList as $c)
-                                    <option value="{{ $c->id }}">Class {{$c->title}}</option>
+                                    <option value="{{ $c->id }}">{{$c->title}}</option>
                                 @endforeach
                             </select>
-
+                        <label>Timetable Type</label>
                         <select name="type" class="form-control">
                             @foreach($tList as $t)
-                                <option value="{{ $t->id }}">Class {{$t->title}}</option>
+                                <option value="{{ $t->id }}">{{$t->title}}</option>
                             @endforeach
                         </select>
-
-                                <button type="submit" class="btn btn-success">Create</button>
+<br>
+                                <button type="submit" class="btn btn-success btn-block">Create</button>
 
 
                     </form>

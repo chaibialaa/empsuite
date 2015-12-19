@@ -27,6 +27,8 @@ class TimetableController extends Controller {
             ->orderBy('classes.level_id', 'classes.section_id')
             ->get();
 
+        $tList = DB::table('timetable_types')->get();
+
         $fcList = array();
 
         foreach ($fList as $m) {
@@ -46,7 +48,8 @@ class TimetableController extends Controller {
 		$view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
 		$ComposedSubView = View::make('Timetable::backend.list')
 			->with('fcList', $fcList)
-			->with('cList', $cList);
+			->with('cList', $cList)
+            ->with('tList', $tList);
 		$view->with('content', $ComposedSubView)->with('module', $module);
 		$view->with('additionalCsss', $additionalCsss);
 		$view->with('additionalLibs', $additionalLibs);
@@ -85,7 +88,7 @@ class TimetableController extends Controller {
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         if ($data['class'] == 1){
-            $ComposedSubView = View::make('Timetable::backend.addRroutine')
+            $ComposedSubView = View::make('Timetable::backend.addRoutine')
                 ->with('class', $class)
                 ->with('classroom', $classroom)
                 ->with('feList', $feList);

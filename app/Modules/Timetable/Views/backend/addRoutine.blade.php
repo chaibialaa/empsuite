@@ -98,7 +98,7 @@
         $("#add-new-event").click(function (e) {
             e.preventDefault();
             //Get value and make sure it is not null
-            var val = $("#new-event").val();
+            var val = 'Subject : ' + $("#event option:selected").text() + ' <br>Classroom : ' + $("#classroom option:selected").text();
             if (val.length == 0) {
                 return;
             }
@@ -140,7 +140,7 @@
             </div>
             <div class="panel-body">
                 <label>Available Modules : </label>
-                <select class="form-control" name="event">
+                <select class="form-control" name="event" id="event">
                     @foreach($feList as $m=>$value)
                         @foreach($value as $sub_value=>$element)
                             <optgroup label="{{$m}}">
@@ -152,12 +152,12 @@
                     @endforeach
                 </select>
                 <label>Classroom : </label>
-                <select class="form-control" name="classroom">
+                <select class="form-control" name="classroom" id="classroom">
                     @foreach($classroom as $c)
                         <option value="{{$c->id}}">{{$c->title}}</option>
                     @endforeach
                 </select>
-
+                <label>Color</label>
                 <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
                     <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
                     <ul class="fc-color-picker" id="color-chooser">
@@ -174,6 +174,7 @@
                         <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
                         <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
                         <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+                        <li><a style="color:#E9967A;" href="#"><i class="fa fa-square"></i></a></li>
                     </ul>
                 </div>
                 <div class="input-group">
@@ -196,17 +197,7 @@
             <div class="panel-body">
 
                 <div id="external-events">
-                    <div class="external-event bg-green">Lunch</div>
-                    <div class="external-event bg-yellow">Go home</div>
-                    <div class="external-event bg-aqua">Do homework</div>
-                    <div class="external-event bg-light-blue">Work on UI design</div>
-                    <div class="external-event bg-red">Sleep tight</div>
-                    <div class="checkbox">
-                        <label for="drop-remove">
-                            <input type="checkbox" id="drop-remove">
-                            remove after drop
-                        </label>
-                    </div>
+
                 </div>
             </div>
         </div>

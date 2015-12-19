@@ -14,7 +14,7 @@ class TimetablesTable extends Migration
     {
         Schema::create('timetables', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('type');
+            $table->integer('type')->unsigned();
 
             $table->foreign('type')->references('id')->on('timetable_types');
             $table->timestamps();
@@ -23,6 +23,11 @@ class TimetablesTable extends Migration
         Schema::create('timetable_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+        });
+
+        Schema::create('timetable_elements', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('title')->unsigned();
         });
     }
 
