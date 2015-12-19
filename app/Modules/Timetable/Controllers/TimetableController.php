@@ -71,9 +71,9 @@ class TimetableController extends Controller {
         $feList = array();
         foreach ($events as $e) {
             $array = array($e);
-            $feList[$e->module] = $array;
+            $feList[$e->module][] = $array;
         }
-        dd($feList);
+
 
         $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
@@ -82,7 +82,8 @@ class TimetableController extends Controller {
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Timetable::backend.add')
-            ->with('class', $class);
+            ->with('class', $class)
+            ->with('feList', $feList);
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
