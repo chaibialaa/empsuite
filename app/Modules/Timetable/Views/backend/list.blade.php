@@ -158,17 +158,17 @@
             <div class="panel panel-default ">
                 <div class="panel-heading">
 
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new level</h3>
+                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new timetable</h3>
 
                 </div>
                 <div class="panel-body">
 
-                    <form method="POST" action="/admin/timetable/class/add">
+                    <form method="POST" action="/admin/timetable/add">
                         <div class="input-group">
                             {!! csrf_field() !!}
                             <select name="class" class="form-control">
                                 @foreach($cList as $c)
-                                    <option value="{{ $c->id }}">{{$c->title}}</option>
+                                    <option value="{{ $c->id }}">Class {{$c->title}}</option>
                                 @endforeach
                             </select>
                             <div class="input-group-btn">

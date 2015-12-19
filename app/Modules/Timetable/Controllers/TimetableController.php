@@ -59,6 +59,15 @@ class TimetableController extends Controller {
         $module['SubTitle'] = "New Timetable";
 
         $class = classm::where('id',$data['class'])->first();
+        $events= DB::table('subject_pc')
+            ->where('class_id','=',$data['class'])
+            ->join('users','users.id','=','subject_pc.professor_id')
+            ->join('subject_cm AS s','s.id','=','subject_pc.cm_id')
+            ->join('subjects','subjects.id','=','s.subject_id')
+            ->join('modules','modules.id','=','s.module_id')
+            ->select('subjects.title as subject','modules.title as module','users.nom as professor')
+            ->get();
+        dd($events);
 
         $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";

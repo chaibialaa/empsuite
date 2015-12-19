@@ -133,11 +133,10 @@ class SubjectController extends Controller
             }
         }
 
-        $cList = DB::table('level_classes')
-            ->join('classes', 'classes.id', '=', 'level_classes.class_id')
-            ->join('levels', 'levels.id', '=', 'level_classes.level_id')
+        $cList = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
             ->select('classes.title as class_title', 'levels.title as level_title', 'classes.id as id')
-            ->orderBy('level_classes.level_id')
+            ->orderBy('classes.level_id')
             ->get();
 
         $fcList = array();

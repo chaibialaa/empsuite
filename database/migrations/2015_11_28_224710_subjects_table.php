@@ -48,13 +48,6 @@ class SubjectsTable extends Migration
             $table->foreign('professor_id')->references('id')->on('users');
         });
 
-        Schema::create('module_classes', function (Blueprint $table) {
-            $table->integer('module_id')->unsigned();
-            $table->integer('class_id')->unsigned();
-
-            $table->foreign('module_id')->references('id')->on('modules');
-            $table->foreign('class_id')->references('id')->on('classes');
-        });
     }
 
     /**
@@ -68,6 +61,6 @@ class SubjectsTable extends Migration
         Schema::drop('modules');
         Schema::drop('subject_cm');
         Schema::drop('subject_cp');
-        Schema::drop('module_classes');
+
     }
 }
