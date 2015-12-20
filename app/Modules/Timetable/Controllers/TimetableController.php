@@ -73,7 +73,17 @@ class TimetableController extends Controller {
             ->select('subjects.title as subject','modules.title as module','users.nom as professor','subject_pc.id as subject_pc')
             ->get();
 
-        $classroom = classroom::all();
+        $classroom = DB::table('classrooms')
+            ->join('classroom_statuses as c','c.id','=','classrooms.status')
+            ->select('classrooms.id as id','c.title as status','classrooms.title as title','classrooms.status as st')
+            ->orderBy('status')
+            ->get();
+        $fcList = array();
+
+        foreach ($classroom as $c) {
+            $array = array($c);
+            $fcList[$c->status][] = $array;
+        }
 
         $feList = array();
         foreach ($events as $e) {
@@ -90,7 +100,7 @@ class TimetableController extends Controller {
         if ($data['class'] == 1){
             $ComposedSubView = View::make('Timetable::backend.addRoutine')
                 ->with('class', $class)
-                ->with('classroom', $classroom)
+                ->with('classroom', $fcList)
                 ->with('feList', $feList);
         } else {
             $ComposedSubView = View::make('Timetable::backend.addSpecial')

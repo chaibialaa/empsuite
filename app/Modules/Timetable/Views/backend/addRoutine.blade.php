@@ -31,9 +31,6 @@
          -----------------------------------------------------------------*/
         //Date for the calendar events (dummy data)
         var date = new Date();
-        var d = date.getDate(),
-                m = date.getMonth(),
-                y = date.getFullYear();
         $('#calendar').fullCalendar({
             businessHours: {
                 start: '07:00',
@@ -47,14 +44,12 @@
             defaultView: 'agendaWeek',
             columnFormat: 'dddd',
             titleFormat: 'YYYY',
+            defaultTimedEventDuration: '01:00:00',
             header: {
                 left: '',
                 center: 'title',
                 right: ''
             },
-            //Random default events
-            events: [
-                           ],
             editable: true,
             droppable: true, // this allows things to be dropped onto the calendar !!!
             drop: function (date ) { // this function is called when something is dropped
@@ -75,7 +70,7 @@
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
-                // is the "remove after drop" checkbox checked?
+                // here we should do the test between duration and the max duration
                 if ($('#drop-remove').is(':checked')) {
                     // if so, remove the element from the "Draggable Events" list
                     $(this).remove();
@@ -97,8 +92,8 @@
         });
         $("#add-new-event").click(function (e) {
             e.preventDefault();
-            //Get value and make sure it is not null
-            var val = 'Subject : ' + $("#event option:selected").text() + ' <br>Classroom : ' + $("#classroom option:selected").text();
+
+            var val = $("#event option:selected").text() + ' <br>Classroom : ' + $("#classroom option:selected").text()+ ' <br><br> Prof. : ' + $("#"+$("#event option:selected").val()).val();
             if (val.length == 0) {
                 return;
             }
@@ -146,6 +141,7 @@
                             <optgroup label="{{$m}}">
                                 @foreach($element as $sub_element=>$val)
                                     <option value="{{$val->subject_pc}}">{{$val->subject}}</option>
+                                    <input type="hidden" value="{{$val->professor}}" id="{{$val->subject_pc}}">
                                 @endforeach
                             </optgroup>
                         @endforeach
@@ -153,8 +149,14 @@
                 </select>
                 <label>Classroom : </label>
                 <select class="form-control" name="classroom" id="classroom">
-                    @foreach($classroom as $c)
-                        <option value="{{$c->id}}">{{$c->title}}</option>
+                    @foreach($classroom as $m=>$value)
+                        <optgroup label="{{$m}}">
+                        @foreach($value as $sub_value=>$element)
+                                @foreach($element as $sub_element=>$val)
+                                    <option @if ($val->st == 2) disabled @endif value="{{$val->id}}">{{$val->title}}</option>
+                                @endforeach
+                        @endforeach
+                        </optgroup>
                     @endforeach
                 </select>
                 <label>Color</label>
@@ -177,14 +179,11 @@
                         <li><a style="color:#E9967A;" href="#"><i class="fa fa-square"></i></a></li>
                     </ul>
                 </div>
-                <div class="input-group">
-                    <input id="new-event" type="text" class="form-control" placeholder="Event Title">
 
-                    <div class="input-group-btn">
-                        <button id="add-new-event" type="button" class="btn btn-primary btn-flat">Add</button>
-                    </div>
+                        <button id="add-new-event" type="button" class="btn btn-primary btn-block">Add</button>
+
                     <!-- /btn-group -->
-                </div>
+
             </div>
         </div>
 
