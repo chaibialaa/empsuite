@@ -4,8 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
-use App\Modules\Resource\Models\Classroom;
-use Input, View, DB, App\Helpers\ConfigFromDB, Kamaln7\Toastr;
+use Input, View, DB, App\Helpers\ConfigFromDB;
 
 class TimetableController extends Controller {
 
@@ -123,8 +122,22 @@ class TimetableController extends Controller {
     }
 
     public function verifyClassroom(){
+        $d= Input::all();
+        $d['end']= '05:00';
+        $compare = DB::table('timetable_elements')
+            ->where('classroom','=',$d['classroom'])
+            ->whereBetween('startTime',array($d['start'], $d['end']))
+            ->orWhereBetween('endTime',array($d['start'], $d['end']))
+            ->get();
 
-        return response()->json(['state'=>'0'],200);
+
+        $state = 1;
+        if ($compare){
+            $state = 0;
+        }
+
+
+        return response()->json(['state'=>$state],200);
     }
 
 }

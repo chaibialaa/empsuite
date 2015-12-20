@@ -1,28 +1,55 @@
 <script>
     function verifyClassroom(event) {
-        var title = event.title;
+
         var start = event.start.format("h:m");
+        var classroom = event.classroom;
+
+
         $.ajax({
             url: "/admin/timetable/verify",
             headers: {
                 'X-CSRF-TOKEN': $('#crsf').val()
             },
-            type: "post",
-            contentType: "application/json; charset=utf-8",
-            data: 'type=new&title='+title+'&startdate='+start,
+            type: "GET",
+            contentType: "application/json",
+            data: {"start":start,"classroom":classroom},
             dataType: "json",
             success: function(response){
-                if (response['state']==='0')
-                    toastr.error('Are you the 6 fingered man?'+start);
-
-                if (response['state']==='1')
-                    toastr.info('Are you the 6 fingered man?');
+                if (response['state']===0)
+                    toastr.error('The classroom is already used in same chosen time');
             },
             error : function(e){
                 console.log(e.responseText);
             }
 
         });
+
+
+    }
+    function verifyProfessor(event) {
+        var start = event.start.format("h:m");
+        var subject_pc = event.spc;
+
+
+        $.ajax({
+            url: "/admin/timetable/verify",
+            headers: {
+                'X-CSRF-TOKEN': $('#crsf').val()
+            },
+            type: "GET",
+            contentType: "application/json",
+            data: {"start":start,"subject_pc":subject_pc},
+            dataType: "json",
+            success: function(response){
+                if (response['state']===0)
+                    toastr.error('The classroom is already used in same chosen time');
+            },
+            error : function(e){
+                console.log(e.responseText);
+            }
+
+        });
+
 
     }
     $(function () {
@@ -90,7 +117,8 @@
 
                 // assign it the date that was reported
                 copiedEventObject.start = date;
-
+                copiedEventObject.spc = $(this).attr('subject_pc');
+                copiedEventObject.classroom = $(this).attr('classroom');
                 copiedEventObject.backgroundColor = $(this).css("background-color");
                 copiedEventObject.borderColor = $(this).css("border-color");
 
@@ -99,7 +127,7 @@
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
                 verifyClassroom(copiedEventObject);
-
+                verifyProfessor(copiedEventObject);
                 // here we should do the test between duration and the max duration
                 if ($('#drop-remove').is(':checked')) {
                     // if so, remove the element from the "Draggable Events" list
@@ -131,6 +159,9 @@
             //Create events
             var event = $("<div />");
             event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+            event.attr('subject_pc', $("#event option:selected").val());
+            event.attr('classroom', $("#classroom option:selected").val());
+
             event.html(val);
             $('#external-events').prepend(event);
 

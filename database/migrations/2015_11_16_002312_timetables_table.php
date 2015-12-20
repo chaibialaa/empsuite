@@ -27,7 +27,17 @@ class TimetablesTable extends Migration
 
         Schema::create('timetable_elements', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('title')->unsigned();
+            $table->integer('timetable')->unsigned();
+            $table->time('startTime');
+            $table->time('endTime');
+            $table->date('date');
+            $table->string('color');
+            $table->integer('classroom')->unsigned();
+            $table->integer('subject_pc')->unsigned();
+
+            $table->foreign('timetable')->references('id')->on('timetables');
+            $table->foreign('classroom')->references('id')->on('classrooms');
+            $table->foreign('subject_pc')->references('id')->on('subject_pc');
         });
     }
 
@@ -40,5 +50,6 @@ class TimetablesTable extends Migration
     {
         Schema::drop('timetables');
         Schema::drop('timetable_types');
+        Schema::drop('timetable_elements');
     }
 }
