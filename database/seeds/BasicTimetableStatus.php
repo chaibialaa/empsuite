@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class BasicTimetableType extends Seeder
+class BasicTimetableStatus extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class BasicTimetableType extends Seeder
         ]);
 
         DB::table('timetable_types')->insert([
-            'title' => 'Special',
+            'title' => 'Exams',
 
         ]);
 

@@ -1,5 +1,32 @@
 <script>
+    function verifyClassroom(event) {
+        var title = event.title;
+        var start = event.start.format("h:m");
+        $.ajax({
+            url: "/admin/timetable/verify",
+            headers: {
+                'X-CSRF-TOKEN': $('#crsf').val()
+            },
+            type: "post",
+            contentType: "application/json; charset=utf-8",
+            data: 'type=new&title='+title+'&startdate='+start,
+            dataType: "json",
+            success: function(response){
+                if (response['state']==='0')
+                    toastr.error('Are you the 6 fingered man?'+start);
+
+                if (response['state']==='1')
+                    toastr.info('Are you the 6 fingered man?');
+            },
+            error : function(e){
+                console.log(e.responseText);
+            }
+
+        });
+
+    }
     $(function () {
+
 
         /* initialize the external events
          -----------------------------------------------------------------*/
@@ -39,6 +66,7 @@
             },
             minTime: '07:00',
             maxTime: '19:00',
+            hiddenDays: [ 0 ],
             slotDuration: '00:05:00',
             allDaySlot: false,
             defaultView: 'agendaWeek',
@@ -69,6 +97,8 @@
                 // render the event on the calendar
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                verifyClassroom(copiedEventObject);
 
                 // here we should do the test between duration and the max duration
                 if ($('#drop-remove').is(':checked')) {
@@ -134,7 +164,9 @@
 
             </div>
             <div class="panel-body">
+                <form>
                 <label>Available Modules : </label>
+                    <input type="hidden" value="{!! csrf_token() !!}" id="crsf">
                 <select class="form-control" name="event" id="event">
                     @foreach($feList as $m=>$value)
                         @foreach($value as $sub_value=>$element)
@@ -180,17 +212,17 @@
                     </ul>
                 </div>
 
-                        <button id="add-new-event" type="button" class="btn btn-primary btn-block">Add</button>
+                        <button id="add-new-event" type="button" class="btn btn-primary btn-block">Create</button>
 
                     <!-- /btn-group -->
-
+                </form>
             </div>
         </div>
 
         <div class="panel panel-default ">
             <div class="panel-heading">
 
-                <h3 class="panel-title"><i class="fa fa-list"></i> Events Events</h3>
+                <h3 class="panel-title"><i class="fa fa-list"></i> Events List</h3>
 
             </div>
             <div class="panel-body">

@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
 use App\Modules\Resource\Models\Classroom;
-use Input, View, DB, App\Helpers\ConfigFromDB;
+use Input, View, DB, App\Helpers\ConfigFromDB, Kamaln7\Toastr;
 
 class TimetableController extends Controller {
 
@@ -94,7 +94,9 @@ class TimetableController extends Controller {
         $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
         $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
+        $additionalLibs[3] = "libraries/toastr/toastr.js";
         $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
+        $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         if ($data['class'] == 1){
@@ -118,6 +120,11 @@ class TimetableController extends Controller {
     public function addTimetable(){
 
         return $this->redirectTimetable();
+    }
+
+    public function verifyClassroom(){
+
+        return response()->json(['state'=>'0'],200);
     }
 
 }
