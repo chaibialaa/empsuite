@@ -89,7 +89,7 @@
                 dow: [1, 2, 3, 4, 5, 6]
             },
             minTime: '07:00',
-            defaultDate: date.getFullYear()+'-05-09',
+            defaultDate: date.getFullYear()+'-05-08',
             maxTime: '19:00',
             hiddenDays: [ 0 ],
             slotDuration: '00:05:00',
@@ -115,6 +115,7 @@
 
                 // assign it the date that was reported
                 copiedEventObject.start = date;
+                copiedEventObject.end = date + 3600000;
                 copiedEventObject.spc = $(this).attr('subject_pc');
                 copiedEventObject.classroom = $(this).attr('classroom');
                 copiedEventObject.backgroundColor = $(this).css("background-color");
@@ -141,14 +142,16 @@
             var fE = [];
             $.each( events, function( key, value ) {
                 fE.push({
-                    id : value._id,
-                    Item : [{
+
+
                         bg : value.backgroundColor,
                         classroom : value.classroom,
-                        spc : value.spc}]
+                        spc : value.spc,
+                        start : value.start._d,
+                        end : value.end._d
                 });
             });
-            console.log(fE);
+
             $.ajax({
                 url: "/admin/timetable/submit",
                 headers: {

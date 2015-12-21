@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7442e83f-7387-4ae2-b64e-c615224a210f" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Models/Timetable.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Models/Timetable.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="empsuite.iws" />
@@ -33,45 +36,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TimetableController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TimetableController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.153846">
-              <caret line="120" column="43" selection-start-line="120" selection-start-column="43" selection-end-line="120" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.1469534">
+              <caret line="140" column="5" selection-start-line="140" selection-start-column="5" selection-end-line="140" selection-end-column="5" />
               <folding>
                 <element signature="e#52#74#0#PHP" expanded="true" />
-                <element signature="e#348#2008#0#PHP" expanded="false" />
-                <element signature="e#2014#4551#0#PHP" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015_11_16_002312_timetables_table.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/database/migrations/2015_11_16_002312_timetables_table.php">
+      <file leaf-file-name="Notice.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/Modules/Notice/Models/Notice.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.961538">
-              <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+            <state vertical-scroll-proportion="-7.1923075">
+              <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/routes.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9230769">
-              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="addRoutine.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="addRoutine.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6272401">
-              <caret line="161" column="45" selection-start-line="161" selection-start-column="45" selection-end-line="161" selection-end-column="45" />
+            <state vertical-scroll-proportion="-59.5">
+              <caret line="91" column="51" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -111,7 +102,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/Modules/Notice/Views/widgets/flexslider.blade.php" />
         <option value="$PROJECT_DIR$/database/seeds/BasicPermission.php" />
         <option value="$PROJECT_DIR$/app/Modules/Message/Controllers/MessageController.php" />
         <option value="$PROJECT_DIR$/app/Modules/Notice/Controllers/CategoryController.php" />
@@ -160,8 +150,9 @@
         <option value="$PROJECT_DIR$/database/migrations/2015_11_16_002312_timetables_table.php" />
         <option value="$PROJECT_DIR$/app/Modules/Timetable/routes.php" />
         <option value="$PROJECT_DIR$/storage/logs/laravel.log" />
-        <option value="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Timetable/Models/Timetable.php" />
         <option value="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php" />
+        <option value="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
       </list>
     </option>
   </component>
@@ -626,6 +617,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="backend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="empsuite" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Timetable" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1116,12 +1133,6 @@
       <option name="number" value="Default" />
       <updated>1445362290500</updated>
     </task>
-    <task id="LOCAL-00096" summary="- Subject Module Refactor for Prof/Mod/Class">
-      <created>1449706482945</created>
-      <option name="number" value="00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1449706482945</updated>
-    </task>
     <task id="LOCAL-00097" summary="- Subject Module Refactor for Prof/Mod/Class">
       <created>1449706541416</created>
       <option name="number" value="00097" />
@@ -1410,7 +1421,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450734500436</updated>
     </task>
-    <option name="localTasksCounter" value="145" />
+    <task id="LOCAL-00145" summary="I AM A GENIUS STAGE">
+      <created>1450734515565</created>
+      <option name="number" value="00145" />
+      <option name="project" value="LOCAL" />
+      <updated>1450734515565</updated>
+    </task>
+    <option name="localTasksCounter" value="146" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1495,25 +1512,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="15" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/Modules/Subject/Models/Module.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1827957">
-          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="8" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/User/Controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7060932">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Resource/routes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.230769">
@@ -1852,7 +1855,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/routes.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9230769">
+        <state vertical-scroll-proportion="0.1827957">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding />
         </state>
@@ -1860,29 +1863,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/database/migrations/2015_11_16_002312_timetables_table.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.961538">
+        <state vertical-scroll-proportion="0.60394263">
           <caret line="33" column="36" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Models/Timetable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Notice/Models/Notice.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1923075">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-59.5">
+          <caret line="91" column="51" selection-start-line="91" selection-start-column="51" selection-end-line="91" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.153846">
-          <caret line="120" column="43" selection-start-line="120" selection-start-column="43" selection-end-line="120" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.1469534">
+          <caret line="140" column="5" selection-start-line="140" selection-start-column="5" selection-end-line="140" selection-end-column="5" />
           <folding>
             <element signature="e#52#74#0#PHP" expanded="true" />
-            <element signature="e#348#2008#0#PHP" expanded="false" />
-            <element signature="e#2014#4551#0#PHP" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6272401">
-          <caret line="161" column="45" selection-start-line="161" selection-start-column="45" selection-end-line="161" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>

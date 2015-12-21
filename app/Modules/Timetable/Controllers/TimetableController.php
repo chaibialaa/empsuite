@@ -4,8 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
+use App\Modules\Timetable\Models\Timetable;
 use Input, View, DB, App\Helpers\ConfigFromDB;
-use Log;
+use DateTime;
 class TimetableController extends Controller {
 
     public function redirectTimetable(){
@@ -98,7 +99,7 @@ class TimetableController extends Controller {
         $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
-        if ($data['class'] == 1){
+        if ($data['type'] == 1){
             $ComposedSubView = View::make('Timetable::backend.addRoutine')
                 ->with('class', $class)
                 ->with('classroom', $fcList)
@@ -117,13 +118,31 @@ class TimetableController extends Controller {
     }
 
     public function addTimetable(){
+        $d = Input::all();
+        // TODO Update class with timetable id
+        $timetable = Timetable::create([
+            'type' => 1
+        ]);
+        foreach($d['events'] as $e=>$t){
+                $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
+                $end = DateTime::createFromFormat('D M d Y H:i:s e+',$t['end']);
+                DB::table('timetable_elements')->insert([
+                    'timetable' => $timetable->id,
+                    'startTime' => $start->format('H:i:s'),
+                    'endTime' => $end->format('H:i:s'),
+                    'date' => $start->format('Y-m-d'),
+                    'color' => $t['bg'],
+                    'subject_pc' => $t['spc'],
+                    'classroom' => $t['classroom'],
+                ]);
 
+        }
         return response()->json(['state'=>1],200);
     }
 
     public function verifyClassroom(){
+        //reformat dates to DB dates (time)
         $d= Input::all();
-        $d['end']= '05:00';
         $compare = DB::table('timetable_elements')
             ->where('classroom','=',$d['classroom'])
             ->whereBetween('startTime',array($d['start'], $d['end']))
