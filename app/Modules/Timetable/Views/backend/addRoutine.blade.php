@@ -89,7 +89,7 @@
                 dow: [1, 2, 3, 4, 5, 6]
             },
             minTime: '07:00',
-            defaultDate: date.getFullYear()+'-06-06',
+            defaultDate: date.getFullYear()+'-05-09',
             maxTime: '19:00',
             hiddenDays: [ 0 ],
             slotDuration: '00:05:00',
@@ -136,8 +136,9 @@
         });
 
         $("#saveTimetable").click(function (e) {
+            e.preventDefault();
             var events = $('#calendar').fullCalendar( 'clientEvents');
-            console.log(events);
+
             $.ajax({
                 url: "/admin/timetable/submit",
                 headers: {
