@@ -139,5 +139,25 @@ class TimetableController extends Controller {
 
         return response()->json(['state'=>$state],200);
     }
+    public function verifyProfessor(){
+        $d= Input::all();
+        $professor = DB::table('subject_pc')->where('id','=',$d['subject_pc'])->select('professor')->first();
+
+        $compare = DB::table('timetable_elements')
+            ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
+            ->where('pc.professor','=',$professor)
+            ->whereBetween('startTime',array($d['start'], $d['end']))
+            ->orWhereBetween('endTime',array($d['start'], $d['end']))
+            ->get();
+
+
+        $state = 1;
+        if ($compare){
+            $state = 0;
+        }
+
+
+        return response()->json(['state'=>$state],200);
+    }
 
 }

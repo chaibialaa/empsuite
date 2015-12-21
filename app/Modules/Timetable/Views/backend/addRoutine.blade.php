@@ -6,7 +6,7 @@
 
 
         $.ajax({
-            url: "/admin/timetable/verify",
+            url: "/admin/timetable/verifyC",
             headers: {
                 'X-CSRF-TOKEN': $('#crsf').val()
             },
@@ -32,7 +32,7 @@
 
 
         $.ajax({
-            url: "/admin/timetable/verify",
+            url: "/admin/timetable/verifyP",
             headers: {
                 'X-CSRF-TOKEN': $('#crsf').val()
             },
@@ -42,7 +42,7 @@
             dataType: "json",
             success: function(response){
                 if (response['state']===0)
-                    toastr.error('The classroom is already used in same chosen time');
+                    toastr.error('The Professor is already teaching in same chosen time');
             },
             error : function(e){
                 console.log(e.responseText);
@@ -81,9 +81,6 @@
 
         ini_events($('#external-events div.external-event'));
 
-        /* initialize the calendar
-         -----------------------------------------------------------------*/
-        //Date for the calendar events (dummy data)
         var date = new Date();
         $('#calendar').fullCalendar({
             businessHours: {
@@ -137,15 +134,12 @@
             }
         });
 
-        /* ADDING EVENTS */
-        var currColor = "#3c8dbc"; //Red by default
-        //Color chooser button
+
+        var currColor = "#3c8dbc";
         var colorChooser = $("#color-chooser-btn");
         $("#color-chooser > li > a").click(function (e) {
             e.preventDefault();
-            //Save color
-            currColor = $(this).css("color");
-            //Add color effect to button
+              currColor = $(this).css("color");
             $('#add-new-event').css({"background-color": currColor, "border-color": currColor});
         });
         $("#add-new-event").click(function (e) {
