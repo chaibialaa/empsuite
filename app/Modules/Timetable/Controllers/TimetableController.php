@@ -117,7 +117,8 @@ class TimetableController extends Controller {
     }
 
     public function addTimetable(){
-
+        $d= Input::all();
+        dd($d);
         return $this->redirectTimetable();
     }
 
@@ -141,11 +142,12 @@ class TimetableController extends Controller {
     }
     public function verifyProfessor(){
         $d= Input::all();
-        $professor = DB::table('subject_pc')->where('id','=',$d['subject_pc'])->select('professor')->first();
+        $d['end']= '05:00';
+        $professor = DB::table('subject_pc')->where('id','=',$d['subject_pc'])->select('professor_id as id')->first();
 
         $compare = DB::table('timetable_elements')
             ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
-            ->where('pc.professor','=',$professor)
+            ->where('pc.professor_id','=',$professor->id)
             ->whereBetween('startTime',array($d['start'], $d['end']))
             ->orWhereBetween('endTime',array($d['start'], $d['end']))
             ->get();

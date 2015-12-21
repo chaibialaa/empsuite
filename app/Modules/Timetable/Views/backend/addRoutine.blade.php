@@ -89,6 +89,7 @@
                 dow: [1, 2, 3, 4, 5, 6]
             },
             minTime: '07:00',
+            defaultDate: date.getFullYear()+'-06-06',
             maxTime: '19:00',
             hiddenDays: [ 0 ],
             slotDuration: '00:05:00',
@@ -134,7 +135,28 @@
             }
         });
 
+        $("#saveTimetable").click(function (e) {
+            var events = $('#calendar').fullCalendar( 'clientEvents');
+            console.log(events);
+            $.ajax({
+                url: "/admin/timetable/submit",
+                headers: {
+                    'X-CSRF-TOKEN': $('#crsf').val()
+                },
+                type: "GET",
+                contentType: "application/json",
+                data: {events:events},
+                dataType: "json",
+                success: function(response){
+                    if (response['state']===0)
+                        toastr.error('The classroom is already used in same chosen time');
+                },
+                error : function(e){
+                    console.log(e.responseText);
+                }
 
+            });
+        });
         var currColor = "#3c8dbc";
         var colorChooser = $("#color-chooser-btn");
         $("#color-chooser > li > a").click(function (e) {
@@ -182,6 +204,9 @@
     </div>
 
     <div class="col-md-3">
+
+        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable" >
+        <br>
         <div class="panel panel-default ">
             <div class="panel-heading">
 
