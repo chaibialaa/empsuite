@@ -118,9 +118,9 @@ class TimetableController extends Controller {
 
     public function addTimetable(){
         $d= Input::all();
-
-        foreach($d['events'] as $e){
-
+        $jd = json_decode($d['events'], true);
+        foreach($jd as $e=>$k){
+                dd($k->_id);
         }
         return response()->json(['state'=>0],200);
     }

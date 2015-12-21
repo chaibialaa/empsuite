@@ -136,9 +136,9 @@
         });
 
         $("#saveTimetable").click(function (e) {
-            e.preventDefault();
-            var events = $('#calendar').fullCalendar( 'clientEvents');
 
+            var events = $('#calendar').fullCalendar( 'clientEvents');
+            console.log(events);
             $.ajax({
                 url: "/admin/timetable/submit",
                 headers: {
