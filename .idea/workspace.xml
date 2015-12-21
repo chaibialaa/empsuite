@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7442e83f-7387-4ae2-b64e-c615224a210f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Controllers/TimetableController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php" afterPath="$PROJECT_DIR$/app/Modules/Timetable/Views/backend/addRoutine.blade.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="empsuite.iws" />
@@ -1118,12 +1116,6 @@
       <option name="number" value="Default" />
       <updated>1445362290500</updated>
     </task>
-    <task id="LOCAL-00095" summary="- Subject Module Refactor for Prof/Mod/Class">
-      <created>1449703305458</created>
-      <option name="number" value="00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1449703305459</updated>
-    </task>
     <task id="LOCAL-00096" summary="- Subject Module Refactor for Prof/Mod/Class">
       <created>1449706482945</created>
       <option name="number" value="00096" />
@@ -1412,7 +1404,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450721537152</updated>
     </task>
-    <option name="localTasksCounter" value="144" />
+    <task id="LOCAL-00144" summary="I AM A GENIUS STAGE">
+      <created>1450734500435</created>
+      <option name="number" value="00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1450734500436</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TodoView">
@@ -1468,7 +1466,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/vendor/empsuite" />
     </ignored-roots>
-    <MESSAGE value="- Statements Module Start in Frontend" />
     <MESSAGE value="- Statements Module WorkShop" />
     <MESSAGE value="- Announcement Module Management" />
     <MESSAGE value="- Announcement Module Management&#10;- Design Change in Frontend" />
@@ -1493,7 +1490,8 @@
     <MESSAGE value="-  TimeTable add TimeTable to Class with AJAX Starting VERIFY" />
     <MESSAGE value="-  TimeTable VERIFS AJAX ! Great Move forward !" />
     <MESSAGE value="-  TimeTable VERIFS AJAX" />
-    <option name="LAST_COMMIT_MESSAGE" value="-  TimeTable VERIFS AJAX" />
+    <MESSAGE value="I AM A GENIUS STAGE" />
+    <option name="LAST_COMMIT_MESSAGE" value="I AM A GENIUS STAGE" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
