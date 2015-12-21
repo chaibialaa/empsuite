@@ -118,7 +118,7 @@
                 copiedEventObject.spc = $(this).attr('subject_pc');
                 copiedEventObject.classroom = $(this).attr('classroom');
                 copiedEventObject.backgroundColor = $(this).css("background-color");
-                copiedEventObject.borderColor = $(this).css("border-color");
+                copiedEventObject.borderColor = $(this).css("background-color");
 
                 // render the event on the calendar
                 // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
@@ -138,7 +138,17 @@
         $("#saveTimetable").click(function (e) {
 
             var events = $('#calendar').fullCalendar( 'clientEvents');
-            console.log(events);
+            var fE = [];
+            $.each( events, function( key, value ) {
+                fE.push({
+                    id : value._id,
+                    Item : [{
+                        bg : value.backgroundColor,
+                        classroom : value.classroom,
+                        spc : value.spc}]
+                });
+            });
+            console.log(fE);
             $.ajax({
                 url: "/admin/timetable/submit",
                 headers: {
@@ -146,10 +156,10 @@
                 },
                 type: "GET",
                 contentType: "application/json",
-                data: {events:events},
+                data: {events:fE},
                 dataType: "json",
                 success: function(response){
-                    if (response['state']===0)
+                    if (response['state']===1)
                         toastr.error('The classroom is already used in same chosen time');
                 },
                 error : function(e){
@@ -168,7 +178,7 @@
         $("#add-new-event").click(function (e) {
             e.preventDefault();
 
-            var val = $("#event option:selected").text() + ' <br>Classroom : ' + $("#classroom option:selected").text()+ ' <br><br> Prof. : ' + $("#"+$("#event option:selected").val()).val();
+            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#"+$("#event option:selected").val()).val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
             if (val.length == 0) {
                 return;
             }

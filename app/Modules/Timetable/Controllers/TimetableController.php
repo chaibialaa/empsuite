@@ -4,8 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
-use Input, View, DB, App\Helpers\ConfigFromDB, Illuminate\Support\Facades\Log;
-
+use Input, View, DB, App\Helpers\ConfigFromDB;
+use Log;
 class TimetableController extends Controller {
 
     public function redirectTimetable(){
@@ -117,12 +117,8 @@ class TimetableController extends Controller {
     }
 
     public function addTimetable(){
-        $d= Input::all();
-        $jd = json_decode($d['events'], true);
-        foreach($jd as $e=>$k){
-                dd($k->_id);
-        }
-        return response()->json(['state'=>0],200);
+
+        return response()->json(['state'=>1],200);
     }
 
     public function verifyClassroom(){
