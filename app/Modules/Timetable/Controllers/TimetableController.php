@@ -131,6 +131,7 @@ class TimetableController extends Controller {
                     'startTime' => $start->format('H:i:s'),
                     'endTime' => $end->format('H:i:s'),
                     'date' => $start->format('Y-m-d'),
+                    'day' => $start->format('D'),
                     'color' => $t['bg'],
                     'subject_pc' => $t['spc'],
                     'classroom' => $t['classroom'],
@@ -141,10 +142,13 @@ class TimetableController extends Controller {
     }
 
     public function verifyClassroom(){
-        //reformat dates to DB dates (time)
+
         $d= Input::all();
+        $day = DateTime::createFromFormat('D M d Y H:i:s e+',$d['day'])->format('D');
+
         $compare = DB::table('timetable_elements')
             ->where('classroom','=',$d['classroom'])
+            ->where('day','=',$day)
             ->whereBetween('startTime',array($d['start'], $d['end']))
             ->orWhereBetween('endTime',array($d['start'], $d['end']))
             ->get();
@@ -160,16 +164,16 @@ class TimetableController extends Controller {
     }
     public function verifyProfessor(){
         $d= Input::all();
-        $d['end']= '05:00';
         $professor = DB::table('subject_pc')->where('id','=',$d['subject_pc'])->select('professor_id as id')->first();
+        $day = DateTime::createFromFormat('D M d Y H:i:s e+',$d['day'])->format('D');
 
         $compare = DB::table('timetable_elements')
             ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
             ->where('pc.professor_id','=',$professor->id)
+            ->where('day','=',$day)
             ->whereBetween('startTime',array($d['start'], $d['end']))
             ->orWhereBetween('endTime',array($d['start'], $d['end']))
             ->get();
-
 
         $state = 1;
         if ($compare){

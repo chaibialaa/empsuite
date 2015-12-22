@@ -1,9 +1,10 @@
 <script>
     function verifyClassroom(event) {
 
-        var start = event.start.format("h:m");
+        var start = event.start.format("HH:mm:ss");
         var classroom = event.classroom;
-
+        var end = new Date(event.end - 3600000).toLocaleTimeString();
+        var dayFull = event.start.toLocaleString();
 
         $.ajax({
             url: "/admin/timetable/verifyC",
@@ -12,13 +13,13 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start":start,"classroom":classroom},
+            data: {"start": start, "end": end, "classroom": classroom, "day": dayFull},
             dataType: "json",
-            success: function(response){
-                if (response['state']===0)
+            success: function (response) {
+                if (response['state'] === 0)
                     toastr.error('The classroom is already used in same chosen time');
             },
-            error : function(e){
+            error: function (e) {
                 console.log(e.responseText);
             }
 
@@ -27,9 +28,10 @@
 
     }
     function verifyProfessor(event) {
-        var start = event.start.format("h:m");
+        var start = event.start.format("HH:mm:ss");
+        var end = new Date(event.end - 3600000).toLocaleTimeString();
         var subject_pc = event.spc;
-
+        var dayFull = event.start.toLocaleString();
 
         $.ajax({
             url: "/admin/timetable/verifyP",
@@ -38,13 +40,13 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start":start,"subject_pc":subject_pc},
+            data: {"start": start, "end": end, "subject_pc": subject_pc, "day": dayFull},
             dataType: "json",
-            success: function(response){
-                if (response['state']===0)
+            success: function (response) {
+                if (response['state'] === 0)
                     toastr.error('The Professor is already teaching in same chosen time');
             },
-            error : function(e){
+            error: function (e) {
                 console.log(e.responseText);
             }
 
@@ -89,14 +91,17 @@
                 dow: [1, 2, 3, 4, 5, 6]
             },
             minTime: '07:00',
-            defaultDate: date.getFullYear()+'-05-08',
+            defaultDate: date.getFullYear() + '-05-08',
             maxTime: '19:00',
-            hiddenDays: [ 0 ],
-            slotDuration: '00:05:00',
+            hiddenDays: [0],
+                    slotDuration: '00:05:00',
             allDaySlot: false,
             defaultView: 'agendaWeek',
             columnFormat: 'dddd',
             titleFormat: 'YYYY',
+            timezone: false,
+            axisFormat: 'HH:mm',
+            timeFormat: 'HH:mm',
             defaultTimedEventDuration: '01:00:00',
             header: {
                 left: '',
@@ -104,8 +109,17 @@
                 right: ''
             },
             editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
-            drop: function (date ) { // this function is called when something is dropped
+            droppable: true,
+            eventResize: function (calEvent) {
+                verifyClassroom(calEvent);
+                verifyProfessor(calEvent);
+            },
+            eventDrop: function (calEvent) {
+
+                verifyClassroom(calEvent);
+                verifyProfessor(calEvent);
+            },
+            drop: function (date) {
 
                 // retrieve the dropped element's stored Event Object
                 var originalEventObject = $(this).data('eventObject');
@@ -138,17 +152,17 @@
 
         $("#saveTimetable").click(function (e) {
 
-            var events = $('#calendar').fullCalendar( 'clientEvents');
+            var events = $('#calendar').fullCalendar('clientEvents');
             var fE = [];
-            $.each( events, function( key, value ) {
+            $.each(events, function (key, value) {
                 fE.push({
 
 
-                        bg : value.backgroundColor,
-                        classroom : value.classroom,
-                        spc : value.spc,
-                        start : value.start._d,
-                        end : value.end._d
+                    bg: value.backgroundColor,
+                    classroom: value.classroom,
+                    spc: value.spc,
+                    start: value.start._d,
+                    end: value.end._d
                 });
             });
 
@@ -159,13 +173,13 @@
                 },
                 type: "GET",
                 contentType: "application/json",
-                data: {events:fE},
+                data: {events: fE},
                 dataType: "json",
-                success: function(response){
-                    if (response['state']===1)
+                success: function (response) {
+                    if (response['state'] === 1)
                         toastr.error('The classroom is already used in same chosen time');
                 },
-                error : function(e){
+                error: function (e) {
                     console.log(e.responseText);
                 }
 
@@ -175,20 +189,24 @@
         var colorChooser = $("#color-chooser-btn");
         $("#color-chooser > li > a").click(function (e) {
             e.preventDefault();
-              currColor = $(this).css("color");
+            currColor = $(this).css("color");
             $('#add-new-event').css({"background-color": currColor, "border-color": currColor});
         });
         $("#add-new-event").click(function (e) {
             e.preventDefault();
 
-            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#"+$("#event option:selected").val()).val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
+            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#" + $("#event option:selected").val()).val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
             if (val.length == 0) {
                 return;
             }
 
             //Create events
             var event = $("<div />");
-            event.css({"background-color": currColor, "border-color": currColor, "color": "#fff"}).addClass("external-event");
+            event.css({
+                "background-color": currColor,
+                "border-color": currColor,
+                "color": "#fff"
+            }).addClass("external-event");
             event.attr('subject_pc', $("#event option:selected").val());
             event.attr('classroom', $("#classroom option:selected").val());
 
@@ -219,8 +237,9 @@
 
     <div class="col-md-3">
 
-        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable" >
+        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable">
         <br>
+
         <div class="panel panel-default ">
             <div class="panel-heading">
 
@@ -229,54 +248,56 @@
             </div>
             <div class="panel-body">
                 <form>
-                <label>Available Modules : </label>
+                    <label>Available Modules : </label>
                     <input type="hidden" value="{!! csrf_token() !!}" id="crsf">
-                <select class="form-control" name="event" id="event">
-                    @foreach($feList as $m=>$value)
-                        @foreach($value as $sub_value=>$element)
+                    <select class="form-control" name="event" id="event">
+                        @foreach($feList as $m=>$value)
+                            @foreach($value as $sub_value=>$element)
+                                <optgroup label="{{$m}}">
+                                    @foreach($element as $sub_element=>$val)
+                                        <option value="{{$val->subject_pc}}">{{$val->subject}}</option>
+                                        <input type="hidden" value="{{$val->professor}}" id="{{$val->subject_pc}}">
+                                    @endforeach
+                                </optgroup>
+                            @endforeach
+                        @endforeach
+                    </select>
+                    <label>Classroom : </label>
+                    <select class="form-control" name="classroom" id="classroom">
+                        @foreach($classroom as $m=>$value)
                             <optgroup label="{{$m}}">
-                                @foreach($element as $sub_element=>$val)
-                                    <option value="{{$val->subject_pc}}">{{$val->subject}}</option>
-                                    <input type="hidden" value="{{$val->professor}}" id="{{$val->subject_pc}}">
+                                @foreach($value as $sub_value=>$element)
+                                    @foreach($element as $sub_element=>$val)
+                                        <option @if ($val->st == 2) disabled
+                                                @endif value="{{$val->id}}">{{$val->title}}</option>
+                                    @endforeach
                                 @endforeach
                             </optgroup>
                         @endforeach
-                    @endforeach
-                </select>
-                <label>Classroom : </label>
-                <select class="form-control" name="classroom" id="classroom">
-                    @foreach($classroom as $m=>$value)
-                        <optgroup label="{{$m}}">
-                        @foreach($value as $sub_value=>$element)
-                                @foreach($element as $sub_element=>$val)
-                                    <option @if ($val->st == 2) disabled @endif value="{{$val->id}}">{{$val->title}}</option>
-                                @endforeach
-                        @endforeach
-                        </optgroup>
-                    @endforeach
-                </select>
-                <label>Color</label>
-                <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
-                    <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
-                    <ul class="fc-color-picker" id="color-chooser">
-                        <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
-                        <li><a style="color:#E9967A;" href="#"><i class="fa fa-square"></i></a></li>
-                    </ul>
-                </div>
+                    </select>
+                    <label>Color</label>
 
-                        <button id="add-new-event" type="button" class="btn btn-primary btn-block">Create</button>
+                    <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                        <!--<button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>-->
+                        <ul class="fc-color-picker" id="color-chooser">
+                            <li><a class="text-aqua" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-blue" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-light-blue" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-teal" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-yellow" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-orange" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-green" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-lime" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-red" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-purple" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-fuchsia" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-muted" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a class="text-navy" href="#"><i class="fa fa-square"></i></a></li>
+                            <li><a style="color:#E9967A;" href="#"><i class="fa fa-square"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <button id="add-new-event" type="button" class="btn btn-primary btn-block">Create</button>
 
                     <!-- /btn-group -->
                 </form>

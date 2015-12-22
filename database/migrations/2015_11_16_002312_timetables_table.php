@@ -30,8 +30,9 @@ class TimetablesTable extends Migration
             $table->integer('timetable')->unsigned();
             $table->time('startTime');
             $table->time('endTime');
-            $table->date('date');
+            $table->date('date')->nullable();
             $table->string('color');
+            $table->string('day')->nullable();
             $table->integer('classroom')->unsigned();
             $table->integer('subject_pc')->unsigned();
 
