@@ -23,9 +23,9 @@
     }
     function verifyClassroom(event) {
 
-        var start = event.start.format("HH:mm:ss");
+        var start = new Date(event.start._d - 3599000).toLocaleTimeString();
         var classroom = event.classroom;
-        var end = new Date(event.end - 3600000).toLocaleTimeString();
+        var end = new Date(event.end - 3601000).toLocaleTimeString();
         var dayFull = event.start.toLocaleString();
 
         $.ajax({
@@ -50,8 +50,8 @@
 
     }
     function verifyProfessor(event) {
-        var start = event.start.format("HH:mm:ss");
-        var end = new Date(event.end - 3600000).toLocaleTimeString();
+        var start = new Date(event.start._d - 3599000).toLocaleTimeString();
+        var end = new Date(event.end - 3601000).toLocaleTimeString();
         var subject_pc = event.spc;
         var dayFull = event.start.toLocaleString();
 
@@ -142,6 +142,11 @@
                 verifyClassroom(calEvent);
                 verifyProfessor(calEvent);
                 countMinutes(calEvent);
+            },
+            eventClick: function(calEvent) {
+                $('#calendar').fullCalendar('removeEvents', function (event) {
+                    return event == calEvent;
+                });
             },
             drop: function (date) {
 

@@ -151,13 +151,20 @@ class TimetableController extends Controller {
         $day = DateTime::createFromFormat('D M d Y H:i:s e+',$d['day'])->format('D');
 
         $compare = DB::table('timetable_elements')
+            ->Where(function ($query) {
+                $query->Where(function ($q) {
+                    $q->whereBetween('startTime', array(Input::get('start'), Input::get('end')))
+                        ->orwhereBetween('endTime', array(Input::get('start'), Input::get('end')));
+                });
+                $query->orWhere(function ($q) {
+                    $q->where('startTime', '<', Input::get('start'))
+                        ->where('endTime', '>', Input::get('end'));
+                });
+            })
             ->where('classroom','=',$d['classroom'])
             ->where('day','=',$day)
-            ->whereBetween('startTime',array($d['start'], $d['end']))
-            ->orWhereBetween('endTime',array($d['start'], $d['end']))
-            ->select('timetable_elements.id as tid')
+            ->select('timetable_elements.timetable as tid')
             ->first();
-
 
         $state = 1;
         $cl = "";
@@ -177,10 +184,18 @@ class TimetableController extends Controller {
 
         $compare = DB::table('timetable_elements')
             ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
+            ->Where(function ($query) {
+                $query->Where(function ($q) {
+                    $q->whereBetween('startTime', array(Input::get('start'), Input::get('end')))
+                        ->orwhereBetween('endTime', array(Input::get('start'), Input::get('end')));
+                });
+                $query->orWhere(function ($q) {
+                    $q->where('startTime', '<', Input::get('start'))
+                        ->where('endTime', '>', Input::get('end'));
+                });
+            })
             ->where('pc.professor_id','=',$professor->id)
             ->where('day','=',$day)
-            ->whereBetween('startTime',array($d['start'], $d['end']))
-            ->orWhereBetween('endTime',array($d['start'], $d['end']))
             ->first();
 
         $state = 1;
