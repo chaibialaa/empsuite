@@ -1,4 +1,26 @@
 <script>
+    function countMinutes(event){
+         var events = $('#calendar').fullCalendar( 'clientEvents');
+         var fE = 0;
+        $.each(events, function (key, value) {
+            if (event.spc == value.spc){
+            var d1 = new Date(value.start._d);
+            var d2 = new Date(value.end._d );
+            fE = fE +  (Math.floor(((d2- d1) / 3600000) * 60));
+            }
+
+            });
+        var max = parseInt($("input[id="+event.spc+"][name=duration]").val());
+
+        if (fE == max){ toastr.warning('Duration Reached'); }
+        if (fE > max){toastr.error('Duration Succeeded'); }
+        if (fE < max){
+            var left = parseInt(max)-fE;
+            var hours = Math.floor(left / 60);
+            var minutes = left - (hours * 60);
+            toastr.success('You have '+ hours + ' hours and '+ minutes + ' minutes available for this subject');
+        }
+    }
     function verifyClassroom(event) {
 
         var start = event.start.format("HH:mm:ss");
@@ -17,7 +39,7 @@
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
-                    toastr.error('The classroom is already used in same chosen time');
+                    toastr.error('The classroom is already used in same chosen time by class '+ response['class']);
             },
             error: function (e) {
                 console.log(e.responseText);
@@ -113,11 +135,13 @@
             eventResize: function (calEvent) {
                 verifyClassroom(calEvent);
                 verifyProfessor(calEvent);
+                countMinutes(calEvent);
             },
             eventDrop: function (calEvent) {
 
                 verifyClassroom(calEvent);
                 verifyProfessor(calEvent);
+                countMinutes(calEvent);
             },
             drop: function (date) {
 
@@ -141,6 +165,7 @@
 
                 verifyClassroom(copiedEventObject);
                 verifyProfessor(copiedEventObject);
+                countMinutes(copiedEventObject);
                 // here we should do the test between duration and the max duration
                 if ($('#drop-remove').is(':checked')) {
                     // if so, remove the element from the "Draggable Events" list
@@ -173,7 +198,7 @@
                 },
                 type: "GET",
                 contentType: "application/json",
-                data: {events: fE},
+                data: {"events": fE,"classid":{{ $class->id  }}},
                 dataType: "json",
                 success: function (response) {
                     if (response['state'] === 1)
@@ -195,7 +220,7 @@
         $("#add-new-event").click(function (e) {
             e.preventDefault();
 
-            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#" + $("#event option:selected").val()).val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
+            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#" + $("#event option:selected").val() +"[name=professor]").val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
             if (val.length == 0) {
                 return;
             }
@@ -256,7 +281,8 @@
                                 <optgroup label="{{$m}}">
                                     @foreach($element as $sub_element=>$val)
                                         <option value="{{$val->subject_pc}}">{{$val->subject}}</option>
-                                        <input type="hidden" value="{{$val->professor}}" id="{{$val->subject_pc}}">
+                                        <input type="hidden" name="professor" value="{{$val->professor}}" id="{{$val->subject_pc}}">
+                                        <input type="hidden" name="duration" value="{{$val->duration}}" id="{{$val->subject_pc}}">
                                     @endforeach
                                 </optgroup>
                             @endforeach

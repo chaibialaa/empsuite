@@ -70,7 +70,7 @@ class TimetableController extends Controller {
             ->join('subject_cm AS s','s.id','=','subject_pc.cm_id')
             ->join('subjects','subjects.id','=','s.subject_id')
             ->join('modules','modules.id','=','s.module_id')
-            ->select('subjects.title as subject','modules.title as module','users.nom as professor','subject_pc.id as subject_pc')
+            ->select('subjects.title as subject','modules.title as module','users.nom as professor','subject_pc.id as subject_pc','s.week_duration as duration')
             ->get();
 
         $classroom = DB::table('classrooms')
@@ -119,9 +119,13 @@ class TimetableController extends Controller {
 
     public function addTimetable(){
         $d = Input::all();
+
         // TODO Update class with timetable id
         $timetable = Timetable::create([
             'type' => 1
+        ]);
+        DB::table('classes')->where('id','=',$d['classid'])->update([
+            'timetable_id' => $timetable->id,
         ]);
         foreach($d['events'] as $e=>$t){
                 $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
@@ -151,16 +155,20 @@ class TimetableController extends Controller {
             ->where('day','=',$day)
             ->whereBetween('startTime',array($d['start'], $d['end']))
             ->orWhereBetween('endTime',array($d['start'], $d['end']))
-            ->get();
+            ->select('timetable_elements.id as tid')
+            ->first();
 
 
         $state = 1;
+        $cl = "";
         if ($compare){
             $state = 0;
+            $c = DB::table('classes')->where('timetable_id','=',$compare->tid)->select('title')->first();
+            $cl = $c->title;
         }
 
 
-        return response()->json(['state'=>$state],200);
+        return response()->json(['state'=>$state,'class'=>$cl],200);
     }
     public function verifyProfessor(){
         $d= Input::all();
@@ -173,7 +181,7 @@ class TimetableController extends Controller {
             ->where('day','=',$day)
             ->whereBetween('startTime',array($d['start'], $d['end']))
             ->orWhereBetween('endTime',array($d['start'], $d['end']))
-            ->get();
+            ->first();
 
         $state = 1;
         if ($compare){
