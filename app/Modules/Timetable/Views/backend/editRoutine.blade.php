@@ -5,16 +5,16 @@
 </style>
 <script>
     function countMinutes(event){
-         var events = $('#calendar').fullCalendar( 'clientEvents');
-         var fE = 0;
+        var events = $('#calendar').fullCalendar( 'clientEvents');
+        var fE = 0;
         $.each(events, function (key, value) {
             if (event.spc == value.spc){
-            var d1 = new Date(value.start._d);
-            var d2 = new Date(value.end._d );
-            fE = fE +  (Math.floor(((d2- d1) / 3600000) * 60));
+                var d1 = new Date(value.start._d);
+                var d2 = new Date(value.end._d );
+                fE = fE +  (Math.floor(((d2- d1) / 3600000) * 60));
             }
 
-            });
+        });
         var max = parseInt($("input[id="+event.spc+"][name=duration]").val());
 
         if (fE == max){ toastr.warning('Duration Reached'); }
@@ -40,7 +40,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "day": dayFull},
+            data: {"start": start, "end": end, "classroom": classroom, "day": dayFull,"iii":{{ $iii  }}},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -67,7 +67,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "subject_pc": subject_pc, "day": dayFull},
+            data: {"start": start, "end": end, "subject_pc": subject_pc, "day": dayFull,"iii":{{ $iii  }}},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -106,6 +106,23 @@
         ini_events($('#external-events div.external-event'));
         var date = new Date();
         $('#calendar').fullCalendar({
+            eventSources: [
+                {
+                    events: [
+                            @foreach ($iniEvents as $i)
+                            {
+                            title  : '{{$i->subject}} \n Prof. : {{$i->professor}} \n\n Classroom : {{$i->classroom}}',
+                            start  : '{{$i->date}}T{{$i->startTime}}',
+                            end  : '{{$i->date}}T{{$i->endTime}}',
+                            color : '{{$i->color}}',
+                            spc : '{{$i->spc}}',
+                            classroom : '{{$i->classid}}'
+                        },@endforeach
+
+                        ]
+                }
+            ],
+
             businessHours: {
                 start: '07:00',
                 end: '19:00',

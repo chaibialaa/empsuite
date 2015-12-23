@@ -117,6 +117,70 @@ class TimetableController extends Controller {
         return $view;
     }
 
+    public function editformTimetable($id){
+
+        $module['Title'] = "Timetable Manager";
+        $module['SubTitle'] = "New Timetable";
+
+        $class = classm::where('timetable_id',$id)->first();
+        $iniEvents = DB::table('timetable_elements')
+            ->where('timetable','=',$id)
+            ->join('subject_pc AS p','p.id','=','timetable_elements.subject_pc')
+            ->join('users AS u','u.id','=','p.professor_id')
+            ->join('subject_cm AS c','c.id','=','p.cm_id')
+            ->join('subjects','subjects.id','=','c.subject_id')
+            ->join('classrooms','classrooms.id','=','timetable_elements.classroom')
+            ->select('u.nom as professor','subjects.title as subject','classrooms.id as classid','classrooms.title as classroom','color','date','endTime','startTime','p.id as spc')
+            ->get();
+
+        $events= DB::table('subject_pc')
+            ->where('class_id','=',$class->id)
+            ->join('users','users.id','=','subject_pc.professor_id')
+            ->join('subject_cm AS s','s.id','=','subject_pc.cm_id')
+            ->join('subjects','subjects.id','=','s.subject_id')
+            ->join('modules','modules.id','=','s.module_id')
+            ->select('subjects.title as subject','modules.title as module','users.nom as professor','subject_pc.id as subject_pc','s.week_duration as duration')
+            ->get();
+
+        $classroom = DB::table('classrooms')
+            ->join('classroom_statuses as c','c.id','=','classrooms.status')
+            ->select('classrooms.id as id','c.title as status','classrooms.title as title','classrooms.status as st')
+            ->orderBy('status')
+            ->get();
+        $fcList = array();
+
+        foreach ($classroom as $c) {
+            $array = array($c);
+            $fcList[$c->status][] = $array;
+        }
+
+        $feList = array();
+        foreach ($events as $e) {
+            $array = array($e);
+            $feList[$e->module][] = $array;
+        }
+
+        $additionalLibs[0] = "libraries/fullcalendar/lib/jquery-ui.custom.min.js";
+        $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
+        $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
+        $additionalLibs[3] = "libraries/toastr/toastr.js";
+        $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
+        $additionalCsss[1] = "libraries/toastr/build/toastr.css";
+
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
+        $ComposedSubView = View::make('Timetable::backend.editRoutine')
+            ->with('class', $class)
+            ->with('classroom', $fcList)
+            ->with('feList', $feList)
+            ->with('iniEvents', $iniEvents)
+            ->with('iii',$id);
+
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        $view->with('additionalCsss', $additionalCsss);
+        $view->with('additionalLibs', $additionalLibs);
+        return $view;
+    }
+
     public function addTimetable(){
         $d = Input::all();
 
@@ -172,6 +236,11 @@ class TimetableController extends Controller {
             $state = 0;
             $c = DB::table('classes')->where('timetable_id','=',$compare->tid)->select('title')->first();
             $cl = $c->title;
+            if(Input::get('iii')){
+                if (Input::get('iii') == $compare->tid){
+                    return response()->json(['state'=>1,'class'=>""],200);
+                }
+            }
         }
 
 
@@ -196,11 +265,17 @@ class TimetableController extends Controller {
             })
             ->where('pc.professor_id','=',$professor->id)
             ->where('day','=',$day)
+            ->select('timetable_elements.timetable as tid')
             ->first();
 
         $state = 1;
         if ($compare){
             $state = 0;
+            if(Input::get('iii')){
+                if (Input::get('iii') == $compare->tid){
+                    return response()->json(['state'=>1,'class'=>""],200);
+                }
+            }
         }
 
 
