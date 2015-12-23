@@ -1,3 +1,8 @@
+<style>
+    .fc-time-grid .fc-slats td {
+        height: 0.8em;
+    }
+</style>
 <script>
     function countMinutes(event){
          var events = $('#calendar').fullCalendar( 'clientEvents');
@@ -77,10 +82,6 @@
 
     }
     $(function () {
-
-
-        /* initialize the external events
-         -----------------------------------------------------------------*/
         function ini_events(ele) {
             ele.each(function () {
 
@@ -102,9 +103,7 @@
 
             });
         }
-
         ini_events($('#external-events div.external-event'));
-
         var date = new Date();
         $('#calendar').fullCalendar({
             businessHours: {
@@ -112,11 +111,12 @@
                 end: '19:00',
                 dow: [1, 2, 3, 4, 5, 6]
             },
+            slotLabelInterval : '01:00,00',
             minTime: '07:00',
             defaultDate: date.getFullYear() + '-05-08',
             maxTime: '19:00',
             hiddenDays: [0],
-                    slotDuration: '00:05:00',
+            slotDuration: '00:05:00',
             allDaySlot: false,
             defaultView: 'agendaWeek',
             columnFormat: 'dddd',
