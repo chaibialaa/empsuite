@@ -278,7 +278,7 @@
             </div>
             <div class="panel-body">
                 <form>
-                    <label>Available Modules : </label>
+                    <label>Available Subjects : </label>
                     <input type="hidden" value="{!! csrf_token() !!}" id="crsf">
                     <select class="form-control" name="event" id="event">
                         @foreach($feList as $m=>$value)
