@@ -174,6 +174,7 @@
                 $('#calendar').fullCalendar('removeEvents', function (event) {
                     return event == calEvent;
                 });
+                countMinutes(calEvent);
             },
             drop: function (date) {
 
@@ -233,8 +234,7 @@
                 data: {"events": fE,"classid":{{ $class->id  }}},
                 dataType: "json",
                 success: function (response) {
-                    if (response['state'] === 1)
-                        toastr.error('The classroom is already used in same chosen time');
+
                 },
                 error: function (e) {
                     console.log(e.responseText);
@@ -294,7 +294,7 @@
 
     <div class="col-md-3">
 
-        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable">
+        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Update Timetable">
         <br>
 
         <div class="panel panel-default ">

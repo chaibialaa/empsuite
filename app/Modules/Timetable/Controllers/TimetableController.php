@@ -95,6 +95,8 @@ class TimetableController extends Controller {
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
         $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
         $additionalLibs[3] = "libraries/toastr/toastr.js";
+        $additionalLibs[4] = "libraries/printElem/jQuery.print.js";
+
         $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
         $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
@@ -120,7 +122,7 @@ class TimetableController extends Controller {
     public function editformTimetable($id){
 
         $module['Title'] = "Timetable Manager";
-        $module['SubTitle'] = "New Timetable";
+        $module['SubTitle'] = "Edit Timetable";
 
         $class = classm::where('timetable_id',$id)->first();
         $iniEvents = DB::table('timetable_elements')

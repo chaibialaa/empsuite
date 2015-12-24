@@ -10,6 +10,11 @@
  * Make sure to include this stylesheet IN ADDITION to the regular fullcalendar.css.
  */
 
+.calendar {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
 .fc {
 	max-width: 100% !important;
 }
