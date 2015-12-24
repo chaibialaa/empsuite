@@ -1,9 +1,11 @@
+
 <style>
     .fc-time-grid .fc-slats td {
         height: 0.8em;
     }
 </style>
 <script>
+
     function countMinutes(event){
          var events = $('#calendar').fullCalendar( 'clientEvents');
          var fE = 0;
@@ -82,6 +84,7 @@
 
     }
     $(function () {
+
         function ini_events(ele) {
             ele.each(function () {
 
@@ -157,6 +160,7 @@
                 $('#calendar').fullCalendar('removeEvents', function (event) {
                     return event == calEvent;
                 });
+                countMinutes(calEvent);
             },
             drop: function (date) {
 
@@ -189,6 +193,16 @@
 
             }
         });
+        $("#printTimetable").click(function (e) {
+
+                $("#calendar").print({
+                    mediaPrint : true,
+                    stylesheet : '{{ asset("/assets/libraries/fullcalendar/fullcalendar.print.css")}}',
+                    timeout: 0
+                });
+
+
+        });
 
         $("#saveTimetable").click(function (e) {
 
@@ -216,8 +230,6 @@
                 data: {"events": fE,"classid":{{ $class->id  }}},
                 dataType: "json",
                 success: function (response) {
-                    if (response['state'] === 1)
-                        toastr.error('The classroom is already used in same chosen time');
                 },
                 error: function (e) {
                     console.log(e.responseText);
@@ -278,6 +290,7 @@
     <div class="col-md-3">
 
         <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable">
+        <input type="button" id="printTimetable" class="btn btn-primary btn-block" value="Print & Export">
         <br>
 
         <div class="panel panel-default ">
