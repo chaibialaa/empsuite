@@ -21,7 +21,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"type":2},
+            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"type":2,"iii":{{ $iii  }}},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -62,6 +62,23 @@
         ini_events($('#external-events div.external-event'));
         var date = new Date();
         $('#calendar').fullCalendar({
+            eventSources: [
+                {
+                    events: [
+                            @foreach ($iniEvents as $i)
+                            {
+                            title  : '{{$i->subject}} \n Classroom : {{$i->classroom}}',
+                            start  : '{{$i->date}}T{{$i->startTime}}',
+                            end  : '{{$i->date}}T{{$i->endTime}}',
+                            backgroundColor : '{{$i->color}}',
+                            borderColor : '{{$i->color}}',
+                            spc : '{{$i->spc}}',
+                            classroom : '{{$i->classid}}'
+                        },@endforeach
+
+                        ]
+                }
+            ],
             businessHours: {
                 start: '07:00',
                 end: '19:00',
@@ -100,7 +117,7 @@
                 }
 
             },
-            eventDrop: function (calEvent,delta, revertFunc,jsEvent,ui,view) {
+            eventDrop: function (calEvent) {
 
                 verifyClassroom(calEvent);
 
@@ -111,7 +128,7 @@
                 });
 
             },
-            drop: function (date,view) {
+            drop: function (date) {
 
                 // retrieve the dropped element's stored Event Object
                 var originalEventObject = $(this).data('eventObject');
@@ -168,18 +185,18 @@
             });
 
             $.ajax({
-                url: "/admin/timetable/submit",
+                url: "/admin/timetable/update",
                 headers: {
                     'X-CSRF-TOKEN': $('#crsf').val()
                 },
                 type: "GET",
 
                 contentType: "application/json",
-                data: {"events": fE,"classid":{{ $class->id  }},"type":2},
+                data: {"events": fE,"classid":{{ $class->id  }},"type":2,"iii":{{ $iii  }}},
                 dataType: "json",
                 success: function (response) {
                     if (response['state'] === 5){
-                        toastr.success('Timetable created');
+                        toastr.success('Timetable updated');
                         setTimeout(function(){
                             window.location.href = "/admin/timetable"; }, 2000);}
                     if (response['state'] === 9){
@@ -243,7 +260,7 @@
 
     <div class="col-md-3">
 
-        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Create Timetable">
+        <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Update Timetable">
         <input type="button" id="printTimetable" class="btn btn-primary btn-block" value="Print & Export">
         <br>
 

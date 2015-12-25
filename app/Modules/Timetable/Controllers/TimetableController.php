@@ -23,12 +23,14 @@ class TimetableController extends Controller {
 		$fList = DB::table('timetables')
             ->join('classes', 'classes.id', '=', 'timetables.class_id')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->leftjoin('timetable_types as tt','tt.id','=','timetables.type')
             ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
             ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
-                'timetables.status as enb','timetables.id as tid','sections.title as section_title')
+                'timetables.status as enb','timetables.id as tid','sections.title as section_title','tt.title as type_title','tt.id as type_id')
             ->orderBy('classes.level_id')
             ->orderBy('classes.section_id')
             ->orderBy('classes.id')
+            ->orderBy('type_id')
             ->get();
 
         $tList = DB::table('timetable_types')->get();
@@ -38,9 +40,9 @@ class TimetableController extends Controller {
         foreach ($fList as $m) {
             $array = array($m);
             if($m->section_id) {
-                $fcList[$m->level_title][$m->section_title][$m->title][] = $array;
+                $fcList[$m->level_title][$m->section_title][$m->title][$m->type_title][] = $array;
             } else {
-                $fcList[$m->level_title]['No Section'][$m->title][] = $array;
+                $fcList[$m->level_title]['No Section'][$m->title][$m->type_title][] = $array;
             }
         }
 
@@ -127,7 +129,7 @@ class TimetableController extends Controller {
 
         $module['Title'] = "Timetable Manager";
         $module['SubTitle'] = "Edit Timetable";
-
+        $timetable = DB::table('timetables')->where('timetables.id','=',$id)->first();
         $class = DB::table('timetables')
             ->join('classes','classes.id','=','timetables.class_id')
             ->where('timetables.id','=',$id)
@@ -179,12 +181,21 @@ class TimetableController extends Controller {
         $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
-        $ComposedSubView = View::make('Timetable::backend.editRoutine')
-            ->with('class', $class)
-            ->with('classroom', $fcList)
-            ->with('feList', $feList)
-            ->with('iniEvents', $iniEvents)
-            ->with('iii',$id);
+        if ($timetable->type == 1){
+            $ComposedSubView = View::make('Timetable::backend.editRoutine')
+                ->with('class', $class)
+                ->with('classroom', $fcList)
+                ->with('feList', $feList)
+                ->with('iniEvents', $iniEvents)
+                ->with('iii',$id);
+        } else {
+            $ComposedSubView = View::make('Timetable::backend.editExam')
+                ->with('class', $class)
+                ->with('classroom', $fcList)
+                ->with('feList', $feList)
+                ->with('iniEvents', $iniEvents)
+                ->with('iii',$id);
+        }
 
         $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
@@ -227,7 +238,7 @@ class TimetableController extends Controller {
         ]);} else {
             $timetable = Timetable::create([
                 'class_id' => $d['classid'],
-                'status' => 0,
+                'status' => 1,
                 'type' =>2]);
         }
         foreach($d['events'] as $e=>$t){
@@ -254,6 +265,7 @@ class TimetableController extends Controller {
 
         $compare = DB::table('timetable_elements')
             ->join('timetables','timetables.id','=','timetable_elements.timetable')
+            ->where('timetables.status','=',1)
             ->Where(function ($query) {
                 $query->Where(function ($q) {
                     $q->whereBetween('startTime', array(Input::get('start'), Input::get('end')))
@@ -298,6 +310,7 @@ class TimetableController extends Controller {
 
         $compare = DB::table('timetable_elements')
             ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
+            ->where('timetables.status','=',1)
             ->Where(function ($query) {
                 $query->Where(function ($q) {
                     $q->whereBetween('startTime', array(Input::get('start'), Input::get('end')))
@@ -336,7 +349,11 @@ class TimetableController extends Controller {
 
     public function enableTimetable($id){
         $class = Input::get('classe');
-        DB::table('timetables')->where('class_id','=',$class)->where('status','=',1)->update(['status'=>0]);
+        DB::table('timetables')->where('class_id','=',$class)
+            ->where('status','=',1)
+            ->where('type','=',1)
+            ->update(['status'=>0]);
+
         DB::table('timetables')->where('id','=',$id)->update(['status'=>1]);
         alert()->success('Timetable enabled');
         return $this->redirectTimetable();
