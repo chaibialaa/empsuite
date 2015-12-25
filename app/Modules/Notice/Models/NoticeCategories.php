@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Modules\Announcement\Models;
+namespace App\Modules\Notice\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AnnouncementCategories extends Model
+class NoticeCategories extends Model
 {
-    protected $table = 'announcement_categories';
+    protected $table = 'notice_categories';
 
     protected $fillable = ['title'];
 

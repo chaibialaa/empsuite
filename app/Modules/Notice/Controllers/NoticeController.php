@@ -86,7 +86,7 @@ class NoticeController extends Controller
             'comments' => $data['comments'],
             'link' => $url,
         ]);
-        alert()->success('Annonce ajoutee avec success');
+        alert()->success('Notice ajoutee avec success');
 
         return $this->redirectNotice();
     }
