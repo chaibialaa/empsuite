@@ -31,8 +31,7 @@ class LevelsTable extends Migration
 
             $table->integer('section_id')->unsigned()->nullable();
             $table->foreign('section_id')->references('id')->on('sections');
-            $table->integer('timetable_id')->unsigned()->nullable();
-            $table->foreign('timetable_id')->references('id')->on('timetables');
+
             $table->integer('level_id')->unsigned();
             $table->foreign('level_id')->references('id')->on('levels');
             $table->timestamps();

@@ -5,6 +5,7 @@
 </style>
 <script>
     function countMinutes(event){
+        //console.log(event);
         var events = $('#calendar').fullCalendar( 'clientEvents');
         var fE = 0;
         $.each(events, function (key, value) {
@@ -40,7 +41,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "day": dayFull,"iii":{{ $iii  }}},
+            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"iii":{{ $iii  }}},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -67,7 +68,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "subject_pc": subject_pc, "day": dayFull,"iii":{{ $iii  }}},
+            data: {"start": start, "end": end, "subject_pc": subject_pc, "date": dayFull,"iii":{{ $iii  }}},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -114,7 +115,8 @@
                             title  : '{{$i->subject}} \n Prof. : {{$i->professor}} \n\n Classroom : {{$i->classroom}}',
                             start  : '{{$i->date}}T{{$i->startTime}}',
                             end  : '{{$i->date}}T{{$i->endTime}}',
-                            color : '{{$i->color}}',
+                            backgroundColor : '{{$i->color}}',
+                            borderColor : '{{$i->color}}',
                             spc : '{{$i->spc}}',
                             classroom : '{{$i->classid}}'
                         },@endforeach
@@ -225,16 +227,16 @@
             });
 
             $.ajax({
-                url: "/admin/timetable/submit",
+                url: "/admin/timetable/update",
                 headers: {
                     'X-CSRF-TOKEN': $('#crsf').val()
                 },
                 type: "GET",
                 contentType: "application/json",
-                data: {"events": fE,"classid":{{ $class->id  }}},
+                data: {"events": fE,"iii":{{ $iii  }}},
                 dataType: "json",
                 success: function (response) {
-
+                    window.location.href = "/admin/timetable";
                 },
                 error: function (e) {
                     console.log(e.responseText);

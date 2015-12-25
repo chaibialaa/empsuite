@@ -52,7 +52,7 @@
     <div class="col-md-9">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-list"></i> Manage Classes</h3>
+                <h3 class="panel-title"><i class="fa fa-list"></i> Manage Classes Timetables</h3>
             </div>
             <div class="panel-body">
                 <div class="row">
@@ -65,23 +65,34 @@
                                 <div id="collapse-{{$m}}" class="panel-collapse collapse in">
                                     <div class="panel-body">
                                         <div class="row">
-                                            @foreach($value as $v=>$k)
+                                            @foreach($value as $u=>$i)
                                                 <div class="col-md-6">
                                                     <div class="panel panel-info ">
                                                         <div class="panel-heading">
-                                                            <a data-toggle="collapse" href="#collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}"> <i class="fa fa-list"></i> Section : {{$v}}</a>
+                                                            <a data-toggle="collapse" href="#collapse-{{preg_replace('/\s+/', '', $m)}}-{{preg_replace('/\s+/', '', $u)}}"> <i class="fa fa-list"></i> Section : {{$u}}</a>
                                                         </div>
-                                                        <div id="collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}" class="panel-collapse collapse in">
+                                                        <div id="collapse-{{preg_replace('/\s+/', '', $m)}}-{{preg_replace('/\s+/', '', $u)}}" class="panel-collapse collapse in">
+                                                        <div class="panel-body">
+                                                            <div class="row">
+
+                                            @foreach($i as $v=>$k)
+
+                                                <div class="col-md-12">
+                                                    <div class="panel panel-info ">
+                                                        <div class="panel-heading">
+                                                            <a data-toggle="collapse" href="#collapse-{{$k[0][0]->level_id}}-{{$k[0][0]->id}}"> <i class="fa fa-list"></i> Class : {{$v}}</a>
+                                                        </div>
+                                                        <div id="collapse-{{$k[0][0]->level_id}}-{{$k[0][0]->id}}" class="panel-collapse collapse in">
                                                             <div class="panel-body">
                                                                 <table id="levelClass" class="table table-striped table-bordered" cellspacing="0" width="100%">
                                                                     <thead>
                                                                     <tr>
 
-                                                                        <th>Class</th>
+                                                                        <th>Status</th>
 
 
-                                                                        <th>Manage</th>
-                                                                        <th>Rename</th>
+                                                                        <th>Action</th>
+                                                                        <th>View/Edit</th>
                                                                         <th>Delete</th>
 
 
@@ -89,12 +100,12 @@
                                                                     </thead>
                                                                     <tfoot>
                                                                     <tr>
-                                                                        <th>Class</th>
+                                                                        <th>Status</th>
 
 
 
-                                                                        <th>Manage</th>
-                                                                        <th>Rename</th>
+                                                                        <th>Action</th>
+                                                                        <th>View/Edit</th>
                                                                         <th>Delete</th>
 
 
@@ -105,23 +116,30 @@
                                                                     @foreach($k as $sub_value=>$element)
                                                                         @foreach($element as $sub_element=>$val)
                                                                             <tr>
-                                                                                <td>{{$val->title}}</td>
-
+                                                                                <td>@if ($val->enb == 1) Enabled @else Disabled @endif</td>
 
                                                                                 <td class="text-center">
+                                                                                    @if ($val->enb == 1)
+                                                                                        <button type="button"
+                                                                                                class="btn btn-flat btn-danger btn-xs"><i
+                                                                                                    class="fa fa-minus"></i> Disable </button>
+                                                                                         @else
                                                                                     <button type="button"
                                                                                             class="btn btn-flat btn-success btn-xs"><i
-                                                                                                class="fa fa-edit"></i> View</button>
+                                                                                                class="fa fa-plus"></i> Enable </button>
+                                                                                    @endif
                                                                                 </td>
+
                                                                                 <td class="text-center">
-                                                                                    <button type="button"
+                                                                                <form action="/admin/timetable/edit/{{$val->tid}}" method="get">
+                                                                                    <button type="submit"
                                                                                             class="btn btn-flat btn-info btn-xs"><i
-                                                                                                class="fa fa-edit"></i> Rename</button>
+                                                                                                class="fa fa-edit"></i> </button></form>
                                                                                 </td>
                                                                                 <td class="text-center">
                                                                                     <button type="button"
                                                                                             class="btn btn-flat btn-danger btn-xs"><i
-                                                                                                class="fa fa-trash"></i> Delete</button>
+                                                                                                class="fa fa-trash"></i> </button>
                                                                                 </td>
 
 
@@ -137,6 +155,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            @endforeach</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                             @endforeach
                                         </div>
                                     </div>

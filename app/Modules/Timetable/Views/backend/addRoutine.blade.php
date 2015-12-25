@@ -42,7 +42,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "day": dayFull},
+            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -69,7 +69,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "subject_pc": subject_pc, "day": dayFull},
+            data: {"start": start, "end": end, "subject_pc": subject_pc, "date": dayFull},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -230,6 +230,7 @@
                 data: {"events": fE,"classid":{{ $class->id  }}},
                 dataType: "json",
                 success: function (response) {
+                    window.location.href = "/admin/timetable";
                 },
                 error: function (e) {
                     console.log(e.responseText);

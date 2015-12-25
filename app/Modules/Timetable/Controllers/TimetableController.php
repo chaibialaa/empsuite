@@ -4,7 +4,6 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
-use App\Modules\Timetable\Models\Timetable;
 use Input, View, DB, App\Helpers\ConfigFromDB;
 use DateTime;
 class TimetableController extends Controller {
@@ -18,13 +17,17 @@ class TimetableController extends Controller {
 		$module['Title'] = "Timetables Manager";
 		$module['SubTitle'] = "Timetables Dashboard";
 
-		$cList = classm::whereNull('timetable_id')->get();
+		$cList = classm::all();
 
-		$fList = DB::table('classes')
+		$fList = DB::table('timetables')
+            ->join('classes', 'classes.id', '=', 'timetables.class_id')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->join('timetables','timetables.id','=','classes.timetable_id')
-            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
-            ->orderBy('classes.level_id', 'classes.section_id')
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
+                'timetables.status as enb','timetables.id as tid','sections.title as section_title')
+            ->orderBy('classes.level_id')
+            ->orderBy('classes.section_id')
+            ->orderBy('classes.id')
             ->get();
 
         $tList = DB::table('timetable_types')->get();
@@ -34,9 +37,9 @@ class TimetableController extends Controller {
         foreach ($fList as $m) {
             $array = array($m);
             if($m->section_id) {
-                $fcList[$m->level_title][$m->section_id][] = $array;
+                $fcList[$m->level_title][$m->section_title][$m->title][] = $array;
             } else {
-                $fcList[$m->level_title]['No Section'][] = $array;
+                $fcList[$m->level_title]['No Section'][$m->title][] = $array;
             }
         }
 
@@ -124,7 +127,11 @@ class TimetableController extends Controller {
         $module['Title'] = "Timetable Manager";
         $module['SubTitle'] = "Edit Timetable";
 
-        $class = classm::where('timetable_id',$id)->first();
+        $class = DB::table('timetables')
+            ->join('classes','classes.id','=','timetables.class_id')
+            ->where('timetable_id','=',$id)
+            ->select('classes.title as title','classes.id as id')
+            ->first();
         $iniEvents = DB::table('timetable_elements')
             ->where('timetable','=',$id)
             ->join('subject_pc AS p','p.id','=','timetable_elements.subject_pc')
@@ -183,15 +190,33 @@ class TimetableController extends Controller {
         return $view;
     }
 
+    public function updateTimetable(){
+        $d = Input::all();
+        DB::table('timetable_elements')->where('timetable','=',$d['iii'])->delete();
+        foreach($d['events'] as $e=>$t){
+            $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
+            $end = DateTime::createFromFormat('D M d Y H:i:s e+',$t['end']);
+            DB::table('timetable_elements')->insert([
+                'timetable' => $d['iii'],
+                'startTime' => $start->format('H:i:s'),
+                'endTime' => $end->format('H:i:s'),
+                'date' => $start->format('Y-m-d'),
+                'color' => $t['bg'],
+                'subject_pc' => $t['spc'],
+                'classroom' => $t['classroom'],
+            ]);
+
+        }
+        return response()->json();
+    }
     public function addTimetable(){
         $d = Input::all();
 
-        // TODO Update class with timetable id
-        $timetable = Timetable::create([
-            'type' => 1
-        ]);
-        DB::table('classes')->where('id','=',$d['classid'])->update([
-            'timetable_id' => $timetable->id,
+
+        $timetable = DB::table('timetables')->insert([
+            'class_id' => $d['classid'],
+            'status' => 0,
+            'type' =>1
         ]);
         foreach($d['events'] as $e=>$t){
                 $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
@@ -201,7 +226,6 @@ class TimetableController extends Controller {
                     'startTime' => $start->format('H:i:s'),
                     'endTime' => $end->format('H:i:s'),
                     'date' => $start->format('Y-m-d'),
-                    'day' => $start->format('D'),
                     'color' => $t['bg'],
                     'subject_pc' => $t['spc'],
                     'classroom' => $t['classroom'],
@@ -214,7 +238,7 @@ class TimetableController extends Controller {
     public function verifyClassroom(){
 
         $d= Input::all();
-        $day = DateTime::createFromFormat('D M d Y H:i:s e+',$d['day'])->format('D');
+        $date = DateTime::createFromFormat('D M d Y H:i:s e+',$d['date'])->format('Y-m-d');
 
         $compare = DB::table('timetable_elements')
             ->Where(function ($query) {
@@ -228,7 +252,7 @@ class TimetableController extends Controller {
                 });
             })
             ->where('classroom','=',$d['classroom'])
-            ->where('day','=',$day)
+            ->where('date','=',$date)
             ->select('timetable_elements.timetable as tid')
             ->first();
 
@@ -236,7 +260,11 @@ class TimetableController extends Controller {
         $cl = "";
         if ($compare){
             $state = 0;
-            $c = DB::table('classes')->where('timetable_id','=',$compare->tid)->select('title')->first();
+            $c = DB::table('timetables')
+                ->join('classes','classes.id','=','timetables.class_id')
+                ->where('timetable_id','=',$compare->tid)
+                ->select('classes.title as title')
+                ->first();
             $cl = $c->title;
             if(Input::get('iii')){
                 if (Input::get('iii') == $compare->tid){
@@ -250,8 +278,9 @@ class TimetableController extends Controller {
     }
     public function verifyProfessor(){
         $d= Input::all();
+
         $professor = DB::table('subject_pc')->where('id','=',$d['subject_pc'])->select('professor_id as id')->first();
-        $day = DateTime::createFromFormat('D M d Y H:i:s e+',$d['day'])->format('D');
+        $date = DateTime::createFromFormat('D M d Y H:i:s e+',$d['date'])->format('Y-m-d');
 
         $compare = DB::table('timetable_elements')
             ->join('subject_pc as pc','pc.id','=','timetable_elements.subject_pc')
@@ -266,7 +295,7 @@ class TimetableController extends Controller {
                 });
             })
             ->where('pc.professor_id','=',$professor->id)
-            ->where('day','=',$day)
+            ->where('date','=',$date)
             ->select('timetable_elements.timetable as tid')
             ->first();
 
