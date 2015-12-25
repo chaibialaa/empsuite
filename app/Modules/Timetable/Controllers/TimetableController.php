@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Modules\Level\Models\Classm;
+use App\Modules\Timetable\Models\Timetable;
 use Input, View, DB, App\Helpers\ConfigFromDB;
 use DateTime;
 class TimetableController extends Controller {
@@ -129,7 +130,7 @@ class TimetableController extends Controller {
 
         $class = DB::table('timetables')
             ->join('classes','classes.id','=','timetables.class_id')
-            ->where('timetable_id','=',$id)
+            ->where('timetables.id','=',$id)
             ->select('classes.title as title','classes.id as id')
             ->first();
         $iniEvents = DB::table('timetable_elements')
@@ -192,6 +193,9 @@ class TimetableController extends Controller {
 
     public function updateTimetable(){
         $d = Input::all();
+        if(!Input::has('events')){
+            return response()->json(['state'=>9],200);
+        }
         DB::table('timetable_elements')->where('timetable','=',$d['iii'])->delete();
         foreach($d['events'] as $e=>$t){
             $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
@@ -207,13 +211,14 @@ class TimetableController extends Controller {
             ]);
 
         }
-        return response()->json();
+        return response()->json(['state'=>5],200);
     }
     public function addTimetable(){
         $d = Input::all();
-
-
-        $timetable = DB::table('timetables')->insert([
+        if(!Input::has('events')){
+            return response()->json(['state'=>9],200);
+        }
+        $timetable = Timetable::create([
             'class_id' => $d['classid'],
             'status' => 0,
             'type' =>1
@@ -232,7 +237,7 @@ class TimetableController extends Controller {
                 ]);
 
         }
-        return response()->json(['state'=>1],200);
+        return response()->json(['state'=>5],200);
     }
 
     public function verifyClassroom(){
@@ -262,7 +267,7 @@ class TimetableController extends Controller {
             $state = 0;
             $c = DB::table('timetables')
                 ->join('classes','classes.id','=','timetables.class_id')
-                ->where('timetable_id','=',$compare->tid)
+                ->where('timetables.id','=',$compare->tid)
                 ->select('classes.title as title')
                 ->first();
             $cl = $c->title;

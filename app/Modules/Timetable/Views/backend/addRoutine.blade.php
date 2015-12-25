@@ -215,8 +215,8 @@
                     bg: value.backgroundColor,
                     classroom: value.classroom,
                     spc: value.spc,
-                    start: value.start._d,
-                    end: value.end._d
+                    start: new Date(value.start._d - 3600000),
+                    end: new Date(value.end._d - 3600000)
                 });
             });
 
@@ -226,11 +226,17 @@
                     'X-CSRF-TOKEN': $('#crsf').val()
                 },
                 type: "GET",
+
                 contentType: "application/json",
                 data: {"events": fE,"classid":{{ $class->id  }}},
                 dataType: "json",
                 success: function (response) {
-                    window.location.href = "/admin/timetable";
+                    if (response['state'] === 5){
+                        toastr.success('Timetable created');
+                        setTimeout(function(){
+                            window.location.href = "/admin/timetable"; }, 2000);}
+                    if (response['state'] === 9){
+                        toastr.warning('Timetable is empty');}
                 },
                 error: function (e) {
                     console.log(e.responseText);
