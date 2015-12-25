@@ -6,28 +6,7 @@
 </style>
 <script>
 
-    function countMinutes(event){
-         var events = $('#calendar').fullCalendar( 'clientEvents');
-         var fE = 0;
-        $.each(events, function (key, value) {
-            if (event.spc == value.spc){
-            var d1 = new Date(value.start._d);
-            var d2 = new Date(value.end._d );
-            fE = fE +  (Math.floor(((d2- d1) / 3600000) * 60));
-            }
 
-            });
-        var max = parseInt($("input[id="+event.spc+"][name=duration]").val());
-
-        if (fE == max){ toastr.warning('Duration Reached'); }
-        if (fE > max){toastr.error('Duration Succeeded'); }
-        if (fE < max){
-            var left = parseInt(max)-fE;
-            var hours = Math.floor(left / 60);
-            var minutes = left - (hours * 60);
-            toastr.success('You have '+ hours + ' hours and '+ minutes + ' minutes available for this subject');
-        }
-    }
     function verifyClassroom(event) {
 
         var start = new Date(event.start._d - 3599000).toLocaleTimeString();
@@ -42,7 +21,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"type":1},
+            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"type":2},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -56,33 +35,7 @@
 
 
     }
-    function verifyProfessor(event) {
-        var start = new Date(event.start._d - 3599000).toLocaleTimeString();
-        var end = new Date(event.end - 3601000).toLocaleTimeString();
-        var subject_pc = event.spc;
-        var dayFull = event.start.toLocaleString();
 
-        $.ajax({
-            url: "/admin/timetable/verifyP",
-            headers: {
-                'X-CSRF-TOKEN': $('#crsf').val()
-            },
-            type: "GET",
-            contentType: "application/json",
-            data: {"start": start, "end": end, "subject_pc": subject_pc, "date": dayFull},
-            dataType: "json",
-            success: function (response) {
-                if (response['state'] === 0)
-                    toastr.error('The Professor is already teaching in same chosen time');
-            },
-            error: function (e) {
-                console.log(e.responseText);
-            }
-
-        });
-
-
-    }
     $(function () {
 
         function ini_events(ele) {
@@ -116,22 +69,21 @@
             },
             slotLabelInterval : '01:00,00',
             minTime: '07:00',
-            defaultDate: date.getFullYear() + '-05-08',
             maxTime: '19:00',
             hiddenDays: [0],
             slotDuration: '00:05:00',
             allDaySlot: false,
             defaultView: 'agendaWeek',
             columnFormat: 'dddd',
-            titleFormat: 'YYYY',
+            titleFormat: 'MMMM YYYY',
             timezone: false,
             axisFormat: 'HH:mm',
             timeFormat: 'HH:mm',
             defaultTimedEventDuration: '01:00:00',
             header: {
-                left: '',
+                left: 'prev,next today',
                 center: 'title',
-                right: ''
+                right: 'month,agendaWeek,agendaDay'
             },
             editable: true,
             droppable: true,
@@ -140,27 +92,24 @@
                 end: '19:00'
             },
             eventResize: function (event, delta, revertFunc) {
-                if ((new Date(event.end) - new Date(event.start)) < 1800000){
+                if ((new Date(event.end) - new Date(event.start)) < 900000){
                     revertFunc();
-                    toastr.error('A subject can not be less than 30 Minutes')}
+                    toastr.error('A subject exam can not be less than 15 Minutes')}
                 else {
                     verifyClassroom(event);
-                    verifyProfessor(event);
-                    countMinutes(event);
                 }
 
             },
             eventDrop: function (calEvent) {
 
                 verifyClassroom(calEvent);
-                verifyProfessor(calEvent);
-                countMinutes(calEvent);
+
             },
             eventClick: function(calEvent) {
                 $('#calendar').fullCalendar('removeEvents', function (event) {
                     return event == calEvent;
                 });
-                countMinutes(calEvent);
+
             },
             drop: function (date) {
 
@@ -183,11 +132,9 @@
                 $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
 
                 verifyClassroom(copiedEventObject);
-                verifyProfessor(copiedEventObject);
-                countMinutes(copiedEventObject);
+
                 // here we should do the test between duration and the max duration
                 if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
                     $(this).remove();
                 }
 
@@ -195,11 +142,11 @@
         });
         $("#printTimetable").click(function (e) {
 
-                $("#calendar").print({
-                    mediaPrint : true,
-                    stylesheet : '{{ asset("/assets/libraries/fullcalendar/fullcalendar.print.css")}}',
-                    timeout: 0
-                });
+            $("#calendar").print({
+                mediaPrint : true,
+                stylesheet : '{{ asset("/assets/libraries/fullcalendar/fullcalendar.print.css")}}',
+                timeout: 0
+            });
 
 
         });
@@ -228,7 +175,7 @@
                 type: "GET",
 
                 contentType: "application/json",
-                data: {"events": fE,"classid":{{ $class->id  }},"type":1},
+                data: {"events": fE,"classid":{{ $class->id  }},"type":2},
                 dataType: "json",
                 success: function (response) {
                     if (response['state'] === 5){
@@ -254,7 +201,7 @@
         $("#add-new-event").click(function (e) {
             e.preventDefault();
 
-            var val = $("#event option:selected").text() + ' <br> \n Prof. : ' + $("#" + $("#event option:selected").val() +"[name=professor]").val() + ' <br><br>\n\n Classroom : ' + $("#classroom option:selected").text();
+            var val = $("#event option:selected").text() + ' <br>\n Classroom : ' + $("#classroom option:selected").text();
             if (val.length == 0) {
                 return;
             }
@@ -284,7 +231,7 @@
     <div class="col-md-9">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-calendar"></i> Class {{ $class->title }} Routine </h3>
+                <h3 class="panel-title"><i class="fa fa-calendar"></i> Class {{ $class->title }} Exams </h3>
             </div>
             <div class="panel-body">
 
@@ -316,7 +263,7 @@
                                 <optgroup label="Module : {{$m}}">
                                     @foreach($element as $sub_element=>$val)
                                         <option value="{{$val->subject_pc}}">{{$val->subject}}</option>
-                                        <input type="hidden" name="professor" value="{{$val->professor}}" id="{{$val->subject_pc}}">
+
                                         <input type="hidden" name="duration" value="{{$val->duration}}" id="{{$val->subject_pc}}">
                                     @endforeach
                                 </optgroup>

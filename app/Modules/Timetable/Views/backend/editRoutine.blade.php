@@ -41,7 +41,7 @@
             },
             type: "GET",
             contentType: "application/json",
-            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"iii":{{ $iii  }}},
+            data: {"start": start, "end": end, "classroom": classroom, "date": dayFull,"iii":{{ $iii  }},"type":1},
             dataType: "json",
             success: function (response) {
                 if (response['state'] === 0)
@@ -209,7 +209,16 @@
 
             }
         });
+        $("#printTimetable").click(function (e) {
 
+            $("#calendar").print({
+                mediaPrint : true,
+                stylesheet : '{{ asset("/assets/libraries/fullcalendar/fullcalendar.print.css")}}',
+                timeout: 0
+            });
+
+
+        });
         $("#saveTimetable").click(function (e) {
 
             var events = $('#calendar').fullCalendar('clientEvents');
@@ -233,7 +242,7 @@
                 },
                 type: "GET",
                 contentType: "application/json",
-                data: {"events": fE,"iii":{{ $iii  }}},
+                data: {"events": fE,"iii":{{ $iii  }},"type":1},
                 dataType: "json",
                 success: function (response) {
                     if (response['state'] === 5){
@@ -289,7 +298,7 @@
     <div class="col-md-9">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-calendar"></i> Class {{ $class->title }} Timetable </h3>
+                <h3 class="panel-title"><i class="fa fa-calendar"></i> Class {{ $class->title }} Routine </h3>
             </div>
             <div class="panel-body">
 
@@ -302,6 +311,7 @@
     <div class="col-md-3">
 
         <input type="button" id="saveTimetable" class="btn btn-primary btn-block" value="Update Timetable">
+        <input type="button" id="printTimetable" class="btn btn-primary btn-block" value="Print & Export">
         <br>
 
         <div class="panel panel-default ">

@@ -120,13 +120,21 @@
 
                                                                                 <td class="text-center">
                                                                                     @if ($val->enb == 1)
-                                                                                        <button type="button"
+                                                                                        <form action="/admin/timetable/disable/{{$val->tid}}" method="post">
+                                                                                            {!! csrf_field() !!}
+                                                                                        <button type="submit"
                                                                                                 class="btn btn-flat btn-danger btn-xs"><i
                                                                                                     class="fa fa-minus"></i> Disable </button>
+
+                                                                                        </form>
                                                                                          @else
-                                                                                    <button type="button"
+                                                                                        <form action="/admin/timetable/enable/{{$val->tid}}" method="post">
+                                                                                            {!! csrf_field() !!}
+                                                                                    <button type="submit"
                                                                                             class="btn btn-flat btn-success btn-xs"><i
                                                                                                 class="fa fa-plus"></i> Enable </button>
+                                                                                        <input type="hidden" value="{{$val->id}}" name="classe">
+                                                                                        </form>
                                                                                     @endif
                                                                                 </td>
 

@@ -111,9 +111,9 @@ class TimetableController extends Controller {
                 ->with('classroom', $fcList)
                 ->with('feList', $feList);
         } else {
-            $ComposedSubView = View::make('Timetable::backend.addSpecial')
+            $ComposedSubView = View::make('Timetable::backend.addExam')
                 ->with('class', $class)
-                ->with('classroom', $classroom)
+                ->with('classroom', $fcList)
                 ->with('feList', $feList);
         }
 
@@ -174,6 +174,7 @@ class TimetableController extends Controller {
         $additionalLibs[1] = "libraries/fullcalendar/lib/moment.min.js";
         $additionalLibs[2] = "libraries/fullcalendar/fullcalendar.min.js";
         $additionalLibs[3] = "libraries/toastr/toastr.js";
+        $additionalLibs[4] = "libraries/printElem/jQuery.print.js";
         $additionalCsss[0] = "libraries/fullcalendar/fullcalendar.min.css";
         $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
@@ -218,11 +219,17 @@ class TimetableController extends Controller {
         if(!Input::has('events')){
             return response()->json(['state'=>9],200);
         }
+        if($d['type']==1){
         $timetable = Timetable::create([
             'class_id' => $d['classid'],
             'status' => 0,
             'type' =>1
-        ]);
+        ]);} else {
+            $timetable = Timetable::create([
+                'class_id' => $d['classid'],
+                'status' => 0,
+                'type' =>2]);
+        }
         foreach($d['events'] as $e=>$t){
                 $start = DateTime::createFromFormat('D M d Y H:i:s e+',$t['start']);
                 $end = DateTime::createFromFormat('D M d Y H:i:s e+',$t['end']);
@@ -246,6 +253,7 @@ class TimetableController extends Controller {
         $date = DateTime::createFromFormat('D M d Y H:i:s e+',$d['date'])->format('Y-m-d');
 
         $compare = DB::table('timetable_elements')
+            ->join('timetables','timetables.id','=','timetable_elements.timetable')
             ->Where(function ($query) {
                 $query->Where(function ($q) {
                     $q->whereBetween('startTime', array(Input::get('start'), Input::get('end')))
@@ -257,6 +265,7 @@ class TimetableController extends Controller {
                 });
             })
             ->where('classroom','=',$d['classroom'])
+            ->where('timetables.type','=',$d['type'])
             ->where('date','=',$date)
             ->select('timetable_elements.timetable as tid')
             ->first();
@@ -317,5 +326,28 @@ class TimetableController extends Controller {
 
         return response()->json(['state'=>$state],200);
     }
+
+    public function deleteTimetable($id){
+        DB::table('timetable_elements')->where('timetable','=',$id)->delete();
+        DB::table('timetables')->where('id','=',$id)->delete();
+        alert()->success('Timetable deleted');
+        return $this->redirectTimetable();
+    }
+
+    public function enableTimetable($id){
+        $class = Input::get('classe');
+        DB::table('timetables')->where('class_id','=',$class)->where('status','=',1)->update(['status'=>0]);
+        DB::table('timetables')->where('id','=',$id)->update(['status'=>1]);
+        alert()->success('Timetable enabled');
+        return $this->redirectTimetable();
+    }
+
+    public function disableTimetable($id){
+
+        DB::table('timetables')->where('id','=',$id)->update(['status'=>0]);
+        alert()->success('Timetable disabled');
+        return $this->redirectTimetable();
+    }
+
 
 }
