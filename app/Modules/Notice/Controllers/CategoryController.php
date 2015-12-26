@@ -14,6 +14,10 @@ class CategoryController extends Controller
 
     public function listCategory()
     {
+        $module['Title'] = trans('Notice::backend/notice.main');
+        $module['SubTitle'] = trans('Notice::backend/category.dash');
+        $module['URL'] = "/admin/notice";
+
         $categories = DB::table('notices')
             ->select('*', DB::raw("COUNT('notices.id') AS post_count"))
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
@@ -27,12 +31,13 @@ class CategoryController extends Controller
 
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
+        $additionalLibs[3] = "libraries/jValidation/dist/jquery.validate.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.listCat')->with('categories', $categories)->with('cList', $cList);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('module',$module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         return $view;

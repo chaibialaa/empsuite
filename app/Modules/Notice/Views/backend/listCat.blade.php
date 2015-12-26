@@ -1,6 +1,10 @@
 <div class="row">
-    @if((isset($cList)) and (count($cList)>0))
+
         <script>
+
+
+
+            @if(count($categories)>0)
             function getRandomColor() {
                 var letters = '0123456789ABCDEF'.split('');
                 var color = '#';
@@ -45,8 +49,20 @@
                 pieChart.Doughnut(PieData, pieOptions);
             });
 
-
+            @endif
             $(document).ready(function () {
+                        $("#addCategory").validate({
+                            rules: {
+                                title: {
+                                    minlength:2
+                                }
+                            },
+                            messages:{
+                                title:{
+                                    minlength:""
+                                }
+                            }
+                        });
                 var table = $('#categories').DataTable();
                 @foreach($cList as $c)
                     $('#categories tbody').on('click', '#rename-{{$c->id }}', function () {
@@ -201,12 +217,13 @@
                 <div class="panel-body">
 
 
-                    <form method="POST" action="/admin/notice/category/add">
+                    <form method="POST" action="/admin/notice/category/add" id="addCategory" class="form-validate">
 
                         <div class="input-group">
 
                             {!! csrf_field() !!}
-                            <input class="form-control" name="title" type="text">
+
+                            <input class="form-control" name="title" type="text" id="title">
 
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-success">Add</button>
@@ -228,46 +245,18 @@
                 <div class="panel-body">
 
 
-                    <div class="chart-responsive">
-                        <canvas id="pieChart2"></canvas>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-    @else
-        <div class="col-md-12">
-            <div class="panel panel-default ">
-                <div class="box-header">
-                    <i class="fa fa-plus"></i>
-
-                    <h3 class="box-title">Add new category</h3>
-
-                </div>
-                <div class="panel-body">
-
-
-                    <form method="POST" action="/admin/notice/category/add" id="notice-category-add-form">
-
-                        <div class="input-group">
-
-                            {!! csrf_field() !!}
-                            <input class="form-control" name="title" type="text">
-
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
-                            </div>
-
+                    @if(count($categories)==0)
+                        No Categories Yet !
+                    @else
+                        <div class="chart-responsive">
+                            <canvas id="pieChart2"></canvas>
                         </div>
-                    </form>
-
+                    @endif
 
                 </div>
             </div>
-
         </div>
-    @endif
+
 </div>
 
 

@@ -14,7 +14,7 @@
     <link href="{{ asset("/assets/theme/backend/default/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset("/assets/theme/backend/default/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset("/assets/theme/backend/default/dist/css/AdminLTE.css")}}" rel="stylesheet" type="text/css" />
     @if((isset($additionalCsss)) and (count($additionalCsss)>0))
         @foreach($additionalCsss as $additionalCss)
     <link href="{{ asset("/assets/".$additionalCss) }}" rel="stylesheet" type="text/css" media="all" />
