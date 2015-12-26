@@ -11,21 +11,21 @@ class BasicConfig extends Seeder
      */
     public function run()
     {
-        DB::table('themes')->insert([
+        DB::table('core_themes')->insert([
             'title' => 'default',
             'type' => 'backend',
             'status' => '1',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
-        DB::table('themes')->insert([
+        DB::table('core_themes')->insert([
             'title' => 'default',
             'type' => 'frontend',
             'status' => '1',
             'created_at' => date("Y-m-d H:i:s")
         ]);
 
-        DB::table('core')->insert([
+        DB::table('core_settings')->insert([
             'title' => 'EMPsuite v2',
             'backend_theme' => '1',
             'frontend_theme' => '2',

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(BasicPermission::class);
         $this->call(BasicClassroomStatus::class);
         $this->call(BasicTimetableStatus::class);
+        $this->call(BasicCoreModule::class);
         Model::reguard();
     }
 }

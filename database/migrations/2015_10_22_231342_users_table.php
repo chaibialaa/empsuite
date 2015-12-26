@@ -36,6 +36,14 @@ class UsersTable extends Migration
             $table->string('token')->index();
             $table->timestamp('created_at');
         });
+
+        Schema::create('sessions', function ($table) {
+            $table->string('id')->unique();
+            $table->text('payload');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on(config('auth.table'))->onDelete('cascade');
+            $table->integer('last_activity');
+        });
     }
 
     /**
@@ -47,5 +55,6 @@ class UsersTable extends Migration
     {
         Schema::drop('users');
         Schema::drop('password_resets');
+        Schema::drop('sessions');
     }
 }

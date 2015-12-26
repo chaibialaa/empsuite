@@ -13,7 +13,7 @@ class ConfigFromDB {
         else
         {
 
-                $setting = DB::table('core')
+                $setting = DB::table('core_settings')
                     ->join('themes AS T1','T1.id','=','core.backend_theme')
                     ->join('themes AS T2','T2.id','=','core.frontend_theme')
                     ->select('core.id as id','core.catchmail as catchmail','core.title as title',

@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Models\User;
-use View, Auth, Input, DB, App\Helpers\ConfigFromDB;
+use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger;
 use Intervention\Image\Facades\Image;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 use App\Modules\Notice\Models\Notice as Notice;
@@ -13,7 +13,6 @@ class NoticeController extends Controller
     public function redirectNotice()
     {
         return redirect('/admin/notice/');
-
     }
 
     public function formaddNotice()
@@ -77,7 +76,7 @@ class NoticeController extends Controller
             $data['end_at'] = date("Y-m-d", strtotime("tomorrow"));
         }
 
-        Notice::create([
+        $Notice = Notice::create([
             'title' => $data['title'],
             'end_at' => $data['end_at'],
             'content' => $data['content'],
@@ -88,8 +87,9 @@ class NoticeController extends Controller
             'comments' => $data['comments'],
             'link' => $url,
         ]);
-        alert()->success(trans('Notice::backend/notice.success_add'));
 
+        alert()->success(trans('Notice::backend/notice.success_add'));
+        logger::log($user->id,"Add",2,$Notice->title);
         return $this->redirectNotice();
     }
 
@@ -151,10 +151,12 @@ class NoticeController extends Controller
 
     }
 
-
-
     public function listNoticeBackend()
     {
+        $module['Title'] = trans('Notice::backend/notice.main');
+        $module['SubTitle'] = trans('Notice::backend/notice.dash');
+        $module['URL'] = "/admin/notice";
+
         $notices = DB::table('notices')
             ->join('users', 'users.id', '=', 'notices.user_id')
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
@@ -162,19 +164,26 @@ class NoticeController extends Controller
             ->orderBy('updated_at', 'asc')
             ->get();
 
+        $users = DB::table('notices')
+            ->select('*', DB::raw("COUNT('notices.id') AS post_count"))
+            ->join('users', 'users.id', '=', 'notices.user_id')
+            ->orderBy('post_count', 'desc')
+            ->groupBy('users.id')
+            ->take(5)
+            ->get();
 
-        $additionalLibs[0] = "libraries/datatables/jquery.dataTables.min.js";
+        $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
+        $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
 
-
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.list')
-            ->with('notices', $notices);
-        $view->with('content', $ComposedSubView);
+            ->with('notices', $notices)->with('users', $users);
+
+        $view->with('content', $ComposedSubView)->with('module',$module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
-
         return $view;
 
     }

@@ -12,7 +12,7 @@ class CoreTable extends Migration
      */
     public function up()
     {
-        Schema::create('themes', function (Blueprint $table) {
+        Schema::create('core_themes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('type');
@@ -20,7 +20,7 @@ class CoreTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('core', function (Blueprint $table) {
+        Schema::create('core_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->integer('backend_theme')->unsigned();
@@ -28,11 +28,11 @@ class CoreTable extends Migration
             $table->string('catchmail');
             $table->timestamps();
 
-            $table->foreign('backend_theme')->references('id')->on('themes');
-            $table->foreign('frontend_theme')->references('id')->on('themes');
+            $table->foreign('backend_theme')->references('id')->on('core_themes');
+            $table->foreign('frontend_theme')->references('id')->on('core_themes');
         });
 
-        Schema::create('language', function (Blueprint $table) {
+        Schema::create('core_languages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('code');
@@ -41,15 +41,26 @@ class CoreTable extends Migration
             $table->timestamps();
         });
 
-
-
-        Schema::create('sessions', function ($table) {
-            $table->string('id')->unique();
-            $table->text('payload');
-            $table->integer('user_id')->unsigned()->nullable();
-            $table->foreign('user_id')->references('id')->on(config('auth.table'))->onDelete('cascade');
-            $table->integer('last_activity');
+        Schema::create('core_modules', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
         });
+
+        Schema::create('log', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('action');
+            $table->integer('user_id')->unsigned();
+            $table->integer('module_id')->unsigned();
+            $table->string('element');
+            $table->timestamp('datetime');
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('module_id')->references('id')->on('core_modules');
+        });
+
+
+
+
     }
 
     /**
@@ -59,10 +70,10 @@ class CoreTable extends Migration
      */
     public function down()
     {
-        Schema::drop('core');
-        Schema::drop('language');
-        Schema::drop('sessions');
-        Schema::drop('themes');
+        Schema::drop('core_settings');
+        Schema::drop('core_languages');
+        Schema::drop('core_modules');
+        Schema::drop('core_themes');
 
     }
 }

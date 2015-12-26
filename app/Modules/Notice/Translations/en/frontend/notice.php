@@ -2,6 +2,6 @@
 
 return [
 
-    'dash' =>'Notice Dashboard',
+    'dash' =>'Notices Dashboard',
 
 ];

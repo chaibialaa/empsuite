@@ -12,21 +12,22 @@ class TimetablesTable extends Migration
      */
     public function up()
     {
+        Schema::create('timetable_types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+        });
+
         Schema::create('timetables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type')->unsigned();
             $table->integer('class_id')->unsigned();
             $table->integer('status');
-            $table->foreign('timetable_id')->references('id')->on('timetables');
             $table->foreign('class_id')->references('id')->on('classes');
             $table->foreign('type')->references('id')->on('timetable_types');
             $table->timestamps();
         });
 
-        Schema::create('timetable_types', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-        });
+
 
         Schema::create('timetable_elements', function (Blueprint $table) {
             $table->increments('id');
