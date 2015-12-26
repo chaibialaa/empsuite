@@ -2,6 +2,7 @@
 
 Route::group(array('module' => 'Role', 'namespace' => 'App\Modules\Role\Controllers'), function() {
 
+    Route::get('admin/role/', 'RoleController@listAll');
     Route::get('admin/role/affect/', 'RoleController@affectRole');
 
     Route::get('admin/role/add/', 'RoleController@formaddRole');

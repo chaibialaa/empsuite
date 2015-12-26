@@ -44,7 +44,7 @@
         <section class="content-header">
             <h1>
                 {{$module['SubTitle'] or "Backend Management"}}
-                <small>{{ $module['Title'] or null }}</small>
+                <small><a href="{{$module['URL'] or "#"}}">{{ $module['Title'] or null }}</a></small>
             </h1>
         </section>
         <section class="content">

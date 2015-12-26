@@ -18,6 +18,10 @@ class NoticeController extends Controller
 
     public function formaddNotice()
     {
+        $module['Title'] = trans('Notice::backend/notice.main');
+        $module['SubTitle'] = trans('Notice::backend/notice.add_notice');
+        $module['URL'] = "/admin/notice";
+
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
 
         $additionalLibs[0] = "libraries/datepicker/bootstrap-datepicker.js";
@@ -27,13 +31,13 @@ class NoticeController extends Controller
         $categories = DB::table('notice_categories')->get();
 
         if (!$categories) {
-            alert()->warning('Au moins 1 categorie');
+            alert()->warning(trans('Notice::backend/notice.at_least_one'));
             return redirect('/admin/notice/category');
         }
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.add')->with('categoriesList', $categories);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('module', $module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
 
@@ -69,10 +73,8 @@ class NoticeController extends Controller
         $url = strtolower($data['title']);
         $url = preg_replace('/[^a-z0-9 -]+/', '', $url);
         $url = str_replace(' ', '-', $url);
-        if (array_key_exists('end_at', $data)){
+        if (!array_key_exists('end_at', $data)){
             $data['end_at'] = date("Y-m-d", strtotime("tomorrow"));
-
-
         }
 
         Notice::create([
@@ -86,13 +88,16 @@ class NoticeController extends Controller
             'comments' => $data['comments'],
             'link' => $url,
         ]);
-        alert()->success('Notice ajoutee avec success');
+        alert()->success(trans('Notice::backend/notice.success_add'));
 
         return $this->redirectNotice();
     }
 
     public function showNotice($category, $id, $link)
     {
+        $module['Title'] = trans('Notice::frontend/notice.dash');
+
+        $module['URL'] = "/notice";
 
         $categories = NoticeCategory::where('title', '=', $category)->first();
         $notice = Notice::where('id', '=', $id)
@@ -102,8 +107,8 @@ class NoticeController extends Controller
             ->where('end_at', '>', date('Y-m-d'))
             ->first();
         if (!$notice) {
-            alert()->warning('Aucune annonce trouvee');
-            return redirect('/notice');
+            alert()->warning(trans('Notice::backend/notice.no_notice'));
+            return $this->redirectNotice();
         }
         $user = User::where('id', '=', $notice->user_id)->first();
 
@@ -111,13 +116,14 @@ class NoticeController extends Controller
         $additionalCsss[1] = "libraries/jssocials/jssocials-theme-flat.css";
         $additionalLibs[0] = "libraries/jssocials/jssocials.min.js";
 
+        $module['SubTitle'] = $category;
+
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.notice')
             ->with('notice', $notice)
             ->with('user', $user)
             ->with('category', ucfirst($category));
-        $view->with('content', $ComposedSubView)
-            ->with('module_title', 'Notice');
+        $view->with('content', $ComposedSubView)->with('module', $module);
 
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);

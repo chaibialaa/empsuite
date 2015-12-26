@@ -11,6 +11,28 @@ use App\Helpers\ConfigFromDB;
 
 class RoleController extends Controller {
 
+    public function redirectRole(){
+        return redirect('/admin/role');
+    }
+
+    public function listAll(){
+        $module['Title'] = "Role Manager";
+        $module['SubTitle'] = "Roles Dashboard";
+        $module['URL'] = "/admin/role";
+
+        $Roles = Role::all();
+        $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
+        $additionalLibs[1] = "libraries/datatables/jquery.dataTables.min.js";
+        $additionalLibs[0] = "libraries/datatables/dataTables.bootstrap.min.js";
+        $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+        $ComposedSubView = View::make('Role::backend.list')
+            ->with('roles',$Roles);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        $view->with('additionalCsss', $additionalCsss);
+        $view->with('additionalLibs', $additionalLibs);
+        return $view;
+    }
+
 	public function formaddRole()
 	{
         $module['Title'] = "Role Manager";

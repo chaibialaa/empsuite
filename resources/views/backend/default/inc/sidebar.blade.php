@@ -32,15 +32,9 @@
             <!-- Optionally, you can add icons to the links -->
             <li><a href="/admin/"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
             <li><a href="#"><i class="fa fa-users"></i><span>Users</span></a></li>
-            <li class="treeview">
-                <a href="#"><i class="fa fa-gear"></i><span>Roles</span><i class="fa fa-angle-left pull-right"></i></a>
-                <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Link in level 2</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Link in level 2</a></li>
-                </ul>
-            </li>
+            <li><a href="#"><i class="fa fa-gear"></i><span>Roles</span></a></li>
             <li><a href="#"><i class="fa fa-inbox"></i><span>Messages</span></a></li>
-            <li><a href="#"><i class="fa fa-exclamation "></i><span>Notices</span></a>
+            <li><a href="#"><i class="fa fa-exclamation "></i><span>Notices</span><i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="/admin/notice"><i class="fa fa-circle-o"></i>Manage Notices</a></li>
                     <li><a href="/admin/notice/category"><i class="fa fa-circle-o"></i>Manage Categories</a></li>
@@ -56,7 +50,11 @@
             </li>
             <li><a href="/admin/subject"><i class="fa fa-book"></i><span>Subjects</span></a></li>
             <li><a href="/admin/timetable"><i class="fa fa-calendar"></i><span>Timetables</span></a></li>
-            <li><a href="#"><i class="fa fa-suitcase"></i><span>Resources</span></a></li>
+            <li><a href="#"><i class="fa fa-suitcase"></i><span>Resources</span><i class="fa fa-angle-left pull-right"></i></a>
+                <ul class="treeview-menu">
+                    <li><a href="/admin/resource/classrooms"><i class="fa fa-circle-o"></i>Manage Classrooms</a></li>
+                </ul>
+            </li>
 
         </ul><!-- /.sidebar-menu -->
     </section>
