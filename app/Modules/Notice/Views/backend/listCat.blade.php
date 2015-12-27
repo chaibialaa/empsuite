@@ -97,18 +97,6 @@
                                 toastr.error(error.text());
                             }
                         });
-                    $('#categories tbody').on('click', '#rename-{{$c->id }}', function () {
-
-                    var tr = $(this).closest('tr');
-                    var row = table.row(tr);
-                    if (row.child.isShown()) {
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    } else {
-                        row.child(rename{!! $c->id !!} ()).show();
-                        tr.addClass('shown');
-                    }
-                });
                 @endforeach
             });
         </script>
@@ -146,28 +134,48 @@
                             <tr>
 
                                 <td>{{$c->title}}</td>
-                                <td id="rename-{{$c->id }}" class=" details-control"><a class="btn btn-block btn-xs btn-success btn-flat">
+                                <td><a class="btn btn-block btn-xs btn-success btn-flat"  data-toggle="modal" data-target="#rename-{{$c->id }}">
                                         {{ trans('Notice::backend/category.rename') }}
                                     </a>
-                                    <script>
-                                        function rename{!! $c->id !!} () {
-                                            return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
-                                                    '<tr>' +
-                                                    '<td>{{ trans('Notice::backend/category.rename') }}&nbsp;</td>' +
-                                                    '<td>{!! $c->title !!} &nbsp;to:&nbsp; </td>' +
-                                                    '<td><form method="POST" action="/admin/notice/category/rename/{{$c->id }}" id="form-rename-{{$c->id }}" class="form-validate">' +
-                                                    '<div class="input-group input-group-sm">'+
-                                                    '{!! csrf_field() !!}' +
-                                                    '<input class="form-control" type="text" name="title">' +
-                                                    '<div class="input-group-btn">'+
-                                                    '<button type="submit" class="btn btn-success">{{ trans('Notice::backend/category.rename') }}</button>' +
-                                                    '</div>'+
-                                                    '</div>'+
-                                                    '</form></td>' +
-                                                    '</tr>' +
-                                                    '</table>';
-                                        }
-                                    </script>
+
+                                    <div class="modal fade" id="rename-{{$c->id }}" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel" aria-hidden="true"
+                                         style="display: none;">
+                                        <div class="modal-dialog">
+                                            <form method="POST"
+                                                  action="/admin/notice/category/rename/{{$c->id }}"
+                                                  class="form" id="form-rename-{{$c->id }}">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4 class="modal-title">Rename Category</h4>
+                                                </div>
+                                                <div class="modal-body">
+
+                                                        <form method="POST" action="/admin/notice/category/rename/{{$c->id }}" id="form-rename-{{$c->id }}" class="form-validate">
+                                                            <div class="input-group input-group-sm">
+                                                                {!! csrf_field() !!}
+                                                                <input class="form-control" type="text" name="title">
+
+                                                            </div>
+                                                        </form>
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        Cancel
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary">{{ trans('Notice::backend/category.rename') }}</button>
+                                                </div>
+                                            </div>
+                                            </form>
+                                            <!-- /.modal-content -->
+                                        </div>
+                                        <!-- /.modal-dialog -->
+                                    </div>
                                 </td>
                                 <td><a class="btn btn-block btn-xs btn-danger btn-flat" data-toggle="modal"
                                        data-target="#delete-{{$c->id }}">
