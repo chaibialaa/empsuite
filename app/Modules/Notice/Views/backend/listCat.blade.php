@@ -6,10 +6,15 @@
                     return false;
                 }
             });
-
-
-            @if(count($categories)>0)
-            function getRandomColor() {
+            @foreach($cList as $c)
+                        $("#form-rename-{{$c->id}}").submit(function(e) {
+                        if(!$("#form-rename-{{$c->id}}").valid()){
+                            return false;
+                        }
+                    });
+            @endforeach
+                        @if(count($categories)>0)
+                        function getRandomColor() {
                 var letters = '0123456789ABCDEF'.split('');
                 var color = '#';
                 for (var i = 0; i < 6; i++) {
@@ -48,13 +53,14 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-                    tooltipTemplate: "<%=label%> : <%=value %> entries"
+                    tooltipTemplate: "<%=label%> : <%=value %> {{ trans('Notice::backend/category.entries') }}"
                 };
                 pieChart.Doughnut(PieData, pieOptions);
             });
 
             @endif
             $(document).ready(function () {
+
                         $("#addCategory").validate({
                             rules: {
                                 title: {
@@ -64,8 +70,8 @@
                             },
                             messages:{
                                 title:{
-                                    minlength:"Title should contain at least 4 characters",
-                                    required: "Title is required"
+                                    minlength:"{{ trans('Notice::backend/category.min_length') }}",
+                                    required: "{{ trans('Notice::backend/category.title_required') }}"
                                 }
                             },
                             errorPlacement: function(error) {
@@ -74,7 +80,25 @@
                         });
                 var table = $('#categories').DataTable();
                 @foreach($cList as $c)
+                    $("#form-rename-{{$c->id }}").validate({
+                            rules: {
+                                title: {
+                                    minlength:4,
+                                    required: true
+                                }
+                            },
+                            messages:{
+                                title:{
+                                    minlength:"{{ trans('Notice::backend/category.min_length') }}",
+                                    required: "{{ trans('Notice::backend/category.title_required') }}"
+                                }
+                            },
+                            errorPlacement: function(error) {
+                                toastr.error(error.text());
+                            }
+                        });
                     $('#categories tbody').on('click', '#rename-{{$c->id }}', function () {
+
                     var tr = $(this).closest('tr');
                     var row = table.row(tr);
                     if (row.child.isShown()) {
@@ -89,27 +113,30 @@
             });
         </script>
         <div class="col-md-9">
+
             <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> {{ trans('Notice::backend/category.manage') }}</h3>
+                </div>
                 <div class="panel-body">
 
                     <table id="categories" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Rename</th>
-                            <th>Delete</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
+                            <th>{{ trans('Notice::backend/category.title') }}</th>
+                            <th>{{ trans('Notice::backend/category.rename') }}</th>
+                            <th>{{ trans('Notice::backend/category.delete') }}</th>
+                            <th>{{ trans('Notice::backend/category.created_at') }}</th>
+                            <th>{{ trans('Notice::backend/category.updated_at') }}</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-
-                            <th>Title</th>
-                            <th>Rename</th>
-                            <th>Delete</th>
-                            <th>Created at</th>
-                            <th>Updated at</th>
+                            <th>{{ trans('Notice::backend/category.title') }}</th>
+                            <th>{{ trans('Notice::backend/category.rename') }}</th>
+                            <th>{{ trans('Notice::backend/category.delete') }}</th>
+                            <th>{{ trans('Notice::backend/category.created_at') }}</th>
+                            <th>{{ trans('Notice::backend/category.updated_at') }}</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -120,20 +147,20 @@
 
                                 <td>{{$c->title}}</td>
                                 <td id="rename-{{$c->id }}" class=" details-control"><a class="btn btn-block btn-xs btn-success btn-flat">
-                                        Rename
+                                        {{ trans('Notice::backend/category.rename') }}
                                     </a>
                                     <script>
                                         function rename{!! $c->id !!} () {
                                             return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' +
                                                     '<tr>' +
-                                                    '<td>Rename Category&nbsp;</td>' +
-                                                    '<td>{!! $c->title !!} :&nbsp;</td>' +
-                                                    '<td><form method="POST" action="/admin/notice/category/rename/{{$c->id }}" class="form">' +
+                                                    '<td>{{ trans('Notice::backend/category.rename') }}&nbsp;</td>' +
+                                                    '<td>{!! $c->title !!} &nbsp;to:&nbsp; </td>' +
+                                                    '<td><form method="POST" action="/admin/notice/category/rename/{{$c->id }}" id="form-rename-{{$c->id }}" class="form-validate">' +
                                                     '<div class="input-group input-group-sm">'+
                                                     '{!! csrf_field() !!}' +
                                                     '<input class="form-control" type="text" name="title">' +
                                                     '<div class="input-group-btn">'+
-                                                    '<button type="submit" class="btn btn-success">Rename</button>' +
+                                                    '<button type="submit" class="btn btn-success">{{ trans('Notice::backend/category.rename') }}</button>' +
                                                     '</div>'+
                                                     '</div>'+
                                                     '</form></td>' +
