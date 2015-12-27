@@ -1,7 +1,11 @@
 <div class="row">
 
         <script>
-
+            $("#addCategory").submit(function(e) {
+                if(!$("#addCategory").valid()){
+                    return false;
+                }
+            });
 
 
             @if(count($categories)>0)
@@ -54,13 +58,18 @@
                         $("#addCategory").validate({
                             rules: {
                                 title: {
-                                    minlength:2
+                                    minlength:4,
+                                    required: true
                                 }
                             },
                             messages:{
                                 title:{
-                                    minlength:""
+                                    minlength:"Title should contain at least 4 characters",
+                                    required: "Title is required"
                                 }
+                            },
+                            errorPlacement: function(error) {
+                                toastr.error(error.text());
                             }
                         });
                 var table = $('#categories').DataTable();
@@ -230,6 +239,7 @@
                             </div>
 
                         </div>
+
                     </form>
 
 
@@ -246,7 +256,7 @@
 
 
                     @if(count($categories)==0)
-                        No Categories Yet !
+                        No Notices Yet !
                     @else
                         <div class="chart-responsive">
                             <canvas id="pieChart2"></canvas>

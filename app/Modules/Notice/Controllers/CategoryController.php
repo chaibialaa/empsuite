@@ -32,8 +32,10 @@ class CategoryController extends Controller
         $additionalLibs[0] = "libraries/chartjs/Chart.min.js";
         $additionalLibs[2] = "libraries/datatables/jquery.dataTables.min.js";
         $additionalLibs[3] = "libraries/jValidation/dist/jquery.validate.js";
+        $additionalLibs[4] = "libraries/toastr/toastr.js";
         $additionalLibs[1] = "libraries/datatables/dataTables.bootstrap.min.js";
         $additionalCsss[0] = "libraries/datatables/dataTables.bootstrap.css";
+        $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.listCat')->with('categories', $categories)->with('cList', $cList);
@@ -88,6 +90,11 @@ class CategoryController extends Controller
 
     public function addCategory()
     {
+        if (!Input::has('title')){
+            alert()->error('trans');
+
+            return $this->redirectCategory();
+        }
         $data = Input::all();
         NoticeCategory::create([
             'title' => $data['title']

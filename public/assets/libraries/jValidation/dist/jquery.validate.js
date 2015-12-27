@@ -303,18 +303,38 @@ $.extend( $.validator, {
 			}
 		},
 		highlight: function( element, errorClass, validClass ) {
-			if ( element.type === "radio" ) {
-				this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
-			} else {
-				$( element ).addClass( errorClass ).removeClass( validClass );
-			}
+            if (this.findByName(element.name).parent().hasClass("input-group")){
+                if (element.type === "radio") {
+                    this.findByName(element.name).parent().addClass(errorClass).removeClass(validClass);
+                    this.findByName(element.name).parent().children().last().find("button[type=submit]").addClass('btn-danger').removeClass('btn-success');
+                } else {
+                    $(element).parent().addClass(errorClass).removeClass(validClass);
+                    $(element).parent().children().last().find("button[type=submit]").addClass('btn-danger').removeClass('btn-success');
+                }
+            } else {
+                if ( element.type === "radio" ) {
+                    this.findByName( element.name ).addClass( errorClass ).removeClass( validClass );
+                } else {
+                    $( element ).addClass( errorClass ).removeClass( validClass );
+                }
+            }
 		},
 		unhighlight: function( element, errorClass, validClass ) {
-			if ( element.type === "radio" ) {
-				this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
-			} else {
-				$( element ).removeClass( errorClass ).addClass( validClass );
-			}
+            if (this.findByName(element.name).parent().hasClass("input-group")) {
+                if (element.type === "radio") {
+                    this.findByName(element.name).parent().removeClass(errorClass).addClass(validClass);
+                    this.findByName(element.name).parent().children().last().find("button[type=submit]").addClass('btn-success').removeClass('btn-danger');
+                } else {
+                    $(element).parent().removeClass(errorClass).addClass(validClass);
+                    $(element).parent().children().last().find("button[type=submit]").addClass('btn-success').removeClass('btn-danger');
+                }
+            } else {
+                if ( element.type === "radio" ) {
+                    this.findByName( element.name ).removeClass( errorClass ).addClass( validClass );
+                } else {
+                    $( element ).removeClass( errorClass ).addClass( validClass );
+                }
+            }
 		}
 	},
 

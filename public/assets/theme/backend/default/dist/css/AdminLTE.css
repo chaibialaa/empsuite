@@ -1255,24 +1255,28 @@ a:focus {
   -moz-appearance: none;
   appearance: none;
 }
-.form-control.success label {
-  color: #00a65a;
+.form-control.valid {
+    border-color: #00a65a;
+    color: #00a65a;
+    box-shadow: none;
 }
-.form-control.success  {
+.form-control.error {
+    border-color: #dd4b39;
+    color:#dd4b39;
+    box-shadow: none;
+}
+.input-group.valid input.form-control {
   border-color: #00a65a;
+    color: #00a65a;
   box-shadow: none;
 }
-.form-control.warning label {
-  color: #f39c12;
+.input-group.error input.form-control {
+    border-color: #dd4b39;
+    color:#dd4b39;
+    box-shadow: none;
 }
-.form-control.warning {
-  border-color: #f39c12;
-  box-shadow: none;
-}
-.form-control.error label {
-  color: #dd4b39;
-}
-.form-control.error  {
+
+.input-group.error  {
   border-color: #dd4b39;
   box-shadow: none;
 }
