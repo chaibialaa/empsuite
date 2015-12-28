@@ -38,7 +38,7 @@
             responsive: true,
             maintainAspectRatio: false,
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-            tooltipTemplate: "<%=label%> : <%=value %> entries"
+            tooltipTemplate: "<%=label%> : <%=value %> {{ trans('backend/common.entries') }}"
         };
         pieChart.Doughnut(PieData, pieOptions);
     });
@@ -52,7 +52,7 @@
             <div class="col-md-9">
                 <div class="panel panel-default ">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-list"></i> Manage Notices</h3>
+                        <h3 class="panel-title"><i class="fa fa-list"></i> {{ trans('Notice::backend/notice.manage') }}</h3>
                     </div>
                     <div class="panel-body">
 
@@ -61,26 +61,24 @@
                             <thead>
                             <tr>
 
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Author</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-
-                                <th>Ending at</th>
+                                <th>{{ trans('backend/common.title') }}</th>
+                                <th>{{ trans('backend/common.category') }}</th>
+                                <th>{{ trans('backend/common.status') }}</th>
+                                <th>{{ trans('backend/common.owner') }}</th>
+                                <th>{{ trans('backend/common.edit') }}</th>
+                                <th>{{ trans('backend/common.delete') }}</th>
+                                <th>{{ trans('Notice::backend/notice.end_date') }}</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>Title</th>
-                                <th>Category</th>
-                                <th>Status</th>
-                                <th>Author</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-
-                                <th>Ending at</th>
+                                <th>{{ trans('backend/common.title') }}</th>
+                                <th>{{ trans('backend/common.category') }}</th>
+                                <th>{{ trans('backend/common.status') }}</th>
+                                <th>{{ trans('backend/common.owner') }}</th>
+                                <th>{{ trans('backend/common.edit') }}</th>
+                                <th>{{ trans('backend/common.delete') }}</th>
+                                <th>{{ trans('Notice::backend/notice.end_date') }}</th>
                             </tr>
                             </tfoot>
                             <tbody>
@@ -92,22 +90,25 @@
                                 <td>{{$notice->title_cat}}</td>
                                 <td>@if($notice->status != 1)
                                     <form method="POST" action="/admin/notice/publish/{{$notice->id}}">{!! csrf_field() !!}
-                                        <button type="submit" class="btn btn-block btn-xs btn-success btn-flat">Publish Now</button>
+                                        <button type="submit" class="btn btn-block btn-xs btn-success btn-flat">{{trans('Notice::backend/notice.publish')}}</button>
                                     </form>
                                         @else
                                         <form method="POST" action="/admin/notice/holdon/{{$notice->id}}">{!! csrf_field() !!}
-                                            <button type="submit" class="btn btn-block btn-xs  btn-default btn-flat">Put On Hold</button>
+                                            <button type="submit" class="btn btn-block btn-xs  btn-default btn-flat">{{trans('Notice::backend/notice.put_on_hold')}}</button>
                                         </form>
                                         @endif
                                     </td>
                                 <td>{{$notice->nom}}</td>
-                                <td><form method="get" action="/admin/notice/edit/{{$notice->id}}" target="_blank">
-                                        <button type="submit" class="btn btn-block btn-xs btn-primary btn-flat">Edit</button>
+                                <td class="text-center"><form method="get" action="/admin/notice/edit/{{$notice->id}}" target="_blank">
+                                        <button type="submit" class="btn btn-xs btn-info btn-flat"><i class="fa fa-edit"></i></button>
                                     </form>
-                                    </td><td>
+
+                                </td>
+                                <td class="text-center">
                                     <form method="POST" action="/admin/notice/delete/{{$notice->id}}">{!! csrf_field() !!}
-                                        <button type="submit" class="btn btn-block btn-xs btn-danger btn-flat">Delete</button>
-                                    </form></td>
+                                        <button type="submit" class="btn btn-xs btn-danger btn-flat"><i class="fa fa-trash"></i></button>
+                                    </form>
+                                </td>
 
                                 <td>{{$notice->end_at }}</td>
                                         </tr>
@@ -120,9 +121,9 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <a href="/admin/notice/category/" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Add new category</a>
+                <a href="/admin/notice/category/" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> {{ trans('Notice::backend/category.add_category') }}</a>
 
-                <a href="/admin/notice/add" class="btn  btn-primary btn-block"><i class="fa fa-plus"></i> Add new notice</a>
+                <a href="/admin/notice/add" class="btn  btn-primary btn-block"><i class="fa fa-plus"></i> {{ trans('Notice::backend/notice.add_notice') }}</a>
 <br>
                 <div class="panel panel-default ">
                     <div class="panel-heading">

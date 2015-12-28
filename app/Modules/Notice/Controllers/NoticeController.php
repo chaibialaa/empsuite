@@ -17,15 +17,23 @@ class NoticeController extends Controller
 
     public function formaddNotice()
     {
+        if (!Auth::user()->can('AddNotice')) {
+            alert()->warning(trans('backend/common.no_access'));
+            return redirect('/admin/notice/');
+        }
+
         $module['Title'] = trans('Notice::backend/notice.main');
         $module['SubTitle'] = trans('Notice::backend/notice.add_notice');
         $module['URL'] = "/admin/notice";
 
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
+        $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $additionalLibs[0] = "libraries/datepicker/bootstrap-datepicker.js";
         $additionalLibs[1] = "libraries/ckeditor/ckeditor.js";
         $additionalLibs[2] = "libraries/bootstrap-fileinput/js/fileinput.min.js";
+        $additionalLibs[3] = "libraries/jValidation/dist/jquery.validate.js";
+        $additionalLibs[4] = "libraries/toastr/toastr.js";
 
         $categories = DB::table('notice_categories')->get();
 
@@ -45,6 +53,10 @@ class NoticeController extends Controller
 
     public function addNotice()
     {
+        if (!Auth::user()->can('AddNotice')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return redirect('/admin/notice/');
+        }
         $data = Input::all();
         $user = Auth::user();
         if (array_key_exists('mainimage', $data)) {
@@ -88,8 +100,8 @@ class NoticeController extends Controller
             'link' => $url,
         ]);
 
-        alert()->success(trans('Notice::backend/notice.success_add', ['item' => 'Notice']));
-        logger::log($user->id,"Add",2,$Notice->title);
+        alert()->success(trans('backend/common.success_add', ['item' => 'Notice']));
+        logger::log($user->id,trans('backend/common.add'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
@@ -153,6 +165,10 @@ class NoticeController extends Controller
 
     public function listNoticeBackend()
     {
+        if (!Auth::user()->can('ListNotice')) {
+            alert()->warning(trans('backend/common.no_access'));
+            return redirect('/admin/');
+        }
         $module['Title'] = trans('Notice::backend/notice.main');
         $module['SubTitle'] = trans('Notice::backend/notice.dash');
         $module['URL'] = "/admin/notice";
@@ -190,43 +206,75 @@ class NoticeController extends Controller
 
     public function publishNotice($id)
     {
-        Notice::where('id', '=', $id)
+        if (!Auth::user()->can('PublishNotice')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectNotice();
+        }
+        $Notice = Notice::where('id', '=', $id)
             ->update(['status' => 1]);
         alert()->success(trans('Notice::backend/notice.success_publish', ['item' => 'Notice']));
+        logger::log(Auth::user()->id,trans('Notice::backend/notice.publish'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
     public function holdonNotice($id)
     {
-        Notice::where('id', '=', $id)
+        if (!Auth::user()->can('OnHoldNotice')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectNotice();
+        }
+        $Notice = Notice::where('id', '=', $id)
             ->update(['status' => 0]);
         alert()->success(trans('Notice::backend/notice.success_on_hold', ['item' => 'Notice']));
+        logger::log(Auth::user()->id,trans('Notice::backend/notice.on_hold'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
     public function deleteNotice($id)
     {
-        Notice::where('id', '=', $id)
+        if (!Auth::user()->can('DeleteNotice')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectNotice();
+        }
+        $Notice = Notice::where('id', '=', $id)
             ->delete();
         alert()->success(trans('backend/common.success_delete', ['item' => 'Notice']));
+        logger::log(Auth::user()->id,trans('backend/common.delete'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
     public function formeditNotice($id)
     {
+        $module['Title'] = trans('Notice::backend/notice.main');
+        $module['SubTitle'] = trans('Notice::backend/notice.edit_notice');
+        $module['URL'] = "/admin/notice";
+
         $notice = Notice::where('id', '=', $id)
             ->first();
         $categories = DB::table('notice_categories')->get();
-
         $additionalCsss[0] = "libraries/datepicker/datepicker3.css";
+        $additionalCsss[1] = "libraries/toastr/build/toastr.css";
 
         $additionalLibs[0] = "libraries/datepicker/bootstrap-datepicker.js";
         $additionalLibs[1] = "libraries/ckeditor/ckeditor.js";
         $additionalLibs[2] = "libraries/bootstrap-fileinput/js/fileinput.min.js";
+        $additionalLibs[3] = "libraries/jValidation/dist/jquery.validate.js";
+        $additionalLibs[4] = "libraries/toastr/toastr.js";
+        if (Auth::user()->id == $notice->user_id) {
+            if (!Auth::user()->can('EditOwnNotice')) {
+                alert()->warning(trans('backend/common.no_access'));
+                return $this->redirectNotice();
+            }
+        } else {
+            if (!Auth::user()->can('EditAnyNotice')) {
+                alert()->warning(trans('backend/common.no_access'));
+                return $this->redirectNotice();
+            }
+        }
 
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.edit')->with('categoriesList', $categories)->with('notice', $notice);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('module',$module);
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
 
@@ -235,6 +283,18 @@ class NoticeController extends Controller
 
     public function updateNotice($id)
     {
+        if (Auth::user()->id == $id) {
+            if (!Auth::user()->can('EditOwnNotice')) {
+                alert()->warning(trans('backend/common.no_action'));
+                return $this->redirectNotice();
+            }
+        } else {
+            if (!Auth::user()->can('EditAnyNotice')) {
+                alert()->warning(trans('backend/common.no_action'));
+                return $this->redirectNotice();
+            }
+        }
+
         $user = Auth::user();
         $data = Input::all();
         if (array_key_exists('mainimage', $data)) {
@@ -272,6 +332,7 @@ class NoticeController extends Controller
         $data['link'] = $url;
 
         $update->fill($data)->save();
+        logger::log($user->id,trans('backend/common.update'),2,$data['title']);
         alert()->success(trans('backend/common.success_update', ['item' => 'Notice']));
         return $this->redirectNotice();
 

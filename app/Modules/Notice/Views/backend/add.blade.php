@@ -1,4 +1,9 @@
 <script>
+    $("#notice-add-form").submit(function(e) {
+        if(!$("#notice-add-form").valid()){
+            return false;
+        }
+    });
     $(function () {
         $("#end_at").datepicker({
             format: 'yyyy-mm-dd',
@@ -6,6 +11,23 @@
         });
         $('#url').click(function () {
             $(this).val('');
+        });
+        $("#notice-add-form").validate({
+            rules: {
+                title: {
+                    minlength:10,
+                    required: true
+                }
+            },
+            messages:{
+                title:{
+                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '10']) }}",
+                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
+                }
+            },
+            errorPlacement: function(error) {
+                toastr.error(error.text());
+            }
         });
     });
 </script>
@@ -28,7 +50,7 @@
                 </div>
                 <div>
                     <div>
-                        <label>{{ trans('backend/common.content') }} </label> <textarea id="formcontent" name="content"
+                        <label>{{ trans('backend/common.content') }} </label> <textarea id="content" name="content"
                                                           class="form-control"></textarea>
                     </div>
 
@@ -78,7 +100,7 @@
                         <div class="radio">
 
                             <label>
-                                <input type="radio" name="comments" value="1" checked="true">{{ trans('backend/common.enabled') }}
+                                <input type="radio" name="comments" value="1" checked>{{ trans('backend/common.enabled') }}
                             </label>
                             <label>
                                 <input type="radio" name="comments" value="0">{{ trans('backend/common.disabled') }}
@@ -88,14 +110,14 @@
                     </div>
                 </div>
                 <div>
-                    <input value="{{ trans('backend/common.create', ['item' => 'Notice']) }}" type="submit" class="btn btn-success pull-right">
+                    <input value="{{ trans('backend/common.create_item', ['item' => 'Notice']) }}" type="submit" class="btn btn-success pull-right">
                 </div>
 
             </div>
         </div>
         </div>
         <script>
-            CKEDITOR.replace('formcontent',{
+            CKEDITOR.replace('content',{
                 height: '300px'
             });
             $("#mainimage").fileinput(

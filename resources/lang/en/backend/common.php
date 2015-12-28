@@ -9,6 +9,8 @@ return [
     'status' => 'Status',
     'comments' => 'Comments',
     'rename' => 'Rename',
+    'update' => 'Update',
+    'edit' => 'Edit',
     'delete' => 'Delete',
     'updated_at' => 'Updated at',
     'created_at' => 'Created at',
@@ -19,10 +21,17 @@ return [
     'success_update' => ':item successfully updated',
     'enabled' => 'Enabled',
     'disabled' => 'Disabled',
-    'create' => 'Create :item',
+    'create_item' => 'Create :item',
+    'update_item' => 'Update :item',
     'browse' => 'Browse',
+    'yes' => 'Yes',
+    'no' => 'No',
+    'add' => 'Add',
+    'author' => 'Author',
+    'owner' => 'Owner',
 
-    // Validation
-    'required' => ':item is required',
+    // Authorizations
+    'no_access' => 'Unauthorized Access',
+    'no_action' => 'Unauthorized Action',
 
 ];
