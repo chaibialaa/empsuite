@@ -186,7 +186,7 @@
                                                                                                                                       method="get">
                                                                                                                                     <button type="submit"
                                                                                                                                             class="btn btn-flat btn-info btn-xs">
-                                                                                                                                        <i
+                                                                                                                                        ²<i
                                                                                                                                                 class="fa fa-edit"></i>
                                                                                                                                     </button>
                                                                                                                                 </form>

@@ -47,10 +47,15 @@ class CategoryController extends Controller
 
     public function renameCategory($id)
     {
+        if (!Input::has('title')){
+            alert()->error(trans('backend/common.required', ['item' => 'Title']));
+
+            return $this->redirectCategory();
+        }
         DB::table('notice_categories')
             ->where('id', $id)
             ->update(['title' => Input::get('title'),'updated_at' => Carbon::now()]);
-        alert()->success('Categorie renommee avec success');
+        alert()->success(trans('backend/common.success_update', ['item' => 'Category']));
 
         return $this->redirectCategory();
     }
@@ -83,7 +88,7 @@ class CategoryController extends Controller
         DB::table('notice_categories')
             ->where('id', $id)
             ->delete();
-        alert()->success('Categorie effacee avec success');
+        alert()->success(trans('backend/common.success_delete', ['item' => 'Category']));
 
         return $this->redirectCategory();
     }
@@ -91,7 +96,7 @@ class CategoryController extends Controller
     public function addCategory()
     {
         if (!Input::has('title')){
-            alert()->error('trans');
+            alert()->error(trans('backend/common.required', ['item' => 'Title']));
 
             return $this->redirectCategory();
         }
@@ -99,7 +104,7 @@ class CategoryController extends Controller
         NoticeCategory::create([
             'title' => $data['title']
         ]);
-        alert()->success('Categorie ajoutee avec success');
+        alert()->success(trans('backend/common.success_add', ['item' => 'Category']));
 
         return $this->redirectCategory();
     }

@@ -88,7 +88,7 @@ class NoticeController extends Controller
             'link' => $url,
         ]);
 
-        alert()->success(trans('Notice::backend/notice.success_add'));
+        alert()->success(trans('Notice::backend/notice.success_add', ['item' => 'Notice']));
         logger::log($user->id,"Add",2,$Notice->title);
         return $this->redirectNotice();
     }
@@ -192,15 +192,15 @@ class NoticeController extends Controller
     {
         Notice::where('id', '=', $id)
             ->update(['status' => 1]);
-        alert()->success('Publication reussie');
-        return redirect('/admin/notice/');
+        alert()->success(trans('Notice::backend/notice.success_publish', ['item' => 'Notice']));
+        return $this->redirectNotice();
     }
 
     public function holdonNotice($id)
     {
         Notice::where('id', '=', $id)
             ->update(['status' => 0]);
-        alert()->success('Mise en attente reussie');
+        alert()->success(trans('Notice::backend/notice.success_on_hold', ['item' => 'Notice']));
         return $this->redirectNotice();
     }
 
@@ -208,7 +208,7 @@ class NoticeController extends Controller
     {
         Notice::where('id', '=', $id)
             ->delete();
-        alert()->success('Suppression reussie');
+        alert()->success(trans('backend/common.success_delete', ['item' => 'Notice']));
         return $this->redirectNotice();
     }
 
@@ -272,7 +272,7 @@ class NoticeController extends Controller
         $data['link'] = $url;
 
         $update->fill($data)->save();
-        alert()->success('Modification reussie');
+        alert()->success(trans('backend/common.success_update', ['item' => 'Notice']));
         return $this->redirectNotice();
 
     }

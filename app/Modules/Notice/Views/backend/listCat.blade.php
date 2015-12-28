@@ -53,7 +53,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-                    tooltipTemplate: "<%=label%> : <%=value %> {{ trans('Notice::backend/category.entries') }}"
+                    tooltipTemplate: "<%=label%> : <%=value %> {{ trans('backend/common.entries') }}"
                 };
                 pieChart.Doughnut(PieData, pieOptions);
             });
@@ -111,20 +111,20 @@
                     <table id="categories" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>{{ trans('Notice::backend/category.title') }}</th>
-                            <th>{{ trans('Notice::backend/category.rename') }}</th>
-                            <th>{{ trans('Notice::backend/category.delete') }}</th>
-                            <th>{{ trans('Notice::backend/category.created_at') }}</th>
-                            <th>{{ trans('Notice::backend/category.updated_at') }}</th>
+                            <th>{{ trans('backend/common.title') }}</th>
+                            <th>{{ trans('backend/common.rename') }}</th>
+                            <th>{{ trans('backend/common.delete') }}</th>
+                            <th>{{ trans('backend/common.created_at') }}</th>
+                            <th>{{ trans('backend/common.updated_at') }}</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>{{ trans('Notice::backend/category.title') }}</th>
-                            <th>{{ trans('Notice::backend/category.rename') }}</th>
-                            <th>{{ trans('Notice::backend/category.delete') }}</th>
-                            <th>{{ trans('Notice::backend/category.created_at') }}</th>
-                            <th>{{ trans('Notice::backend/category.updated_at') }}</th>
+                            <th>{{ trans('backend/common.title') }}</th>
+                            <th>{{ trans('backend/common.rename') }}</th>
+                            <th>{{ trans('backend/common.delete') }}</th>
+                            <th>{{ trans('backend/common.created_at') }}</th>
+                            <th>{{ trans('backend/common.updated_at') }}</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -134,8 +134,8 @@
                             <tr>
 
                                 <td>{{$c->title}}</td>
-                                <td><a class="btn btn-block btn-xs btn-success btn-flat"  data-toggle="modal" data-target="#rename-{{$c->id }}">
-                                        {{ trans('Notice::backend/category.rename') }}
+                                <td class="text-center"><a class="btn btn-xs btn-primary btn-flat"  data-toggle="modal" data-target="#rename-{{$c->id }}">
+                                        <i class="fa fa-edit"></i>
                                     </a>
 
                                     <div class="modal fade" id="rename-{{$c->id }}" tabindex="-1" role="dialog"
@@ -150,17 +150,18 @@
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close"><span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <h4 class="modal-title">Rename Category</h4>
+                                                    <h4 class="modal-title">{{ trans('Notice::backend/category.rename') }} {{$c->title}} </h4>
                                                 </div>
                                                 <div class="modal-body">
 
                                                         <form method="POST" action="/admin/notice/category/rename/{{$c->id }}" id="form-rename-{{$c->id }}" class="form-validate">
-                                                            <div class="input-group input-group-sm">
-                                                                {!! csrf_field() !!}
-                                                                <input class="form-control" type="text" name="title">
 
-                                                            </div>
+                                                                {!! csrf_field() !!}
+                                                                <input class="form-control" type="text" name="title" style="width: 100%!important;">
+
+
                                                         </form>
+
 
 
                                                 </div>
@@ -168,7 +169,7 @@
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
                                                         Cancel
                                                     </button>
-                                                    <button type="button" class="btn btn-primary">{{ trans('Notice::backend/category.rename') }}</button>
+                                                    <button type="submit" class="btn btn-primary">{{ trans('Notice::backend/category.rename') }}</button>
                                                 </div>
                                             </div>
                                             </form>
@@ -177,9 +178,9 @@
                                         <!-- /.modal-dialog -->
                                     </div>
                                 </td>
-                                <td><a class="btn btn-block btn-xs btn-danger btn-flat" data-toggle="modal"
+                                <td class="text-center"> <a class="btn btn-xs btn-danger btn-flat" data-toggle="modal"
                                        data-target="#delete-{{$c->id }}">
-                                        Delete
+                                        <i class="fa fa-trash"></i>
                                     </a>
 
                                     <div class="modal fade" id="delete-{{$c->id }}" tabindex="-1" role="dialog"
@@ -191,12 +192,13 @@
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close"><span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <h4 class="modal-title">Delete Category</h4>
+                                                    <h4 class="modal-title">Delete {{$c->title}}</h4>
                                                 </div>
+                                                <form method="POST"
+                                                      action="/admin/notice/category/delete/{{$c->id }}"
+                                                      class="form">
                                                 <div class="modal-body">
-                                                    <form method="POST"
-                                                          action="/admin/notice/category/delete/{{$c->id }}"
-                                                          class="form">
+
                                                         @if (count($cList) > 1)
                                                             if the category have posts :
                                                             <label>
@@ -218,18 +220,21 @@
 
                                                             {!! csrf_field() !!}
                                                         @else
-                                                            if the category have posts they will be delete as your only
-                                                            category is being deleted !
+                                                        <div class="alert alert-warning">
+                                                        {{ trans('Notice::backend/category.all_entries_delete', ['title' => $c->title]) }}
+                                                        </div>
+
                                                         @endif
-                                                        <input value="Daldoul" type="submit">
-                                                    </form>
+
+
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
                                                         Cancel
                                                     </button>
-                                                    <button type="button" class="btn btn-primary">Rename</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
                                                 </div>
+                                                </form>
                                             </div>
                                             <!-- /.modal-content -->
                                         </div>
