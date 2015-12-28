@@ -6,6 +6,7 @@ return [
     'edit_notice' => 'Edit Notice',
     'at_least_one' => 'At least one category is required',
     'no_notice' => 'No notices found',
+    'no_notice_yet' => 'No notices yet !',
     'dash' => 'Notices Dashboard',
     'main_content' => 'Main Content',
     'manage' => 'Manage Notices',
@@ -18,5 +19,6 @@ return [
     'success_on_hold' => ':item successfully putted on hold',
     'cancel_reset_changes' => 'Cancel or reset changes',
     'transfer_ownership' => 'Transfer ownership to me',
+    'top_owners' => 'Top Notices Owners',
 
 ];

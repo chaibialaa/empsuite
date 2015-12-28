@@ -246,7 +246,7 @@ class NoticeController extends Controller
     public function formeditNotice($id)
     {
         $module['Title'] = trans('Notice::backend/notice.main');
-        $module['SubTitle'] = trans('Notice::backend/notice.edit_notice');
+
         $module['URL'] = "/admin/notice";
 
         $notice = Notice::where('id', '=', $id)
@@ -271,7 +271,7 @@ class NoticeController extends Controller
                 return $this->redirectNotice();
             }
         }
-
+        $module['SubTitle'] = trans('Notice::backend/notice.edit_notice') .': '. $notice->title;
         $view = View::make('backend.' . ConfigFromDB::setting('backend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::backend.edit')->with('categoriesList', $categories)->with('notice', $notice);
         $view->with('content', $ComposedSubView)->with('module',$module);

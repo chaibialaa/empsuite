@@ -30,6 +30,7 @@ return [
     'author' => 'Author',
     'owner' => 'Owner',
 
+
     // Authorizations
     'no_access' => 'Unauthorized Access',
     'no_action' => 'Unauthorized Action',

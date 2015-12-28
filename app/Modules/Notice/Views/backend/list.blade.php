@@ -129,13 +129,13 @@
                     <div class="panel-heading">
 
 
-                        <h3 class="panel-title"><i class="fa fa-pie-chart"></i> Top Authors</h3>
+                        <h3 class="panel-title"><i class="fa fa-pie-chart"></i> {{ trans('Notice::backend/notice.top_owners') }}</h3>
 
                     </div>
                     <div class="panel-body">
 
                     @if(count($users)==0)
-                         No Notices Yet !
+                            {{ trans('Notice::backend/notice.no_notices_yet') }}
                         @else
                             <div class="chart-responsive">
                                 <canvas id="pieChart2"></canvas>
