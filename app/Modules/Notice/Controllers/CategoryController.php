@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon;
+use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 
 class CategoryController extends Controller
@@ -14,6 +14,11 @@ class CategoryController extends Controller
 
     public function listCategory()
     {
+        if (!Auth::user()->can('ListNoticeCategory')) {
+            alert()->warning(trans('backend/common.no_access'));
+            return redirect('/admin/notice/');
+        }
+
         $module['Title'] = trans('Notice::backend/notice.main');
         $module['SubTitle'] = trans('Notice::backend/category.dash');
         $module['URL'] = "/admin/notice";
@@ -47,6 +52,10 @@ class CategoryController extends Controller
 
     public function renameCategory($id)
     {
+        if (!Auth::user()->can('RenameNoticeCategory')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectCategory();
+        }
         if (!Input::has('title')){
             alert()->error(trans('backend/common.required', ['item' => 'Title']));
 
@@ -56,12 +65,16 @@ class CategoryController extends Controller
             ->where('id', $id)
             ->update(['title' => Input::get('title'),'updated_at' => Carbon::now()]);
         alert()->success(trans('backend/common.success_update', ['item' => 'Category']));
-
+        logger::log(Auth::user()->id,trans('backend/common.rename'),2,Input::get('title'));
         return $this->redirectCategory();
     }
 
     public function deleteCategory($id)
     {
+        if (!Auth::user()->can('DeleteNoticeCategory')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectCategory();
+        }
         $rowcount = DB::table('notices')
             ->select('*', DB::raw("COUNT('notices.id') AS post_count"))
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
@@ -85,9 +98,14 @@ class CategoryController extends Controller
             }
 
         }
+
+        $Category = DB::table('notice_categories')
+            ->where('id', $id)->first();
+
         DB::table('notice_categories')
             ->where('id', $id)
             ->delete();
+        logger::log(Auth::user()->id,trans('backend/common.delete'),2,$Category->title);
         alert()->success(trans('backend/common.success_delete', ['item' => 'Category']));
 
         return $this->redirectCategory();
@@ -95,6 +113,10 @@ class CategoryController extends Controller
 
     public function addCategory()
     {
+        if (!Auth::user()->can('AddNoticeCategory')) {
+            alert()->warning(trans('backend/common.no_action'));
+            return $this->redirectCategory();
+        }
         if (!Input::has('title')){
             alert()->error(trans('backend/common.required', ['item' => 'Title']));
 
@@ -105,7 +127,7 @@ class CategoryController extends Controller
             'title' => $data['title']
         ]);
         alert()->success(trans('backend/common.success_add', ['item' => 'Category']));
-
+        logger::log(Auth::user()->id,trans('backend/common.add'),2,$data['title']);
         return $this->redirectCategory();
     }
 

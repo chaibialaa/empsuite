@@ -19,7 +19,7 @@ class NoticeController extends Controller
     {
         if (!Auth::user()->can('AddNotice')) {
             alert()->warning(trans('backend/common.no_access'));
-            return redirect('/admin/notice/');
+            return $this->redirectNotice();
         }
 
         $module['Title'] = trans('Notice::backend/notice.main');
@@ -55,7 +55,7 @@ class NoticeController extends Controller
     {
         if (!Auth::user()->can('AddNotice')) {
             alert()->warning(trans('backend/common.no_action'));
-            return redirect('/admin/notice/');
+            return $this->redirectNotice();
         }
         $data = Input::all();
         $user = Auth::user();
@@ -210,7 +210,8 @@ class NoticeController extends Controller
             alert()->warning(trans('backend/common.no_action'));
             return $this->redirectNotice();
         }
-        $Notice = Notice::where('id', '=', $id)
+        $Notice = Notice::where('id', '=', $id)->first();
+        Notice::where('id', '=', $id)
             ->update(['status' => 1]);
         alert()->success(trans('Notice::backend/notice.success_publish', ['item' => 'Notice']));
         logger::log(Auth::user()->id,trans('Notice::backend/notice.publish'),2,$Notice->title);
@@ -223,8 +224,10 @@ class NoticeController extends Controller
             alert()->warning(trans('backend/common.no_action'));
             return $this->redirectNotice();
         }
-        $Notice = Notice::where('id', '=', $id)
+        Notice::where('id', '=', $id)
             ->update(['status' => 0]);
+
+        $Notice = Notice::where('id', '=', $id)->first();
         alert()->success(trans('Notice::backend/notice.success_on_hold', ['item' => 'Notice']));
         logger::log(Auth::user()->id,trans('Notice::backend/notice.on_hold'),2,$Notice->title);
         return $this->redirectNotice();
@@ -236,7 +239,8 @@ class NoticeController extends Controller
             alert()->warning(trans('backend/common.no_action'));
             return $this->redirectNotice();
         }
-        $Notice = Notice::where('id', '=', $id)
+        $Notice = Notice::where('id', '=', $id)->first();
+        Notice::where('id', '=', $id)
             ->delete();
         alert()->success(trans('backend/common.success_delete', ['item' => 'Notice']));
         logger::log(Auth::user()->id,trans('backend/common.delete'),2,$Notice->title);

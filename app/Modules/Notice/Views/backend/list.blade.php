@@ -121,9 +121,10 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <a href="/admin/notice/category/" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> {{ trans('Notice::backend/category.add_category') }}</a>
-
                 <a href="/admin/notice/add" class="btn  btn-primary btn-block"><i class="fa fa-plus"></i> {{ trans('Notice::backend/notice.add_notice') }}</a>
+                <a href="/admin/notice/category/" class="btn btn-primary btn-block"><i class="fa fa-gear"></i> {{ trans('Notice::backend/category.manage') }}</a>
+
+
 <br>
                 <div class="panel panel-default ">
                     <div class="panel-heading">

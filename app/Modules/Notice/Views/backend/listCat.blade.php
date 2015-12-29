@@ -70,8 +70,8 @@
                             },
                             messages:{
                                 title:{
-                                    minlength:"{{ trans('Notice::backend/category.min_length') }}",
-                                    required: "{{ trans('Notice::backend/category.title_required') }}"
+                                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '4']) }}",
+                                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
                                 }
                             },
                             errorPlacement: function(error) {
@@ -89,8 +89,8 @@
                             },
                             messages:{
                                 title:{
-                                    minlength:"{{ trans('Notice::backend/category.min_length') }}",
-                                    required: "{{ trans('Notice::backend/category.title_required') }}"
+                                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '4']) }}",
+                                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
                                 }
                             },
                             errorPlacement: function(error) {
@@ -134,7 +134,7 @@
                             <tr>
 
                                 <td>{{$c->title}}</td>
-                                <td class="text-center"><a class="btn btn-xs btn-primary btn-flat"  data-toggle="modal" data-target="#rename-{{$c->id }}">
+                                <td class="text-center"><a class="btn btn-xs btn-info btn-flat"  data-toggle="modal" data-target="#rename-{{$c->id }}">
                                         <i class="fa fa-edit"></i>
                                     </a>
 
@@ -150,7 +150,7 @@
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close"><span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <h4 class="modal-title">{{ trans('Notice::backend/category.rename') }} {{$c->title}} </h4>
+                                                    <h4 class="modal-title">{{ trans('backend/common.rename') }} {{$c->title}} </h4>
                                                 </div>
                                                 <div class="modal-body">
 
@@ -167,9 +167,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        Cancel
+                                                        {{ trans('backend/common.cancel') }}
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">{{ trans('Notice::backend/category.rename') }}</button>
+                                                    <button type="submit" class="btn btn-primary">{{ trans('backend/common.rename') }}</button>
                                                 </div>
                                             </div>
                                             </form>
@@ -197,26 +197,25 @@
                                                 <form method="POST"
                                                       action="/admin/notice/category/delete/{{$c->id }}"
                                                       class="form">
-                                                <div class="modal-body">
+                                                <div class="modal-body text-left">
 
                                                         @if (count($cList) > 1)
-                                                            if the category have posts :
-                                                            <label>
-                                                                <input type="radio" name="action" value="1">Delete
-                                                                Category and Posts
-                                                            </label>
-                                                            <label>
-                                                                <input type="radio" name="action" value="0" checked>Move
-                                                                Posts then Delete
-                                                            </label>
-                                                            <select name="moveto" class="form-control">
-                                                                @foreach($cList as $category)
-                                                                    @if ($category->id != $c->id)
-                                                                        <option value="{{ $category->id }}">{{$category->title}}</option>
-                                                                    @endif
 
-                                                                @endforeach
-                                                            </select>
+
+                                                                <input type="radio" name="action" value="1">{{ trans('Notice::backend/category.delete_cat_sub') }}
+    <br>
+
+                                                                <input type="radio" name="action" value="0" checked>{{ trans('Notice::backend/category.move_to') }}
+                                                        <select name="moveto" class="form-control">
+                                                            @foreach($cList as $category)
+                                                                @if ($category->id != $c->id)
+                                                                    <option value="{{ $category->id }}">{{$category->title}}</option>
+                                                                @endif
+
+                                                            @endforeach
+                                                        </select> {{ trans('Notice::backend/category.then_delete') }}
+
+
 
                                                             {!! csrf_field() !!}
                                                         @else
@@ -230,9 +229,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        Cancel
+                                                        {{ trans('backend/common.cancel') }}
                                                     </button>
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                    <button type="submit" class="btn btn-danger">{{ trans('backend/common.delete') }}</button>
                                                 </div>
                                                 </form>
                                             </div>
@@ -260,7 +259,7 @@
                 <div class="panel-heading">
 
 
-                    <h3 class="panel-title"><i class="fa fa-plus"></i> Add new category</h3>
+                    <h3 class="panel-title"><i class="fa fa-plus"></i> {{ trans('Notice::backend/category.add_category') }}</h3>
 
                 </div>
                 <div class="panel-body">
@@ -275,7 +274,7 @@
                             <input class="form-control" name="title" type="text" id="title">
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Add</button>
+                                <button type="submit" class="btn btn-success">{{ trans('backend/common.add') }}</button>
                             </div>
 
                         </div>
@@ -289,14 +288,14 @@
                 <div class="panel-heading">
 
 
-                    <h3 class="panel-title"><i class="fa fa-pie-chart"></i> Most Used Categories</h3>
+                    <h3 class="panel-title"><i class="fa fa-pie-chart"></i> {{ trans('Notice::backend/category.top_categories') }}</h3>
 
                 </div>
                 <div class="panel-body">
 
 
                     @if(count($categories)==0)
-                        No Notices Yet !
+                        {{ trans('Notice::backend/notice.no_notices_yet') }}
                     @else
                         <div class="chart-responsive">
                             <canvas id="pieChart2"></canvas>
