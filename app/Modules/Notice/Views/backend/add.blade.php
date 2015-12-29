@@ -45,12 +45,12 @@
 
                 <div>
                     <div>
-                        <label>{{ trans('backend/common.title') }} </label> <input type="text" id="title" name="title" class="form-control">
+                        <label>{{ trans('common.title') }} </label> <input type="text" id="title" name="title" class="form-control">
                     </div>
                 </div>
                 <div>
                     <div>
-                        <label>{{ trans('backend/common.content') }} </label> <textarea id="content" name="content"
+                        <label>{{ trans('common.content') }} </label> <textarea id="content" name="content"
                                                           class="form-control"></textarea>
                     </div>
 
@@ -62,20 +62,20 @@
         <div class="col-md-3">
         <div class="panel panel-default ">
             <div class="panel-heading">
-                <h3 class="panel-title"><i class="fa fa-file-text-o"></i> {{ trans('backend/common.additional_details') }}</h3>
+                <h3 class="panel-title"><i class="fa fa-file-text-o"></i> {{ trans('common.additional_details') }}</h3>
             </div>
             <div class="panel-body">
 
 
                 <div>
-                    <label>{{ trans('backend/common.thumbnail') }} </label>
+                    <label>{{ trans('common.thumbnail') }} </label>
                     <input type="file" id="mainimage" name="mainimage" accept="image/*" class="file"
                            data-preview-file-type="text"/>
                 </div>
 
 
                 <div>
-                    <label>{{ trans('backend/common.category') }} </label>
+                    <label>{{ trans('common.category') }} </label>
                     <select name="category" class="form-control">
                         @foreach($categoriesList as $category)
                             <option value="{{ $category->id }}">{{$category->title}}</option>
@@ -83,7 +83,7 @@
                     </select>
                 </div>
                 <div>
-                    <label>{{ trans('backend/common.status') }} </label><select name="status" class="form-control">
+                    <label>{{ trans('common.status') }} </label><select name="status" class="form-control">
                         <option value="1">{{ trans('Notice::backend/notice.published') }}</option>
                         <option value="0">{{ trans('Notice::backend/notice.on_hold') }}</option>
                     </select>
@@ -95,22 +95,22 @@
                 <div>
 
                     <div class="form-group">
-                        <label>{{ trans('backend/common.comments') }} </label>
+                        <label>{{ trans('common.comments') }} </label>
 
                         <div class="radio">
 
                             <label>
-                                <input type="radio" name="comments" value="1" checked>{{ trans('backend/common.enabled') }}
+                                <input type="radio" name="comments" value="1" checked>{{ trans('common.enabled') }}
                             </label>
                             <label>
-                                <input type="radio" name="comments" value="0">{{ trans('backend/common.disabled') }}
+                                <input type="radio" name="comments" value="0">{{ trans('common.disabled') }}
                             </label>
                         </div>
 
                     </div>
                 </div>
                 <div>
-                    <input value="{{ trans('backend/common.create_item', ['item' => 'Notice']) }}" type="submit" class="btn btn-success pull-right">
+                    <input value="{{ trans('common.create_item', ['item' => 'Notice']) }}" type="submit" class="btn btn-success pull-right">
                 </div>
 
             </div>
@@ -127,8 +127,8 @@
                         showClose: false,
                         showCaption: false,
                         showUpload: false,
-                        browseLabel: '{{ trans('backend/common.browse') }}',
-                        removeLabel: '{{ trans('backend/common.delete') }}',
+                        browseLabel: '{{ trans('common.browse') }}',
+                        removeLabel: '{{ trans('common.delete') }}',
                         browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
                         removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
                         removeTitle: '{{ trans('Notice::backend/notice.cancel_reset_changes') }}',

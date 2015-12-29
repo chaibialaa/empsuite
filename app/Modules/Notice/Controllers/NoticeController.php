@@ -18,7 +18,7 @@ class NoticeController extends Controller
     public function formaddNotice()
     {
         if (!Auth::user()->can('AddNotice')) {
-            alert()->warning(trans('backend/common.no_access'));
+            alert()->warning(trans('common.no_access'));
             return $this->redirectNotice();
         }
 
@@ -54,7 +54,7 @@ class NoticeController extends Controller
     public function addNotice()
     {
         if (!Auth::user()->can('AddNotice')) {
-            alert()->warning(trans('backend/common.no_action'));
+            alert()->warning(trans('common.no_action'));
             return $this->redirectNotice();
         }
         $data = Input::all();
@@ -100,8 +100,8 @@ class NoticeController extends Controller
             'link' => $url,
         ]);
 
-        alert()->success(trans('backend/common.success_add', ['item' => 'Notice']));
-        logger::log($user->id,trans('backend/common.add'),2,$Notice->title);
+        alert()->success(trans('common.success_add', ['item' => 'Notice']));
+        logger::log($user->id,trans('common.add'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
@@ -148,7 +148,7 @@ class NoticeController extends Controller
         $notices = DB::table('notices')
             ->join('users', 'users.id', '=', 'notices.user_id')
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
-            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat','users.id as uid')
             ->where('end_at', '>', date('Y-m-d'))
             ->where('notices.status', '=', '1')
             ->orderBy('updated_at', 'asc')
@@ -166,7 +166,7 @@ class NoticeController extends Controller
     public function listNoticeBackend()
     {
         if (!Auth::user()->can('ListNotice')) {
-            alert()->warning(trans('backend/common.no_access'));
+            alert()->warning(trans('common.no_access'));
             return redirect('/admin/');
         }
         $module['Title'] = trans('Notice::backend/notice.main');
@@ -176,7 +176,7 @@ class NoticeController extends Controller
         $notices = DB::table('notices')
             ->join('users', 'users.id', '=', 'notices.user_id')
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
-            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat','users.id as uid')
             ->orderBy('updated_at', 'asc')
             ->get();
 
@@ -207,7 +207,7 @@ class NoticeController extends Controller
     public function publishNotice($id)
     {
         if (!Auth::user()->can('PublishNotice')) {
-            alert()->warning(trans('backend/common.no_action'));
+            alert()->warning(trans('common.no_action'));
             return $this->redirectNotice();
         }
         $Notice = Notice::where('id', '=', $id)->first();
@@ -221,7 +221,7 @@ class NoticeController extends Controller
     public function holdonNotice($id)
     {
         if (!Auth::user()->can('OnHoldNotice')) {
-            alert()->warning(trans('backend/common.no_action'));
+            alert()->warning(trans('common.no_action'));
             return $this->redirectNotice();
         }
         Notice::where('id', '=', $id)
@@ -236,14 +236,14 @@ class NoticeController extends Controller
     public function deleteNotice($id)
     {
         if (!Auth::user()->can('DeleteNotice')) {
-            alert()->warning(trans('backend/common.no_action'));
+            alert()->warning(trans('common.no_action'));
             return $this->redirectNotice();
         }
         $Notice = Notice::where('id', '=', $id)->first();
         Notice::where('id', '=', $id)
             ->delete();
-        alert()->success(trans('backend/common.success_delete', ['item' => 'Notice']));
-        logger::log(Auth::user()->id,trans('backend/common.delete'),2,$Notice->title);
+        alert()->success(trans('common.success_delete', ['item' => 'Notice']));
+        logger::log(Auth::user()->id,trans('common.delete'),2,$Notice->title);
         return $this->redirectNotice();
     }
 
@@ -266,12 +266,12 @@ class NoticeController extends Controller
         $additionalLibs[4] = "libraries/toastr/toastr.js";
         if (Auth::user()->id == $notice->user_id) {
             if (!Auth::user()->can('EditOwnNotice')) {
-                alert()->warning(trans('backend/common.no_access'));
+                alert()->warning(trans('common.no_access'));
                 return $this->redirectNotice();
             }
         } else {
             if (!Auth::user()->can('EditAnyNotice')) {
-                alert()->warning(trans('backend/common.no_access'));
+                alert()->warning(trans('common.no_access'));
                 return $this->redirectNotice();
             }
         }
@@ -289,12 +289,12 @@ class NoticeController extends Controller
     {
         if (Auth::user()->id == $id) {
             if (!Auth::user()->can('EditOwnNotice')) {
-                alert()->warning(trans('backend/common.no_action'));
+                alert()->warning(trans('common.no_action'));
                 return $this->redirectNotice();
             }
         } else {
             if (!Auth::user()->can('EditAnyNotice')) {
-                alert()->warning(trans('backend/common.no_action'));
+                alert()->warning(trans('common.no_action'));
                 return $this->redirectNotice();
             }
         }
@@ -336,8 +336,8 @@ class NoticeController extends Controller
         $data['link'] = $url;
 
         $update->fill($data)->save();
-        logger::log($user->id,trans('backend/common.update'),2,$data['title']);
-        alert()->success(trans('backend/common.success_update', ['item' => 'Notice']));
+        logger::log($user->id,trans('common.update'),2,$data['title']);
+        alert()->success(trans('common.success_update', ['item' => 'Notice']));
         return $this->redirectNotice();
 
     }

@@ -1,7 +1,6 @@
-<h1>{{$notice->title}}</h1>
+<h1>{{$notice->title}}</h1><small> {{ trans('common.by') }} <a href="../../../user/profile-{{$user->id}}" target="_blank">{{$user->nom}}</a></small>
 <hr>
-<p><span class="glyphicon glyphicon-time"></span> Posted on {{$notice->created_at}} <span
-            class="glyphicon glyphicon-user"></span> by <a href="#">{{$user->nom}}</a> <span class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/notice/'.$category}}">{{ $category }}</a>
+<p><span class="glyphicon glyphicon-time"></span> {{ trans('common.created_at') }}{{$notice->created_at}}  <span class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/notice/'.$category}}">{{ $category }}</a>
 
 </p>
 <hr>

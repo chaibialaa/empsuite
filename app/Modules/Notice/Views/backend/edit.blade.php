@@ -47,12 +47,12 @@
 
                         <div>
                             <div>
-                                <label>{{ trans('backend/common.title') }} </label> <input type="text" id="title" name="title" class="form-control" value="{{ $notice->title }}" >
+                                <label>{{ trans('common.title') }} </label> <input type="text" id="title" name="title" class="form-control" value="{{ $notice->title }}" >
                             </div>
                         </div>
                         <div>
                             <div>
-                                <label>{{ trans('backend/common.content') }} </label> <textarea id="formcontent" name="content"
+                                <label>{{ trans('common.content') }} </label> <textarea id="formcontent" name="content"
                                                                   class="form-control">{!! $notice->content !!}</textarea>
                             </div>
 
@@ -64,7 +64,7 @@
             <div class="col-md-3">
                 <div class="panel panel-default ">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-file-text-o"></i> {{ trans('backend/common.additional_details') }}</h3>
+                        <h3 class="panel-title"><i class="fa fa-file-text-o"></i> {{ trans('common.additional_details') }}</h3>
                     </div>
                     <div class="panel-body">
                         @if ($notice->user_id !=  Auth::user()->id)
@@ -75,10 +75,10 @@
 
 
                                     <label>
-                                        <input type="radio" name="owner" value="1" >{{ trans('backend/common.yes') }}
+                                        <input type="radio" name="owner" value="1" >{{ trans('common.yes') }}
                                     </label>
                                     <label>
-                                        <input type="radio" name="owner" value="0" checked>{{ trans('backend/common.no') }}
+                                        <input type="radio" name="owner" value="0" checked>{{ trans('common.no') }}
                                     </label>
 
                                 </div>
@@ -86,14 +86,14 @@
                         @endif
 
                         <div>
-                            <label>{{ trans('backend/common.thumbnail') }} </label>
+                            <label>{{ trans('common.thumbnail') }} </label>
                             <input type="file" id="mainimage" name="mainimage" accept="image/*" class="file"
                                    data-preview-file-type="text" />
                         </div>
 
 
                         <div>
-                            <label>{{ trans('backend/common.category') }} </label>
+                            <label>{{ trans('common.category') }} </label>
                             <select name="category" class="form-control">
                                 @foreach($categoriesList as $category)
                                     @if ($notice->category_id == $category->id)
@@ -105,7 +105,7 @@
                             </select>
                         </div>
                         <div>
-                            <label>{{ trans('backend/common.status') }} </label><select name="status" class="form-control">
+                            <label>{{ trans('common.status') }} </label><select name="status" class="form-control">
                                 @if ($notice->status == 1)
                                 <option selected value="1">Published</option>
                                 <option value="0">On Hold</option>
@@ -122,22 +122,22 @@
                         <div>
 
                             <div class="form-group">
-                                <label>{{ trans('backend/common.comments') }} </label>
+                                <label>{{ trans('common.comments') }} </label>
 
                                 <div class="radio">
                                     @if ($notice->comments == 1)
                                     <label>
-                                        <input type="radio" name="comments" value="1" checked>{{ trans('backend/common.enabled') }}
+                                        <input type="radio" name="comments" value="1" checked>{{ trans('common.enabled') }}
                                     </label>
                                     <label>
-                                        <input type="radio" name="comments" value="0">{{ trans('backend/common.disabled') }}
+                                        <input type="radio" name="comments" value="0">{{ trans('common.disabled') }}
                                     </label>
                                         @else
                                         <label>
-                                            <input type="radio" name="comments" value="1" >{{ trans('backend/common.enabled') }}
+                                            <input type="radio" name="comments" value="1" >{{ trans('common.enabled') }}
                                         </label>
                                         <label>
-                                            <input type="radio" name="comments" value="0" checked>{{ trans('backend/common.disabled') }}
+                                            <input type="radio" name="comments" value="0" checked>{{ trans('common.disabled') }}
                                         </label>
                                     @endif
                                 </div>
@@ -146,7 +146,7 @@
 
                         </div>
                         <div>
-                            <input value="{{ trans('backend/common.update_item', ['item' => 'Notice']) }}" type="submit" class="btn btn-primary pull-right">
+                            <input value="{{ trans('common.update_item', ['item' => 'Notice']) }}" type="submit" class="btn btn-primary pull-right">
                         </div>
 
                     </div>
@@ -168,8 +168,8 @@
                             showClose: false,
                             showCaption: false,
                             showUpload: false,
-                            browseLabel: '{{ trans('backend/common.browse') }}',
-                            removeLabel: '{{ trans('backend/common.delete') }}',
+                            browseLabel: '{{ trans('common.browse') }}',
+                            removeLabel: '{{ trans('common.delete') }}',
                             browseIcon: '<i class="glyphicon glyphicon-folder-open"></i>',
                             removeIcon: '<i class="glyphicon glyphicon-remove"></i>',
                             removeTitle: '{{ trans('Notice::backend/notice.cancel_reset_changes') }}',

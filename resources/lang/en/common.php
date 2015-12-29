@@ -29,6 +29,8 @@ return [
     'add' => 'Add',
     'author' => 'Author',
     'owner' => 'Owner',
+    'by' => 'by',
+    'read_more' => 'Read more',
 
 
     // Authorizations

@@ -5,7 +5,7 @@ class Logger
 {
     public static function log($user,$action,$module,$element)
     {
-        DB::table('log')->insert([
+        DB::table('logs')->insert([
             'action' => $action,
             'user_id' => $user,
             'module_id' => $module,

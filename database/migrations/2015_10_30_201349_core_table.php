@@ -46,7 +46,7 @@ class CoreTable extends Migration
             $table->string('title');
         });
 
-        Schema::create('log', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
             $table->string('action');
             $table->integer('user_id')->unsigned();
@@ -56,6 +56,30 @@ class CoreTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('module_id')->references('id')->on('core_modules');
+        });
+
+        Schema::create('sidebars', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('status');
+            $table->string('title');
+        });
+
+        Schema::create('widgets', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('view');
+            $table->integer('module_id')->unsigned();
+
+            $table->foreign('module_id')->references('id')->on('core_modules');
+        });
+
+        Schema::create('sidebar_elements', function (Blueprint $table) {
+            $table->integer('sidebar_id')->unsigned();
+            $table->integer('widget_id')->unsigned();
+            $table->integer('module_id')->unsigned();
+
+            $table->foreign('module_id')->references('id')->on('core_modules');
+            $table->foreign('widget_id')->references('id')->on('widgets');
+            $table->foreign('sidebar_id')->references('id')->on('sidebars');
         });
 
 

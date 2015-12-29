@@ -10,10 +10,8 @@
                             <div><h3><a href="{{ url('/').'/notice/'.$notice->title_cat.'/'.$notice->id.'/'.$notice->link  }}">
                                         {{ $notice->title }}</a></h3></div>
                             <div>
-                                <small><p><span class="glyphicon glyphicon-time"></span> Posted
-                                        on {{$notice->created_at}} <span
-                                                class="glyphicon glyphicon-user"></span> by <a
-                                                href="#"></a>{{$notice->nom}} <span
+                                <small><p><span class="glyphicon glyphicon-time"></span> {{ trans('common.created_at') }} {{$notice->created_at}} <span
+                                                            class="glyphicon glyphicon-user"></span> {{ trans('common.by') }} <a href="../user/profile-{{$notice->uid}}" target="_blank">{{$notice->nom}} </a><span
                                                 class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/notice/'.$notice->title_cat}}">{{$notice->title_cat}}</a>
                                 </small>
                             </div>
@@ -32,6 +30,8 @@
                                 @else
                                     <div>
                                         {{ strip_tags($notice->content) }}
+
+
                                     </div>
                                 @endif
 

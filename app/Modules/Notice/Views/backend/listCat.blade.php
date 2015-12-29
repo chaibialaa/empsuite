@@ -53,7 +53,7 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-                    tooltipTemplate: "<%=label%> : <%=value %> {{ trans('backend/common.entries') }}"
+                    tooltipTemplate: "<%=label%> : <%=value %> {{ trans('common.entries') }}"
                 };
                 pieChart.Doughnut(PieData, pieOptions);
             });
@@ -111,20 +111,20 @@
                     <table id="categories" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
-                            <th>{{ trans('backend/common.title') }}</th>
-                            <th>{{ trans('backend/common.rename') }}</th>
-                            <th>{{ trans('backend/common.delete') }}</th>
-                            <th>{{ trans('backend/common.created_at') }}</th>
-                            <th>{{ trans('backend/common.updated_at') }}</th>
+                            <th>{{ trans('common.title') }}</th>
+                            <th>{{ trans('common.rename') }}</th>
+                            <th>{{ trans('common.delete') }}</th>
+                            <th>{{ trans('common.created_at') }}</th>
+                            <th>{{ trans('common.updated_at') }}</th>
                         </tr>
                         </thead>
                         <tfoot>
                         <tr>
-                            <th>{{ trans('backend/common.title') }}</th>
-                            <th>{{ trans('backend/common.rename') }}</th>
-                            <th>{{ trans('backend/common.delete') }}</th>
-                            <th>{{ trans('backend/common.created_at') }}</th>
-                            <th>{{ trans('backend/common.updated_at') }}</th>
+                            <th>{{ trans('common.title') }}</th>
+                            <th>{{ trans('common.rename') }}</th>
+                            <th>{{ trans('common.delete') }}</th>
+                            <th>{{ trans('common.created_at') }}</th>
+                            <th>{{ trans('common.updated_at') }}</th>
                         </tr>
                         </tfoot>
                         <tbody>
@@ -150,7 +150,7 @@
                                                     <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close"><span aria-hidden="true">&times;</span>
                                                     </button>
-                                                    <h4 class="modal-title">{{ trans('backend/common.rename') }} {{$c->title}} </h4>
+                                                    <h4 class="modal-title">{{ trans('common.rename') }} {{$c->title}} </h4>
                                                 </div>
                                                 <div class="modal-body">
 
@@ -167,9 +167,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        {{ trans('backend/common.cancel') }}
+                                                        {{ trans('common.cancel') }}
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">{{ trans('backend/common.rename') }}</button>
+                                                    <button type="submit" class="btn btn-primary">{{ trans('common.rename') }}</button>
                                                 </div>
                                             </div>
                                             </form>
@@ -229,9 +229,9 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        {{ trans('backend/common.cancel') }}
+                                                        {{ trans('common.cancel') }}
                                                     </button>
-                                                    <button type="submit" class="btn btn-danger">{{ trans('backend/common.delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger">{{ trans('common.delete') }}</button>
                                                 </div>
                                                 </form>
                                             </div>
@@ -274,7 +274,7 @@
                             <input class="form-control" name="title" type="text" id="title">
 
                             <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">{{ trans('backend/common.add') }}</button>
+                                <button type="submit" class="btn btn-success">{{ trans('common.add') }}</button>
                             </div>
 
                         </div>

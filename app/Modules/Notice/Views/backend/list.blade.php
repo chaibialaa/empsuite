@@ -38,7 +38,7 @@
             responsive: true,
             maintainAspectRatio: false,
             legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>",
-            tooltipTemplate: "<%=label%> : <%=value %> {{ trans('backend/common.entries') }}"
+            tooltipTemplate: "<%=label%> : <%=value %> {{ trans('common.entries') }}"
         };
         pieChart.Doughnut(PieData, pieOptions);
     });
@@ -61,23 +61,23 @@
                             <thead>
                             <tr>
 
-                                <th>{{ trans('backend/common.title') }}</th>
-                                <th>{{ trans('backend/common.category') }}</th>
-                                <th>{{ trans('backend/common.status') }}</th>
-                                <th>{{ trans('backend/common.owner') }}</th>
-                                <th>{{ trans('backend/common.edit') }}</th>
-                                <th>{{ trans('backend/common.delete') }}</th>
+                                <th>{{ trans('common.title') }}</th>
+                                <th>{{ trans('common.category') }}</th>
+                                <th>{{ trans('common.status') }}</th>
+                                <th>{{ trans('common.owner') }}</th>
+                                <th>{{ trans('common.edit') }}</th>
+                                <th>{{ trans('common.delete') }}</th>
                                 <th>{{ trans('Notice::backend/notice.end_date') }}</th>
                             </tr>
                             </thead>
                             <tfoot>
                             <tr>
-                                <th>{{ trans('backend/common.title') }}</th>
-                                <th>{{ trans('backend/common.category') }}</th>
-                                <th>{{ trans('backend/common.status') }}</th>
-                                <th>{{ trans('backend/common.owner') }}</th>
-                                <th>{{ trans('backend/common.edit') }}</th>
-                                <th>{{ trans('backend/common.delete') }}</th>
+                                <th>{{ trans('common.title') }}</th>
+                                <th>{{ trans('common.category') }}</th>
+                                <th>{{ trans('common.status') }}</th>
+                                <th>{{ trans('common.owner') }}</th>
+                                <th>{{ trans('common.edit') }}</th>
+                                <th>{{ trans('common.delete') }}</th>
                                 <th>{{ trans('Notice::backend/notice.end_date') }}</th>
                             </tr>
                             </tfoot>
@@ -98,7 +98,7 @@
                                         </form>
                                         @endif
                                     </td>
-                                <td>{{$notice->nom}}</td>
+                                <td><a href="../user/profile-{{$notice->uid}}" target="_blank">{{$notice->nom}}</a></td>
                                 <td class="text-center"><form method="get" action="/admin/notice/edit/{{$notice->id}}" target="_blank">
                                         <button type="submit" class="btn btn-xs btn-info btn-flat"><i class="fa fa-edit"></i></button>
                                     </form>
