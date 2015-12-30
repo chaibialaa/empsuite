@@ -1270,14 +1270,14 @@
     <div class="section_offset">
         <div class="container clearfix">
             <div class="row">
-                @if((isset($sidebars)) and (count($sidebars)>0))
+                @if((isset($sidebar_right)) and (count($sidebar_right)>0))
                     <section class="col-lg-9 col-md-9 col-sm-9 m_xs_bottom_30">
                         {!! $content or "Nothing to Say !"!!}
                     </section>
 
 
                     <aside class="col-lg-3 col-md-3 col-sm-3">
-                        @foreach($sidebars as $sidebar)
+                        @foreach($sidebar_right as $sidebar)
                             <div class="m_bottom_40 m_xs_bottom_30">
                                 {!! $sidebar !!}
                             </div>

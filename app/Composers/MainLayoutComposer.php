@@ -3,7 +3,7 @@
 namespace App\Composers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Helpers\ConfigFromDB;
+use App\Helpers\ConfigFromDB, App\Helpers\PlacementFetch, DB;
 class MainLayoutComposer extends ServiceProvider
 {
 
@@ -14,6 +14,11 @@ class MainLayoutComposer extends ServiceProvider
                 $view->with('title', ConfigFromDB::setting('title'));
                 $view->with('theme', ConfigFromDB::setting('frontend_theme'));
 
+
+            $elem = PlacementFetch::fetch(1);
+            foreach($elem as $e=>$t) {
+                $view->with($e, $t);
+            }
         });
 
         view()->composer('backend.'.ConfigFromDB::setting('backend_theme').'.layout', function ($view)   {

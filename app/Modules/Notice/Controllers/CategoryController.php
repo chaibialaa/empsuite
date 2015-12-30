@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger, App\Helpers\SidebarFetch;
+use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger, App\Helpers\PlacementFetch;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 
 class CategoryController extends Controller
@@ -142,11 +142,18 @@ class CategoryController extends Controller
             ->where('notice_categories.title', '=', $category)
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
-        $sidebars = SidebarFetch::fetch(2);
+
+
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
+        $elem = PlacementFetch::fetch(2);
+        foreach($elem as $e=>$t) {
+                $view->with($e, $t);
+        }
+
+
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
-        $view->with('content', $ComposedSubView)->with('sidebars', $sidebars);
+        $view->with('content', $ComposedSubView);
         return $view;
     }
 }
