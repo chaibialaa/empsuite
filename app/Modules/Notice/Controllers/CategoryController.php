@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger;
+use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger, App\Helpers\SidebarFetch;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 
 class CategoryController extends Controller
@@ -136,17 +136,17 @@ class CategoryController extends Controller
         $notices = DB::table('notices')
             ->join('users', 'users.id', '=', 'notices.user_id')
             ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
-            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
+            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat','users.id as uid')
             ->where('end_at', '>', date('Y-m-d'))
             ->where('notices.status', '=', '1')
             ->where('notice_categories.title', '=', $category)
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
-
+        $sidebars = SidebarFetch::fetch(2);
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('sidebars', $sidebars);
         return $view;
     }
 }

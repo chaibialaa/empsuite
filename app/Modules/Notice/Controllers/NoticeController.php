@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Models\User;
-use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger;
+use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger, App\Helpers\SidebarFetch;
 use Intervention\Image\Facades\Image;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 use App\Modules\Notice\Models\Notice as Notice;
@@ -130,12 +130,14 @@ class NoticeController extends Controller
 
         $module['SubTitle'] = $category;
 
+        $sidebars = SidebarFetch::fetch(2);
+
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.notice')
             ->with('notice', $notice)
             ->with('user', $user)
             ->with('category', ucfirst($category));
-        $view->with('content', $ComposedSubView)->with('module', $module);
+        $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
 
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
@@ -153,12 +155,12 @@ class NoticeController extends Controller
             ->where('notices.status', '=', '1')
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
-
+        $sidebars = SidebarFetch::fetch(2);
 
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('sidebars', $sidebars);
         return $view;
 
     }
