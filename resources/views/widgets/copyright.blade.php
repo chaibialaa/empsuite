@@ -1,0 +1,1 @@
+<p>&copy; {{$sub['year']}} <a href="{{$sub['link']}}">{{$sub['company']}}</a>. All Rights Reserved.</p>

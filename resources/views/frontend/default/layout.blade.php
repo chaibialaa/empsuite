@@ -25,7 +25,7 @@
           href="{{ asset("/assets/theme/frontend/default/css/style.css")}}">
     <!--head libs-->
     <script src="{{ asset("/assets/libraries/jQuery/jQuery-2.1.4.min.js")}}"></script>
-    <script src="{{ asset("/assets/theme/backend/default/bootstrap/js/bootstrap.js")}}"></script>
+    <script src="{{ asset("/assets/libraries/bootstrap/js/bootstrap.js")}}"></script>
     <script src="{{ asset("/assets/theme/frontend/default/js/memmenu.js")}}"></script>
     <script src="{{ asset("/assets/libraries/sweetalert/dist/sweetalert.min.js") }}"></script>
 
@@ -55,530 +55,7 @@
 <button id="open_side_menu" class="fa fa-_wrap_size_2 circle color_black">
     <i class="fa fa-menu"></i>
 </button>
-<div id="side_menu">
-    <header class="m_bottom_30 d_table w_full">
-        <!--logo-->
-        <div class="d_table_cell half_column v_align_m">
-            <a href="index.html">
-                {!! $titre or 'EMPSuite' !!}
-            </a>
-        </div>
-        <!--close sidemenu button-->
-        <div class="d_table_cell half_column v_align_m t_align_r">
-            <button class="fa fa-_wrap_size_2 circle color_grey_light_2 d_inline_m" id="close_side_menu">
-                <i class="fa fa-cancel"></i>
-            </button>
-        </div>
-    </header>
-    <hr class="divider_type_4 m_bottom_20">
-    <!--searchform-->
-    <form role="search" class="m_bottom_20 relative type_2">
-        <input type="text" placeholder="Search" class="r_corners fw_light bg_light w_full">
-        <button class="color_grey_light color_purple_hover tr_all">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-    <hr class="divider_type_4 m_bottom_25">
-    <!--main menu-->
-    <nav>
-        <ul class="side_main_menu fw_light">
-            <li class="has_sub_menu active m_bottom_10">
-                <a href="index.html" class="d_block relative fs_large color_light_2 color_blue_hover">Home</a>
-                <!--sub menu(second level)-->
-                <ul class="m_top_10">
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Layouts</a>
-                        <!--sub menu(third level)-->
-                        <ul class="m_top_10 d_none">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Business</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_agency.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Agency</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_portfolio.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Portfolio</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_landing.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Landing
-                                    Page</a></li>
-                            <li class="m_bottom_10"><a href="index_magazine.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Magazine</a>
-                            </li>
-                            <li><a href="shop.html" class="d_block relative color_light_2 color_blue_hover">Shop</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu active">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Sliders</a>
-                        <!--sub menu(third level)-->
-                        <ul class="m_top_10">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Revolution</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_magazine.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Flex</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="shop.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">iosSlider</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_portfolio.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Layer</a>
-                            </li>
-                            <li class="m_bottom_10"><a href="index_video_slider.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Video
-                                    Slider</a></li>
-                            <li class="has_sub_menu active">
-                                <a href="index_boxed_static_video.html"
-                                   class="d_block relative color_light_2 color_blue_hover">Static Content</a>
-                                <!--sub menu(fourth level)-->
-                                <ul class="m_top_10">
-                                    <li class="m_bottom_10"><a href="index_text_and_form.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Text
-                                            &amp; Form</a></li>
-                                    <li class="m_bottom_10"><a href="index_other_head_static_content.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Event
-                                            Countdown</a></li>
-                                    <li class="m_bottom_10"><a href="index_video_background.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Video
-                                            Background</a></li>
-                                    <li class="m_bottom_10"><a href="index_video_in_popup.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Video
-                                            in Popup Window</a></li>
-                                    <li class="m_bottom_10"><a href="index_static_image.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Static
-                                            Image</a></li>
-                                    <li><a href="index_boxed_static_video.html"
-                                           class="d_block relative color_light_2 color_blue_hover">Static Video</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="pages_about.html" class="d_block relative fs_large color_light_2 color_blue_hover">Pages</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="m_bottom_10">
-                        <a href="pages_about.html" class="d_block relative color_light_2 color_blue_hover">About us</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_services.html"
-                           class="d_block relative color_light_2 color_blue_hover">Services</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_team.html" class="d_block relative color_light_2 color_blue_hover">Team</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_process.html" class="d_block relative color_light_2 color_blue_hover">Process</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_careers.html" class="d_block relative color_light_2 color_blue_hover">Careers</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_faq.html" class="d_block relative color_light_2 color_blue_hover">FAQ</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="index_landing.html" class="d_block relative color_light_2 color_blue_hover">Landing
-                            Page</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_404.html" class="d_block relative color_light_2 color_blue_hover">404 Page</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_coming_soon.html" class="d_block relative color_light_2 color_blue_hover">Coming
-                            soon page</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_sitemap.html" class="d_block relative color_light_2 color_blue_hover">Sitemap</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_full_width.html" class="d_block relative color_light_2 color_blue_hover">Full
-                            width text page</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_right_sidebar.html" class="d_block relative color_light_2 color_blue_hover">Text
-                            page with right sidebar</a>
-                    </li>
-                    <li class="m_bottom_10">
-                        <a href="pages_left_sidebar.html" class="d_block relative color_light_2 color_blue_hover">Text
-                            page with left sidebar</a>
-                    </li>
-                    <li>
-                        <a href="pages_contact.html" class="d_block relative color_light_2 color_blue_hover">Contact
-                            us</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="portfolio_classic_1_column.html"
-                   class="d_block relative fs_large color_light_2 color_blue_hover">Portfolio</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="portfolio_classic_1_column.html"
-                           class="d_block relative color_light_2 color_blue_hover">Classic</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="portfolio_classic_1_column.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">1
-                                    column</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_classic_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_classic_2_columns_rsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with right sidebar</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_classic_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_classic_3_columns_lsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3 columns
-                                    with left sidebar</a></li>
-                            <li><a href="portfolio_classic_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="portfolio_sortable_t_2_columns.html"
-                           class="d_block relative color_light_2 color_blue_hover">Sortable grid with text</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="portfolio_sortable_t_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_t_2_columns_rsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with right sidebar</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_t_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_t_3_columns_lsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3 columns
-                                    with left sidebar</a></li>
-                            <li><a href="portfolio_sortable_t_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="portfolio_sortable_wt_2_columns.html"
-                           class="d_block relative color_light_2 color_blue_hover">Sortable grid without text</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="portfolio_sortable_wt_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_wt_2_columns_rsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with right sidebar</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_wt_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_sortable_wt_3_columns_lsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3 columns
-                                    with left sidebar</a></li>
-                            <li><a href="portfolio_sortable_wt_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="portfolio_masonry_2_columns.html"
-                           class="d_block relative color_light_2 color_blue_hover">Sortable masonry</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="portfolio_masonry_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_masonry_2_columns_rsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with right sidebar</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_masonry_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_masonry_3_columns_lsidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover m_bottom_10">3
-                                    columns with left sidebar</a></li>
-                            <li><a href="portfolio_masonry_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu">
-                        <a href="portfolio_single_side_image_list.html"
-                           class="d_block relative color_light_2 color_blue_hover">Single project pages</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="portfolio_single_side_image_list.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with side image list</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_single_full_width_image_list.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with full width image list</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_single_side_image_slider.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with side image slider</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_single_full_width_image_slider.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with full width image slider</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_single_extended_image_slider.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with extended image list</a></li>
-                            <li class="m_bottom_10"><a href="portfolio_single_side_video_list.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Project
-                                    with side video list</a></li>
-                            <li><a href="portfolio_single_full_width_video.html"
-                                   class="d_block relative color_light_2 color_blue_hover">Project with full width video
-                                    list</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="blog_classic_1_column.html" class="d_block relative fs_large color_light_2 color_blue_hover">Blog</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="blog_classic_1_column.html" class="d_block relative color_light_2 color_blue_hover">Classic</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="blog_classic_1_column.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">1
-                                    column</a></li>
-                            <li><a href="portfolio_classic_2_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">1 Column with right
-                                    sidebar</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="blog_grid_2_columns.html"
-                           class="d_block relative color_light_2 color_blue_hover">Grid</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="blog_grid_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="blog_grid_2_columns_left_sidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with left sidebar</a></li>
-                            <li class="m_bottom_10"><a href="blog_grid_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="blog_grid_3_columns_right_sidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3 columns
-                                    with right sidebar</a></li>
-                            <li><a href="blog_grid_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="blog_masonry_2_columns.html" class="d_block relative color_light_2 color_blue_hover">Masonry</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="blog_masonry_2_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="blog_masonry_2_columns_right_sidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">2 columns
-                                    with right sidebar</a></li>
-                            <li class="m_bottom_10"><a href="blog_masonry_3_columns.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3
-                                    columns</a></li>
-                            <li class="m_bottom_10"><a href="blog_masonry_3_columns_left_sidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">3 columns
-                                    with left sidebar</a></li>
-                            <li><a href="blog_masonry_4_columns.html"
-                                   class="d_block relative color_light_2 color_blue_hover">4 columns</a></li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu">
-                        <a href="blog_single_right_sidebar.html"
-                           class="d_block relative color_light_2 color_blue_hover">Single blog post</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="blog_single_right_sidebar.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Image
-                                    post</a></li>
-                            <li class="m_bottom_10"><a href="blog_single_image_slideshow_post.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Image
-                                    slideshow post</a></li>
-                            <li class="m_bottom_10"><a href="blog_single_video_post.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Video
-                                    post</a></li>
-                            <li class="m_bottom_10"><a href="blog_single_audio_post.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Audio
-                                    post</a></li>
-                            <li class="m_bottom_10"><a href="blog_single_blockquote_post.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Blockquote
-                                    post</a></li>
-                            <li class="m_bottom_10"><a href="blog_single_link_post.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Link
-                                    post</a></li>
-                            <li><a href="blog_single_full_width.html"
-                                   class="d_block relative color_light_2 color_blue_hover">Full Width Post</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="#" class="d_block relative fs_large color_light_2 color_blue_hover">Features</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Layouts</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Business</a>
-                            </li>
-                            <li><a href="index_agency.html" class="d_block relative color_light_2 color_blue_hover">Agency</a>
-                            </li>
-                            <li><a href="index_portfolio.html" class="d_block relative color_light_2 color_blue_hover">Portfolio</a>
-                            </li>
-                            <li><a href="index_landing.html" class="d_block relative color_light_2 color_blue_hover">Landing
-                                    Page</a></li>
-                            <li><a href="index_magazine.html" class="d_block relative color_light_2 color_blue_hover">Magazine</a>
-                            </li>
-                            <li><a href="shop.html" class="d_block relative color_light_2 color_blue_hover">Shop</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Sliders</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Revolution</a>
-                            </li>
-                            <li><a href="index_agency.html"
-                                   class="d_block relative color_light_2 color_blue_hover">Flex</a></li>
-                            <li><a href="index_portfolio.html" class="d_block relative color_light_2 color_blue_hover">iosSlider</a>
-                            </li>
-                            <li><a href="index_landing.html" class="d_block relative color_light_2 color_blue_hover">Layer</a>
-                            </li>
-                            <li><a href="index_magazine.html" class="d_block relative color_light_2 color_blue_hover">Video
-                                    Slider</a></li>
-                            <li class="has_sub_menu active">
-                                <a href="index_boxed_static_video.html"
-                                   class="d_block relative color_light_2 color_blue_hover">Static Content</a>
-                                <!--sub menu(fourth level)-->
-                                <ul class="m_top_10">
-                                    <li class="m_bottom_10"><a href="index_text_and_form.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Text
-                                            &amp; Form</a></li>
-                                    <li class="m_bottom_10"><a href="index_other_head_static_content.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Event
-                                            Countdown</a></li>
-                                    <li class="m_bottom_10"><a href="index_video_background.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Video
-                                            Background</a></li>
-                                    <li class="m_bottom_10"><a href="index_video_in_popup.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Video
-                                            in Popup Window</a></li>
-                                    <li class="m_bottom_10"><a href="index_static_image.html"
-                                                               class="d_block relative color_light_2 color_blue_hover">Static
-                                            Image</a></li>
-                                    <li><a href="index_boxed_static_video.html"
-                                           class="d_block relative color_light_2 color_blue_hover">Static Video</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Headers</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Header
-                                    1</a></li>
-                            <li class="m_bottom_10"><a href="index_agency.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Header
-                                    2</a></li>
-                            <li class="m_bottom_10"><a href="index_portfolio.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Header
-                                    3</a></li>
-                            <li class="m_bottom_10"><a href="index_landing.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Header
-                                    4</a></li>
-                            <li class="m_bottom_10"><a href="index_magazine.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Header
-                                    5</a></li>
-                            <li><a href="shop.html" class="d_block relative color_light_2 color_blue_hover">Header 6</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="has_sub_menu m_bottom_10">
-                        <a href="index.html" class="d_block relative color_light_2 color_blue_hover">Footers</a>
-                        <!--sub menu(third level)-->
-                        <ul class="d_none m_top_10">
-                            <li class="m_bottom_10"><a href="index.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Footer
-                                    1</a></li>
-                            <li class="m_bottom_10"><a href="index_agency.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Footer
-                                    2</a></li>
-                            <li class="m_bottom_10"><a href="index_portfolio.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Footer
-                                    3</a></li>
-                            <li class="m_bottom_10"><a href="index_landing.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Footer
-                                    4</a></li>
-                            <li class="m_bottom_10"><a href="index_magazine.html"
-                                                       class="d_block relative color_light_2 color_blue_hover">Footer
-                                    5</a></li>
-                            <li><a href="shop.html" class="d_block relative color_light_2 color_blue_hover">Footer 6</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="shortcodes_elements.html" class="d_block relative fs_large color_light_2 color_blue_hover">Shortcodes</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="m_bottom_10"><a href="shortcodes_elements.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Elements</a></li>
-                    <li class="m_bottom_10"><a href="shortcodes_columns.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Columns</a></li>
-                    <li><a href="shortcodes_typography.html" class="d_block relative color_light_2 color_blue_hover">Typography</a>
-                    </li>
-                </ul>
-            </li>
-            <li class="has_sub_menu m_bottom_10">
-                <a href="shop.html" class="d_block relative fs_large color_light_2 color_blue_hover">Shop</a>
-                <!--sub menu(second level)-->
-                <ul class="d_none m_top_10">
-                    <li class="m_bottom_10"><a href="shop.html" class="d_block relative color_light_2 color_blue_hover">Front
-                            Page</a></li>
-                    <li class="m_bottom_10"><a href="shop_category_v1.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Category Page
-                            v1</a></li>
-                    <li class="m_bottom_10"><a href="shop_category_v2.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Category Page
-                            v2</a></li>
-                    <li class="m_bottom_10"><a href="shop_product_page_v1.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Product Page
-                            v1</a></li>
-                    <li class="m_bottom_10"><a href="shop_product_page_v2.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Product Page
-                            v2</a></li>
-                    <li class="m_bottom_10"><a href="shop_cart.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Shoping Cart
-                            &amp; Checkout</a></li>
-                    <li class="m_bottom_10"><a href="shop_wishlist.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Wishlist</a></li>
-                    <li class="m_bottom_10"><a href="shop_compare_products.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Compare
-                            products</a></li>
-                    <li class="m_bottom_10"><a href="shop_order_list.html"
-                                               class="d_block relative color_light_2 color_blue_hover">Orders list</a>
-                    </li>
-                    <li><a href="shop_order_information.html" class="d_block relative color_light_2 color_blue_hover">Order
-                            information</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-</div>
+
 <!--layout-->
 <div class="wide_layout bg_light">
 
@@ -595,7 +72,13 @@
 
                         @foreach($top_header_left as $thl)
                             <div class="col-lg-3 col-md-3 col-sm-3 t_xs_align_c">
-                                {!! $thl !!}
+                                <ul class="hr_list fs_small color_grey_light">
+                                    <li class="m_right_20 f_xs_none m_xs_right_0 m_xs_bottom_5">
+
+                                                     {!! $thl !!}
+                                    </li>
+
+                                </ul>
                             </div>
                         @endforeach
 
@@ -625,8 +108,8 @@
                 <div class="d_table w_full d_xs_block">
                     <!--logo-->
                     <div class="col-lg-2 col-md-2 col-sm-2 d_table_cell d_xs_block f_none v_align_m logo t_xs_align_c">
-                        <a href="index.html" class="d_inline_m m_xs_top_20 m_xs_bottom_20">
-                            <h4> {!! $titre or 'EMPSuite' !!}</h4>
+                        <a href="/" class="d_inline_m m_xs_top_20 m_xs_bottom_20">
+                            <h4> {!! $title or 'EMPSuite' !!}</h4>
                         </a>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 t_align_r d_table_cell d_xs_block f_none">
@@ -1264,7 +747,7 @@
 
                 @else
                     <section class="col-lg-12 col-md-12 col-sm-12 m_xs_bottom_30">
-                        {!! $content or "Nothing to Say !"!!}
+                        {!! $content or "This page is empty !"!!}
 
                     </section>
                 @endif
@@ -1280,9 +763,9 @@
         <section class="footer_top_part">
             <div class="container">
                 <div class="row">
-                    @foreach($top_footer as $footer)
+                    @foreach($top_footer as $tf)
                         <div class="col-lg-3 col-md-3 col-sm-3 m_bottom_30 m_xs_bottom_20">
-                        {!! $footer !!}
+                        {!! $tf !!}
                         </div>
                     @endforeach
 
@@ -1292,7 +775,9 @@
         @endif
             <!--bottom part-->
         <section class="footer_bottom_part t_align_c color_grey bg_light_4 fw_light">
-            <p>&copy; 2014 illusion. All Rights Reserved.</p>
+            @foreach($bottom_footer as $bf)
+                    {!! $bf !!}
+            @endforeach
         </section>
     </footer>
 </div>

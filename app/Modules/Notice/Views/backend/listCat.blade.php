@@ -70,8 +70,8 @@
                             },
                             messages:{
                                 title:{
-                                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '4']) }}",
-                                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
+                                    minlength:"{{ trans('validation.min_length',['item' => 'Title','number' => '4']) }}",
+                                    required: "{{ trans('validation.required',['item' => 'Title']) }}"
                                 }
                             },
                             errorPlacement: function(error) {
@@ -89,8 +89,8 @@
                             },
                             messages:{
                                 title:{
-                                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '4']) }}",
-                                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
+                                    minlength:"{{ trans('validation.min_length',['item' => 'Title','number' => '4']) }}",
+                                    required: "{{ trans('validation.required',['item' => 'Title']) }}"
                                 }
                             },
                             errorPlacement: function(error) {

@@ -11,7 +11,7 @@
         @endforeach
     @endif
 
-    <link href="{{ asset("/assets/theme/backend/default/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset("/assets/libraries/bootstrap/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset("/assets/theme/backend/default/dist/css/AdminLTE.css")}}" rel="stylesheet" type="text/css" />
@@ -58,7 +58,7 @@
 
 </div>
 @include('sweet::alert')
-<script src="{{ asset("/assets/theme/backend/default/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
+<script src="{{ asset("/assets/libraries/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
 <script src="{{ asset("/assets/theme/backend/default/dist/js/app.js") }}" type="text/javascript"></script>
 
 </body>

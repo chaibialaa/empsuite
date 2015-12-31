@@ -17,10 +17,8 @@ class CoreController extends Controller {
 	}
 	public function admin()
 	{
-
 			$view = View::make('backend.'.ConfigFromDB::setting('backend_theme').'.layout');
 			return $view;
-
 	}
 
 	public function switchLanguage($lang)

@@ -21,8 +21,8 @@
             },
             messages:{
                 title:{
-                    minlength:"{{ trans('backend/validation.min_length',['item' => 'Title','number' => '10']) }}",
-                    required: "{{ trans('backend/validation.required',['item' => 'Title']) }}"
+                    minlength:"{{ trans('validation.min_length',['item' => 'Title','number' => '10']) }}",
+                    required: "{{ trans('validation.required',['item' => 'Title']) }}"
                 }
             },
             errorPlacement: function(error) {

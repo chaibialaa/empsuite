@@ -23,7 +23,7 @@
 
 
                                 <a href='/user/'>Register</a> - <a href='/user/forgot'>Forgot Password</a>
-                            "> Login <span class="circle icon_wrap_size_1 d_inline_m"><i class='fa fa-user'></i></span>
+                            "><i class='fa fa-user'></i> Login
         </a>
     </form>
 @else
