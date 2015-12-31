@@ -581,34 +581,7 @@
 </div>
 <!--layout-->
 <div class="wide_layout bg_light">
-<!--MODAL LOGIN-->
-        <div class="modal fade" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
-             style="display: none;">
-            <div class="modal-dialog">
-                <div class="loginmodal-container">
-                    <h4>Login to Your Account</h4><br>
 
-                    <form role="form" method="POST" action="/user/login">
-                        {!! csrf_field() !!}
-                        <input placeholder="Email" autofocus required type="email" name="email"
-                               value="{{ old('email') }}"/>
-                        <input placeholder="Password" required type="password" name="password" id="password"/>
-                        <button type="submit" class="btn btn-default btn-block"><i class="fa fa-user"></i> Sign in
-                        </button>
-                        <a href="/user/social/google" type="submit" class="btn btn-danger btn-block"><i
-                                    class="fa fa-google"></i> Sign in using Google</a>
-                        <a href="/user/social/facebook" type="submit" class="btn btn-primary btn-block"
-                           style="background-color: rgb(41, 93, 138); !important"><i class="fa fa-facebook-square"></i>
-                            Sign in using Facebook
-                        </a>
-                    </form>
-
-                    <div class="login-help">
-                        <a href="/user/">Register</a> - <a href="/user/forgot">Forgot Password</a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
     <header role="banner" class="relative">
@@ -617,30 +590,31 @@
         <section class="header_top_part">
             <div class="container">
                 <div class="row">
-                    <!--contact info-->
-                    <div class="col-lg-3 col-md-3 col-sm-3 t_xs_align_c">
-                        <ul class="hr_list fs_small color_grey_light">
-                            <li class="m_right_20 f_xs_none m_xs_right_0 m_xs_bottom_5">
-                                <span class="circle icon_wrap_size_1 d_inline_m m_right_8"><i
-                                            class="fa fa-phone"></i></span>(123)-456-7890
-                            </li>
 
-                        </ul>
-                    </div>
-                    <!--social icons-->
+                    @if((isset($top_header_left)) and (count($top_header_left)>0))
+
+                        @foreach($top_header_left as $thl)
+                            <div class="col-lg-3 col-md-3 col-sm-3 t_xs_align_c">
+                                {!! $thl !!}
+                            </div>
+                        @endforeach
+
+
+                    @endif
+
+
+                        @if((isset($top_header_right)) and (count($top_header_right)>0))
+
+                                        @foreach($top_header_right as $thr)
                     <div class="col-lg-9 col-md-9 col-sm-9 t_align_r t_xs_align_c">
-                        @if (!Auth::check())
-                            <a class="" data-toggle="modal" data-target="#login">
-                                Login <span class="circle icon_wrap_size_1 d_inline_m"><i class="fa fa-user"></i></span>
-                            </a>
-                        @else
+                                                {!! $thr !!}
+                    </div>
+                                        @endforeach
 
-                            <a href="/user/logout"><i class="fa fa-power-off danger"></i> Deconnexion</a>
 
                         @endif
 
 
-                    </div>
                 </div>
             </div>
         </section>
@@ -1249,8 +1223,12 @@
             </div>
         </section>
     </header>
-    @if (isset($topcontent))
-        {!! $topcontent !!}
+    @if (Route::getCurrentRoute()->getPath() == "/")
+        @if (isset($topcontent))
+            @foreach ($topcontent as $tp)
+            {!! $tp !!}
+            @endforeach
+        @endif
     @endif
     @if (isset($module))
         <section class="page_title translucent_bg_color_scheme image_fixed t_align_c relative wrapper">
@@ -1298,141 +1276,21 @@
     <!--footer-->
     <footer role="contentinfo" class="bg_light_3">
         <!--top part-->
+        @if((isset($top_footer)) and (count($top_footer)>0))
         <section class="footer_top_part">
             <div class="container">
                 <div class="row">
-                    <!--about us-->
-                    <div class="col-lg-4 col-md-4 col-sm-4 fw_light m_bottom_30">
-                        <h5 class="color_dark m_bottom_20">Shortly About Us</h5>
-
-                        <p>Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros.
-                            Vestibulum
-                            ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia. Suspendisse
-                            sollicitudin velit sed leo</p>
-                    </div>
-                    <!--contact info-->
-                    <div class="col-lg-5 col-md-5 col-sm-5 m_bottom_30">
-                        <h5 class="color_dark m_bottom_20 fw_light">Contact Us</h5>
-
-                        <div class="row">
-                            <ul class="col-lg-6 col-md-6 col-sm-6 fw_light w_break m_xs_bottom_8">
-                                <li class="m_bottom_8">
-                                    <div class="d_inline_m icon_wrap_size_1 color_pink circle m_right_10">
-                                        <i class="fa fa-phone-1"></i>
-                                    </div>
-                                    (123)-456-7890
-                                </li>
-                                <li class="m_bottom_8">
-                                    <div class="d_inline_m icon_wrap_size_1 color_pink circle m_right_10">
-                                        <i class="fa fa-mail-alt"></i>
-                                    </div>
-                                    <a href="mailto:#" class="color_black color_pink_hover">info@companyname
-                                        .com</a>
-                                </li>
-                                <li>
-                                    <div class="d_inline_m icon_wrap_size_1 color_pink circle m_right_10">
-                                        <i class="fa fa-skype-1"></i>
-                                    </div>
-                                    skype.name
-                                </li>
-                            </ul>
-                            <ul class="col-lg-6 col-md-6 col-sm-6 vr_list_type_5">
-                                <li class="m_bottom_15 fw_light relative">
-                                    <div class="fa fa-_wrap_size_1 color_pink circle f_left">
-                                        <i class="fa fa-location"></i>
-                                    </div>
-                                    8901 Marmora Road, Glasgow, D04 89GR.
-                                </li>
-                                <li>
-                                    <a href="https://www.google.com/maps/place/%D0%9D%D1%8C%D1%8E-%D0%99%D0%BE%D1%80%D0%BA/@40.7056308,-73.9780035,11z/data=!3m1!4b1!4m2!3m1!1s0x89c24fa5d33f083b:0xc80b8f06e177fe62"
-                                       target="_blank"
-                                       class="button_type_2 color_dark r_corners tr_all color_pink_hover d_inline_m fs_medium t_md_align_c w_break">Open
-                                        in Google Maps</a>
-                                </li>
-                            </ul>
+                    @foreach($top_footer as $footer)
+                        <div class="col-lg-3 col-md-3 col-sm-3 m_bottom_30 m_xs_bottom_20">
+                        {!! $footer !!}
                         </div>
-                    </div>
-                    <!--social buttons-->
-                    <div class="col-lg-3 col-md-3 col-sm-3 m_bottom_30 m_xs_bottom_20">
-                        <h5 class="color_dark m_bottom_20 fw_light">Stay Connected</h5>
-                        <ul class="hr_list social_icons">
-                            <!--tooltip_container class is required-->
-                            <li class="m_right_15 m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Follow Us on Facebook</span>
-                                <a href="#" class="d_block facebook icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-facebook fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Follow Us on Twitter</span>
-                                <a href="#" class="d_block twitter icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-twitter fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 m_sm_right_0 tooltip_container m_xs_right_15">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Google Plus</span>
-                                <a href="#" class="d_block googleplus icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-gplus-1 fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_md_right_0 m_sm_right_15 m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Pinterest</span>
-                                <a href="#" class="d_block pinterest icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-pinterest fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_bottom_15 m_md_right_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Dribbble</span>
-                                <a href="#" class="d_block dribbble icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-dribbble fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 tooltip_container m_sm_right_0 m_xs_right_15">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Flickr</span>
-                                <a href="#" class="d_block flickr icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-flickr-1 fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Youtube</span>
-                                <a href="#" class="d_block youtube icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-youtube-play fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Vimeo</span>
-                                <a href="#" class="d_block vimeo icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-vimeo fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_right_15 m_bottom_15 tooltip_container m_sm_right_0 m_xs_right_15">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">Instagram</span>
-                                <a href="#" class="d_block instagram icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-instagramm fs_small"></i>
-                                </a>
-                            </li>
-                            <li class="m_bottom_15 tooltip_container">
-                                <!--tooltip-->
-                                <span class="d_block r_corners color_default tooltip fs_small tr_all">LinkedIn</span>
-                                <a href="#" class="d_block linkedin icon_wrap_size_2 circle color_grey_light_2">
-                                    <i class="fa fa-linkedin-squared fs_small"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </section>
-        <!--bottom part-->
+        @endif
+            <!--bottom part-->
         <section class="footer_bottom_part t_align_c color_grey bg_light_4 fw_light">
             <p>&copy; 2014 illusion. All Rights Reserved.</p>
         </section>

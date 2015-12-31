@@ -15,14 +15,37 @@ class PlacementFetch
             ->where('core_themes.title','=',ConfigFromDB::setting('frontend_theme'))
             ->where('placement_elements.module_id','=',$id)
             ->join('core_modules','core_modules.id','=','widgets.module_id')
-            ->select('widgets.view as sview','core_modules.title as module','theme_placements.title as title')
+            ->select('widgets.view as sview','core_modules.title as module','core_modules.id as cid','theme_placements.title as title','widgets.id as wid')
             ->get();
 
 
         $i = 0;
+        $sub = array();
         $placements = array();
         foreach ($elements as $e){
-            $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+            $sub_elements = DB::table('widget_additionals')
+                ->join('widgets','widgets.id','=','widget_additionals.widget_id')
+                ->where('widgets.id','=',$e->wid)
+                ->get();
+            if($e->cid == 1){
+                if($sub_elements){
+                    foreach($sub_elements as $sb){
+                        $sub[$sb->title] = $sb->detail;
+                    }
+                    $placements[$e->title][$i] = View::make('widgets.'.$e->sview)->with('sub',$sub);
+                } else {
+                    $placements[$e->title][$i] = View::make('widgets.' . $e->sview);
+                }
+            } else {
+                if($sub_elements){
+                    foreach($sub_elements as $sb){
+                        $sub[$sb->title] = $sb->detail;
+                    }
+                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview)->with('sub',$sub);
+                } else {
+                $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                }
+            }
             $i++;
         }
 

@@ -58,10 +58,12 @@ class CoreTable extends Migration
             $table->foreign('module_id')->references('id')->on('core_modules');
         });
 
-        Schema::create('sidebars', function (Blueprint $table) {
+        Schema::create('theme_placements', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('status');
+            $table->integer('theme_id')->unsigned();
             $table->string('title');
+
+            $table->foreign('theme_id')->references('id')->on('core_themes');
         });
 
         Schema::create('widgets', function (Blueprint $table) {
@@ -72,7 +74,8 @@ class CoreTable extends Migration
             $table->foreign('module_id')->references('id')->on('core_modules');
         });
 
-        Schema::create('sidebar_elements', function (Blueprint $table) {
+        Schema::create('placement_elements', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('sidebar_id')->unsigned();
             $table->integer('widget_id')->unsigned();
             $table->integer('module_id')->unsigned();
@@ -81,9 +84,6 @@ class CoreTable extends Migration
             $table->foreign('widget_id')->references('id')->on('widgets');
             $table->foreign('sidebar_id')->references('id')->on('sidebars');
         });
-
-
-
 
     }
 
@@ -98,6 +98,10 @@ class CoreTable extends Migration
         Schema::drop('core_languages');
         Schema::drop('core_modules');
         Schema::drop('core_themes');
+        Schema::drop('logs');
+        Schema::drop('theme_placements');
+        Schema::drop('widgets');
+        Schema::drop('placement_elements');
 
     }
 }

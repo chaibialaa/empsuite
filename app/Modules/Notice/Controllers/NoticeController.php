@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Models\User;
-use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger, App\Helpers\SidebarFetch;
+use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger, App\Helpers\PlacementFetch;
 use Intervention\Image\Facades\Image;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 use App\Modules\Notice\Models\Notice as Notice;
@@ -130,15 +130,18 @@ class NoticeController extends Controller
 
         $module['SubTitle'] = $category;
 
-        $sidebars = SidebarFetch::fetch(2);
+
 
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.notice')
             ->with('notice', $notice)
             ->with('user', $user)
             ->with('category', ucfirst($category));
-        $view->with('content', $ComposedSubView)->with('module', $module)->with('sidebars', $sidebars);
-
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        $elem = PlacementFetch::fetch(2);
+        foreach($elem as $e=>$t) {
+            $view->with($e, $t);
+        }
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         return $view;
@@ -155,12 +158,16 @@ class NoticeController extends Controller
             ->where('notices.status', '=', '1')
             ->orderBy('updated_at', 'asc')
             ->paginate(10);
-        $sidebars = SidebarFetch::fetch(2);
+
 
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
-        $view->with('content', $ComposedSubView)->with('sidebars', $sidebars);
+        $elem = PlacementFetch::fetch(2);
+        foreach($elem as $e=>$t) {
+            $view->with($e, $t);
+        }
+        $view->with('content', $ComposedSubView);
         return $view;
 
     }
@@ -344,17 +351,4 @@ class NoticeController extends Controller
 
     }
 
-    public function showSlider(){
-        $notices = DB::table('notices')
-            ->join('users', 'users.id', '=', 'notices.user_id')
-            ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
-            ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
-            ->where('end_at', '>', date('Y-m-d'))
-            ->orderBy('created_at', 'desc')
-            ->limit(4)
-            ->get();
-
-        $ComposedSubView = View::make('Notice::widgets.flexslider')->with('notices', $notices);
-        return $ComposedSubView;
-    }
 }

@@ -12,8 +12,6 @@ class CoreController extends Controller {
 	public function home()
 	{
 		$view = View::make('frontend.'.ConfigFromDB::setting('frontend_theme').'.layout');
-        $return = new NoticeController();
-		$view->with('topcontent',$return->showSlider());
 		return $view;
 
 	}
@@ -21,8 +19,6 @@ class CoreController extends Controller {
 	{
 
 			$view = View::make('backend.'.ConfigFromDB::setting('backend_theme').'.layout');
-
-
 			return $view;
 
 	}

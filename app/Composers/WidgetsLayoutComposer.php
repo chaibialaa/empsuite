@@ -3,31 +3,44 @@
 namespace App\Composers;
 
 use Illuminate\Support\ServiceProvider;
-use Auth, DB;
+use Auth, DB, App\Modules\Notice\Controllers\NoticeController;
 class WidgetsLayoutComposer extends ServiceProvider
 {
 
        public function boot()
     {
 
+        view()->composer('Notice::widgets.flexslider', function ($view)   {
+            $notices = DB::table('notices')
+                ->join('users', 'users.id', '=', 'notices.user_id')
+                ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+                ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
+                ->where('end_at', '>', date('Y-m-d'))
+                ->orderBy('created_at', 'desc')
+                ->limit(4)
+                ->get();
+
+            $view->with('notices', $notices);
+
+        });
         //Messages Menu Widget
         view()->composer('Message::widgets.menu', function ($view)   {
             $user = Auth::user()->id;
-            $Sidebar['inboxCount'] = DB::table('message_users')
+            $Count['inboxCount'] = DB::table('message_users')
                 ->join('messages', 'messages.id', '=', 'message_users.message_id')
                 ->join('users', 'users.id', '=', 'message_users.sender_id')
                 ->select('users.nom as user', 'messages.*', 'message_users.*', 'messages.id as m_id')
                 ->where('message_users.receiver_id','=',$user)
                 ->where('message_users.status','=',1)
                 ->count();
-            $Sidebar['sentCount'] = DB::table('message_users')
+            $Count['sentCount'] = DB::table('message_users')
                 ->join('messages', 'messages.id', '=', 'message_users.message_id')
                 ->join('users', 'users.id', '=', 'message_users.receiver_id')
                 ->select('users.nom as user', 'messages.*', 'message_users.*')
                 ->where('message_users.sender_id','=',$user)
                 ->where('message_users.status','=',1)
                 ->count();
-            $Sidebar['newCount'] = DB::table('message_users')
+            $Count['newCount'] = DB::table('message_users')
                 ->join('messages', 'messages.id', '=', 'message_users.message_id')
                 ->join('users', 'users.id', '=', 'message_users.sender_id')
                 ->select('users.nom as user', 'messages.*', 'message_users.*', 'messages.id as m_id')
@@ -35,7 +48,7 @@ class WidgetsLayoutComposer extends ServiceProvider
                 ->where('message_users.status','=',1)
                 ->where('message_users.seen','=',0)
                 ->count();
-            $Sidebar['draftCount'] = DB::table('message_users')
+            $Count['draftCount'] = DB::table('message_users')
                 ->join('messages', 'messages.id', '=', 'message_users.message_id')
                 ->join('users', 'users.id', '=', 'message_users.receiver_id')
                 ->select('users.nom as user', 'messages.*', 'message_users.*','messages.id as m_id')
@@ -43,7 +56,7 @@ class WidgetsLayoutComposer extends ServiceProvider
                 ->where('message_users.status','=',0)
                 ->count();
 
-            $view->with('Counter',$Sidebar);
+            $view->with('Counter',$Count);
 
 
         });

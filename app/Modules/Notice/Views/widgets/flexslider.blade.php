@@ -54,7 +54,7 @@
 												<span class="d_inline_m m_right_5 icon_wrap_size_0 circle color_grey_light tr_all">
 													<i class="fa fa-angle-right"></i>
 												</span>
-                                    {{ trans('backend/common.read_more') }}
+                                    {{ trans('common.read_more') }}
                                 </a>
                                     @else
                                     <p class="m_bottom_12 fs_medium">
@@ -65,7 +65,7 @@
 												<span class="d_inline_m m_right_5 icon_wrap_size_0 circle color_grey_light tr_all">
 													<i class="fa fa-angle-right"></i>
 												</span>
-                                    {{ trans('backend/common.read_more') }}</a>
+                                    {{ trans('common.read_more') }}</a>
                             </div>
                         </li>
                         @endforeach
