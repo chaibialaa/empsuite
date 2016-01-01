@@ -120,7 +120,7 @@ class NoticeController extends Controller
             ->first();
         if (!$notice) {
             alert()->warning(trans('Notice::backend/notice.no_notice'));
-            return $this->redirectNotice();
+            return redirect('/notice/');
         }
         $user = User::where('id', '=', $notice->user_id)->first();
 
@@ -128,7 +128,7 @@ class NoticeController extends Controller
         $additionalCsss[1] = "libraries/jssocials/jssocials-theme-flat.css";
         $additionalLibs[0] = "libraries/jssocials/jssocials.min.js";
 
-        $module['SubTitle'] = $category;
+        $module['SubTitle'] = ucfirst($category);
 
 
 

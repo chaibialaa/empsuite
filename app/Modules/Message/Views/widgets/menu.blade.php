@@ -1,5 +1,3 @@
-<h5>Messages</h5>
-
 <ul class="nav nav-pills nav-stacked">
     <li><a href="/message"><i class="fa fa-inbox"></i> Inbox
            <span class="label label-primary pull-right" style="width: 30px;

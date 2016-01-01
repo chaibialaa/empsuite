@@ -50,12 +50,8 @@
                                         $notice->content = substr($stringCut, 0, strrpos($stringCut, ' '))
                                         }} ...
                                          </p>
-                                <a href="{{ url('/').'/notice/'.$notice->title_cat.'/'.$notice->id.'/'.$notice->link  }}" class="color_purple d_inline_b color_pink_hover d_block m_right_20 fw_light">
-												<span class="d_inline_m m_right_5 icon_wrap_size_0 circle color_grey_light tr_all">
-													<i class="fa fa-angle-right"></i>
-												</span>
-                                    {{ trans('common.read_more') }}
-                                </a>
+
+
                                     @else
                                     <p class="m_bottom_12 fs_medium">
                                     {{ strip_tags($notice->content) }}

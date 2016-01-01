@@ -1,6 +1,7 @@
-<h1>{{$notice->title}}</h1><small> {{ trans('common.by') }} <a href="../../../user/profile-{{$user->id}}" target="_blank">{{$user->nom}}</a></small>
+<h2>{{$notice->title}}</h2>
+<br>
 <hr>
-<p><span class="glyphicon glyphicon-time"></span> {{ trans('common.created_at') }}{{$notice->created_at}}  <span class="glyphicon glyphicon-list-alt"></span><a href="{{ url('/').'/notice/'.$category}}">{{ $category }}</a>
+<p><i class="fa fa-user"></i> <a href="../../../user/profile-{{$user->id}}" target="_blank">{{$user->nom}}</a> <i class="fa fa-clock-o"></i> {{ trans('common.created_at') }} {{$notice->created_at}}  <i class="fa fa-list"></i><a href="{{ url('/').'/notice/'.$category}}"> {{ $category }}</a>
 
 </p>
 <hr>
@@ -14,7 +15,7 @@
         showCount: true,
         showLabel: true,
         shares: [
-            {share: "twitter", via: "artem_tabalin", hashtags: "search,google"},
+            {share: "twitter", via: "empsuite", hashtags: "search,google"},
             "facebook",
             "googleplus",
             "linkedin",

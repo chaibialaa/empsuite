@@ -739,8 +739,17 @@
 
                     <aside class="col-lg-3 col-md-3 col-sm-3">
                         @foreach($sidebar_right as $sidebar)
-                            <div class="m_bottom_40 m_xs_bottom_30">
+                            <div class="panel panel-default ">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><a data-toggle="collapse"
+                                                               href="#collapse-{{$sidebar->widget_id}}"> {{$sidebar->widget_title}}</a></h3>
+                                </div>
+                                <div id="collapse-{{$sidebar->widget_id}}"
+                                     class="panel-collapse collapse in">
+                                <div class="panel-body">
                                 {!! $sidebar !!}
+                                    </div>
+                                </div>
                             </div>
                         @endforeach
                     </aside>

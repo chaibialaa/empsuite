@@ -15,7 +15,8 @@ class PlacementFetch
             ->where('core_themes.title','=',ConfigFromDB::setting('frontend_theme'))
             ->where('placement_elements.module_id','=',$id)
             ->join('core_modules','core_modules.id','=','widgets.module_id')
-            ->select('widgets.view as sview','core_modules.title as module','core_modules.id as cid','theme_placements.title as title','widgets.id as wid')
+            ->select('widgets.view as sview','placement_elements.widget_title'
+                ,'core_modules.title as module','core_modules.id as cid','theme_placements.title as title','widgets.id as wid','placement_elements.id as widget_id')
             ->get();
 
 
@@ -32,18 +33,28 @@ class PlacementFetch
                     foreach($sub_elements as $sb){
                         $sub[$sb->title] = $sb->detail;
                     }
-                    $placements[$e->title][$i] = View::make('widgets.'.$e->sview)->with('sub',$sub);
+                    $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
+                    $placements[$e->title][$i]->with('sub',$sub);
+                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
                 } else {
                     $placements[$e->title][$i] = View::make('widgets.' . $e->sview);
+                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
                 }
             } else {
                 if($sub_elements){
                     foreach($sub_elements as $sb){
                         $sub[$sb->title] = $sb->detail;
                     }
-                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview)->with('sub',$sub);
+                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                    $placements[$e->title][$i]->with('sub',$sub);
+                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
                 } else {
                 $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                 $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
                 }
             }
             $i++;
