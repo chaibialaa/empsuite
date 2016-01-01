@@ -7,7 +7,7 @@ Route::group(array('module' => 'User', 'namespace' => 'App\Modules\User\Controll
 
     Route::get('user/social/{provider}', ['uses' => 'Auth\AuthController@redirectToProvider', 'as' => 'social.login']);
     Route::get('user/social/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
-    Route::get('user/profile/{userid}', 'UserController@getUserProfile');
+    Route::get('user/profile-{userid}',['middleware' => 'auth','uses'=>'UserController@getUserProfile']);
 
     Route::get('user/login', 'UserController@redirect');
     Route::post('user/login', 'Auth\AuthController@authenticate');
@@ -21,7 +21,7 @@ Route::group(array('module' => 'User', 'namespace' => 'App\Modules\User\Controll
 
     Route::get('user/logout', 'Auth\AuthController@getLogout');
     //Route::get('user/role','UserController@formrequestRole');
-    Route::post('user/role/request','UserController@requestRole');
+    Route::post('user/role/request',['middleware' => 'auth','uses'=>'UserController@requestRole']);
 
 
 

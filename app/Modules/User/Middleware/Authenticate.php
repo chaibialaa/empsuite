@@ -22,7 +22,7 @@ class Authenticate
                 return response('Unauthorized.', 401);
             } else {
                 alert()->warning('Veuillez vous identifier');
-                return ViewBuilder::GuestView();
+                return redirect('/user');
             }
         } else {
             $lang = $this->auth->user()->language;

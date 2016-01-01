@@ -2,16 +2,16 @@
 
 Route::group(array('module' => 'Level', 'namespace' => 'App\Modules\Level\Controllers'), function() {
 
-    Route::get('admin/level/', 'LevelController@listLevel');
-    Route::post('admin/level/add', 'LevelController@addLevel');
+    Route::get('admin/level/',['middleware' => 'auth','uses'=>'LevelController@listLevel']);
+    Route::post('admin/level/add',['middleware' => 'auth','uses'=>'LevelController@addLevel']);
 
-    Route::get('admin/level/class', 'ClassController@listClass');
-    Route::post('admin/level/class/add', 'ClassController@addClass');
+    Route::get('admin/level/class',['middleware' => 'auth','uses'=>'ClassController@listClass']);
+    Route::post('admin/level/class/add',['middleware' => 'auth','uses'=>'ClassController@addClass']);
 
-    Route::get('admin/level/section', 'SectionController@listSection');
-    Route::post('admin/level/section/add', 'SectionController@addSection');
+    Route::get('admin/level/section',['middleware' => 'auth','uses'=>'SectionController@listSection']);
+    Route::post('admin/level/section/add',['middleware' => 'auth','uses'=>'SectionController@addSection']);
 
-    Route::get('admin/level/class/{id}', 'ClassController@manageClass');
+    Route::get('admin/level/class/{id}',['middleware' => 'auth','uses'=>'ClassController@manageClass']);
 
 
 });	
