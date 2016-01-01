@@ -706,13 +706,13 @@
             </div>
         </section>
     </header>
-    @if (Route::getCurrentRoute()->getPath() == "/")
+
         @if (isset($topcontent))
             @foreach ($topcontent as $tp)
             {!! $tp !!}
             @endforeach
         @endif
-    @endif
+
     @if (isset($module))
         <section class="page_title translucent_bg_color_scheme image_fixed t_align_c relative wrapper">
             <div class="container">
