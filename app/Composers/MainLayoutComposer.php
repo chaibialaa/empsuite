@@ -15,7 +15,7 @@ class MainLayoutComposer extends ServiceProvider
                 $view->with('theme', ConfigFromDB::setting('frontend_theme'));
 
 
-            $elem = PlacementFetch::fetch(1);
+            $elem = PlacementFetch::fetch();
             foreach($elem as $e=>$t) {
                 $view->with($e, $t);
             }

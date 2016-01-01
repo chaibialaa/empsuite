@@ -3,7 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Modules\User\Models\User;
-use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger, App\Helpers\PlacementFetch;
+use View, Auth, Input, DB, App\Helpers\ConfigFromDB, App\Helpers\Logger;
 use Intervention\Image\Facades\Image;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 use App\Modules\Notice\Models\Notice as Notice;
@@ -138,10 +138,7 @@ class NoticeController extends Controller
             ->with('user', $user)
             ->with('category', ucfirst($category));
         $view->with('content', $ComposedSubView)->with('module', $module);
-        $elem = PlacementFetch::fetch(2);
-        foreach($elem as $e=>$t) {
-            $view->with($e, $t);
-        }
+
         $view->with('additionalCsss', $additionalCsss);
         $view->with('additionalLibs', $additionalLibs);
         return $view;
@@ -163,10 +160,7 @@ class NoticeController extends Controller
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Notice::frontend.list')
             ->with('notices', $notices);
-        $elem = PlacementFetch::fetch(2);
-        foreach($elem as $e=>$t) {
-            $view->with($e, $t);
-        }
+
         $view->with('content', $ComposedSubView);
         return $view;
 

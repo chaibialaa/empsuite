@@ -2,18 +2,20 @@
 
 namespace App\Helpers;
 
-use DB,View;
+use DB,View,Route;
 class PlacementFetch
 {
-    public static function fetch($id)
+    public static function fetch()
     {
+
 
         $elements = DB::table('placement_elements')
             ->join('theme_placements','theme_placements.id','=','placement_elements.placement_id')
             ->join('widgets','widgets.id','=','placement_elements.widget_id')
+            ->join('core_routes','core_routes.id','=','placement_elements.route_id')
             ->join('core_themes','core_themes.id','=','theme_placements.theme_id')
             ->where('core_themes.title','=',ConfigFromDB::setting('frontend_theme'))
-            ->where('placement_elements.module_id','=',$id)
+            ->where('core_routes.route','=',Route::current()->uri())
             ->join('core_modules','core_modules.id','=','widgets.module_id')
             ->select('widgets.view as sview','placement_elements.widget_title'
                 ,'core_modules.title as module','core_modules.id as cid','theme_placements.title as title','widgets.id as wid','placement_elements.id as widget_id')
@@ -52,8 +54,8 @@ class PlacementFetch
                     $placements[$e->title][$i]->with('widget_title',$e->widget_title);
                     $placements[$e->title][$i]->with('widget_id',$e->widget_id);
                 } else {
-                $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
-                 $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
                     $placements[$e->title][$i]->with('widget_id',$e->widget_id);
                 }
             }

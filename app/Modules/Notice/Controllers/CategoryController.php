@@ -2,7 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger, App\Helpers\PlacementFetch;
+use Auth, View, Input, DB, App\Helpers\ConfigFromDB, Carbon\Carbon, App\Helpers\Logger;
 use App\Modules\Notice\Models\NoticeCategories as NoticeCategory;
 
 class CategoryController extends Controller
@@ -145,10 +145,6 @@ class CategoryController extends Controller
 
 
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
-        $elem = PlacementFetch::fetch(2);
-        foreach($elem as $e=>$t) {
-                $view->with($e, $t);
-        }
 
 
         $ComposedSubView = View::make('Notice::frontend.list')

@@ -782,12 +782,17 @@
             </div>
         </section>
         @endif
-            <!--bottom part-->
+
         <section class="footer_bottom_part t_align_c color_grey bg_light_4 fw_light">
+            @if((isset($bottom_footer)) and (count($bottom_footer)>0))
             @foreach($bottom_footer as $bf)
                     {!! $bf !!}
             @endforeach
+            @endif
+                <p>Powered by &copy; <a href="http://www.empsuite.com">EMPsuite.</a></p>
+
         </section>
+
     </footer>
 </div>
 <!--back to top button-->
