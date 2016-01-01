@@ -31,7 +31,7 @@ return [
     'owner' => 'Owner',
     'by' => 'by',
     'read_more' => 'Read more',
-    'disconnect' => 'Log out',
+    'disconnect' => 'D&eacute;connexion',
 
 
     // Authorizations

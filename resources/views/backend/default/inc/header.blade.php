@@ -123,7 +123,7 @@
                             <img src="{{ Auth::user()->imagepath }}" class="img-circle" alt="User Image" />
                             <p>
                                 {{ Auth::user()->nom }} - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                <small>Member since  {{ Auth::user()->created_at }}</small>
                             </p>
                         </li>
                         <!-- Menu Body -->

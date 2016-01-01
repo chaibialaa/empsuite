@@ -28,6 +28,6 @@
     </form>
 @else
 
-    <a href="/user/logout"><i class="fa fa-power-off danger"></i> Deconnexion</a>
+    <a href="/user/logout"><i class="fa fa-power-off danger"></i> {{ trans('common.disconnect') }}</a>
 
 @endif

@@ -9,7 +9,7 @@ class WidgetsLayoutComposer extends ServiceProvider
 
        public function boot()
     {
-        view()->composer('widgets.language_switcher', function ($view)   {
+        view()->composer('widgets.languages', function ($view)   {
             $languages = DB::table('core_languages')
                 ->where('status', '=', 1)
                 ->get();
