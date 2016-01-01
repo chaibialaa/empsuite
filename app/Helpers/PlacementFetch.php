@@ -2,7 +2,7 @@
 
 namespace App\Helpers;
 
-use DB,View,Route;
+use DB,View,Route,Auth;
 class PlacementFetch
 {
     public static function fetch()
@@ -18,7 +18,8 @@ class PlacementFetch
             ->where('core_routes.route','=',Route::current()->uri())
             ->join('core_modules','core_modules.id','=','widgets.module_id')
             ->select('widgets.view as sview','placement_elements.widget_title'
-                ,'core_modules.title as module','core_modules.id as cid','theme_placements.title as title','widgets.id as wid','placement_elements.id as widget_id')
+                ,'core_modules.title as module','core_modules.id as cid','theme_placements.title as title',
+                'widgets.id as wid','placement_elements.id as widget_id','widgets.require_login as auth')
             ->get();
 
 
@@ -35,28 +36,54 @@ class PlacementFetch
                     foreach($sub_elements as $sb){
                         $sub[$sb->title] = $sb->detail;
                     }
-                    $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
-                    $placements[$e->title][$i]->with('sub',$sub);
-                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
-                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    if ($e->auth == 1 and Auth::check()){
+                        $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('sub',$sub);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    } elseif ($e->auth==0){
+                        $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('sub',$sub);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    }
                 } else {
-                    $placements[$e->title][$i] = View::make('widgets.' . $e->sview);
-                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
-                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                    if ($e->auth == 1 and Auth::check()){
+                        $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    } elseif ($e->auth==0){
+                        $placements[$e->title][$i] = View::make('widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    }
                 }
             } else {
                 if($sub_elements){
                     foreach($sub_elements as $sb){
                         $sub[$sb->title] = $sb->detail;
                     }
-                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
-                    $placements[$e->title][$i]->with('sub',$sub);
-                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
-                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    if ($e->auth == 1 and Auth::check()){
+                        $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('sub',$sub);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    } elseif ($e->auth==0){
+                        $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('sub',$sub);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    }
                 } else {
-                    $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
-                    $placements[$e->title][$i]->with('widget_title',$e->widget_title);
-                    $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    if ($e->auth == 1 and Auth::check()){
+                        $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    } elseif ($e->auth==0){
+                        $placements[$e->title][$i] = View::make($e->module.'::widgets.'.$e->sview);
+                        $placements[$e->title][$i]->with('widget_title',$e->widget_title);
+                        $placements[$e->title][$i]->with('widget_id',$e->widget_id);
+                    }
                 }
             }
             $i++;

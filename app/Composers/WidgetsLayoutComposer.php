@@ -32,6 +32,7 @@ class WidgetsLayoutComposer extends ServiceProvider
         });
         //Messages Menu Widget
         view()->composer('Message::widgets.menu', function ($view)   {
+
             $user = Auth::user()->id;
             $Count['inboxCount'] = DB::table('message_users')
                 ->join('messages', 'messages.id', '=', 'message_users.message_id')

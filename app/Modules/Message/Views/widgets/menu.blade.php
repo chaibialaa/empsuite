@@ -1,3 +1,4 @@
+@if (Auth::check())
 <ul class="nav nav-pills nav-stacked">
     <li><a href="/message"><i class="fa fa-inbox"></i> Inbox
            <span class="label label-primary pull-right" style="width: 30px;
@@ -10,3 +11,4 @@ height: 20px; !important;">{{$Counter['sentCount']}}</span></a></li>
 height: 20px; !important;">{{$Counter['draftCount']}}</span></a></li>
     <li><a href="#"><i class="fa fa-trash-o"></i> Trash</a></li>
 </ul>
+    @endif
