@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Level\Models\Classm;
 use App\Modules\Level\Models\Level;
 use App\Modules\Level\Models\Section;
-use Input, View, DB, App\Helpers\ConfigFromDB;
+use Auth, Input, View, DB, App\Helpers\ConfigFromDB,App\Helpers\Logger;
 class ClassController extends Controller
 {
     public function redirectClass()
@@ -17,6 +17,12 @@ class ClassController extends Controller
 
     public function listClass()
     {
+
+        if (!Auth::user()->can('ListLevelClass')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('/admin/level/');
+        }
+
         $module['Title'] = "Class Manager";
         $module['SubTitle'] = "Classes Dashboard";
 
@@ -68,6 +74,10 @@ class ClassController extends Controller
     }
 
     public function addClass(){
+        if (!Auth::user()->can('AddLevelClass')) {
+            alert()->warning(trans('common.no_action'));
+            return $this->redirectClass();
+        }
         $data = Input::all();
         if ((!array_key_exists('section', $data)) or (($data['section']=='No Section'))){
             Classm::create([
