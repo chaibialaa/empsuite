@@ -17,6 +17,20 @@ class WidgetsLayoutComposer extends ServiceProvider
 
         });
 
+        view()->composer('Notice::widgets.latest', function ($view)   {
+            $notices = DB::table('notices')
+                ->join('users', 'users.id', '=', 'notices.user_id')
+                ->join('notice_categories', 'notice_categories.id', '=', 'notices.category_id')
+                ->select('notices.*', 'users.nom', 'notice_categories.title as title_cat')
+                ->where('end_at', '>', date('Y-m-d'))
+                ->orderBy('created_at', 'desc')
+                ->limit(5)
+                ->get();
+
+            $view->with('notices', $notices);
+
+        });
+
         view()->composer('Notice::widgets.flexslider', function ($view)   {
             $notices = DB::table('notices')
                 ->join('users', 'users.id', '=', 'notices.user_id')
@@ -30,7 +44,7 @@ class WidgetsLayoutComposer extends ServiceProvider
             $view->with('notices', $notices);
 
         });
-        //Messages Menu Widget
+
         view()->composer('Message::widgets.menu', function ($view)   {
 
             $user = Auth::user()->id;

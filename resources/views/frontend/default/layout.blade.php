@@ -740,11 +740,13 @@
                     <aside class="col-lg-3 col-md-3 col-sm-3">
                         @foreach($sidebar_right as $sidebar)
                             <div class="panel panel-default ">
+                                @if (isset($sidebar->widget_title))
                                 <div class="panel-heading">
                                     <h3 class="panel-title"><a data-toggle="collapse"
-                                                               href="#collapse-{{$sidebar->widget_id}}"> {{$sidebar->widget_title}}</a></h3>
+                                                               href="#collapse-widget-{{$sidebar->widget_id}}"> {{$sidebar->widget_title}}</a></h3>
                                 </div>
-                                <div id="collapse-{{$sidebar->widget_id}}"
+                                @endif
+                                <div id="collapse-widget-{{$sidebar->widget_id}}"
                                      class="panel-collapse collapse in">
                                 <div class="panel-body">
                                 {!! $sidebar !!}
