@@ -94,8 +94,8 @@ class ClassController extends Controller
         }
 
 
-        alert()->success('Class ajoutee avec success');
-
+        alert()->success(trans('common.success_add', ['item' => 'Class']));
+        logger::log(Auth::user()->id,trans('common.add'),4,$data['title']);
         return $this->redirectClass();
     }
 
@@ -108,7 +108,21 @@ class ClassController extends Controller
     }
 
     public function joinClass(){
+        // if user is student, and have no join requests nor accepted requested
 
+        if (!Auth::user()->can('JoinClass')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('/class');
+        }
+
+        $module['Title'] = "Subject Manager";
+        $module['SubTitle'] = "Subjects Dashboard";
+
+        $JoiningPermission = Permission::where('name', 'JoinClass')->first();
+        $rList = DB::table('permission_role')
+            ->join('roles', 'roles.id', '=', 'permission_role.role_id')
+            ->where('permission_id', '=', $JoiningPermission->id)
+            ->get();
     }
 
     public function teachClass(){
