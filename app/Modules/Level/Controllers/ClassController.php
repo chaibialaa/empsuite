@@ -114,15 +114,19 @@ class ClassController extends Controller
             alert()->warning(trans('common.no_access'));
             return redirect('/class');
         }
-
+        if (Auth::user()->can('JoinClass') and (1==1)) {
+            // verify if user has no pending joins or already have a class
+            alert()->warning(trans('common.no_access'));
+            return redirect('/class');
+        }
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
 
-        $JoiningPermission = Permission::where('name', 'JoinClass')->first();
-        $rList = DB::table('permission_role')
-            ->join('roles', 'roles.id', '=', 'permission_role.role_id')
-            ->where('permission_id', '=', $JoiningPermission->id)
-            ->get();
+        // list classes
+        $classes = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id');
+        // build view
     }
 
     public function teachClass(){
