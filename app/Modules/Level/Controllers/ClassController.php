@@ -114,7 +114,7 @@ class ClassController extends Controller
             alert()->warning(trans('common.no_access'));
             return redirect('/class');
         }
-        if (Auth::user()->can('JoinClass') and (1==1)) {
+        if (1==1) {
             // verify if user has no pending joins or already have a class
             alert()->warning(trans('common.no_access'));
             return redirect('/class');
