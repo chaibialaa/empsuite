@@ -39,11 +39,12 @@ class LevelsTable extends Migration
 
 
 
-        Schema::create('user_classes', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
+        Schema::create('class_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('student_id')->unsigned();
             $table->integer('class_id')->unsigned();
-            $table->string('user_func');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('status');
+            $table->foreign('student_id')->references('id')->on('users');
             $table->foreign('class_id')->references('id')->on('classes');
         });
     }
@@ -58,6 +59,6 @@ class LevelsTable extends Migration
         Schema::drop('levels');
         Schema::drop('classes');
         Schema::drop('sections');
-        Schema::drop('user_classes');
+        Schema::drop('class_users');
     }
 }

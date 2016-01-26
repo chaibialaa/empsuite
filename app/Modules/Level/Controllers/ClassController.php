@@ -26,9 +26,10 @@ class ClassController extends Controller
         $module['Title'] = "Class Manager";
         $module['SubTitle'] = "Classes Dashboard";
 
-        $MostClassHavingStudents = DB::table('user_classes')
+        $MostClassHavingStudents = DB::table('class_users')
             ->select('*', DB::raw("COUNT('users.id') AS user_count"))
-            ->join('classes', 'classes.id', '=', 'user_classes.user_id')
+            ->join('classes', 'classes.id', '=', 'class_users.student_id')
+            ->where('status','=','1')
             ->orderBy('user_count', 'desc')
             ->groupBy('classes.id')
             ->take(5)
@@ -114,10 +115,20 @@ class ClassController extends Controller
             alert()->warning(trans('common.no_access'));
             return redirect('/class');
         }
-        if (1==1) {
+        $verify = DB::table('class_users')
+            ->where('student_id','=',Auth::user()->id)
+            ->get();
+
+        if ($verify) {
             // verify if user has no pending joins or already have a class
-            alert()->warning(trans('common.no_access'));
-            return redirect('/class');
+            if ($verify->status == 0) {
+                alert()->warning(trans('Level::backend/class.pending'));
+                return redirect('/class');
+            }
+            elseif ($verify->status == 1) {
+                alert()->warning(trans('Level::backend/class.already_join'));
+                return redirect('/class');
+            }
         }
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
