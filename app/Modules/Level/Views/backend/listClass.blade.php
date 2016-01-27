@@ -46,6 +46,7 @@
             });
 
         </script>
+
         <div class="col-md-9">
             <div class="panel panel-default ">
                 <div class="panel-heading">
@@ -66,7 +67,7 @@
                                             <div class="col-md-6">
                                                 <div class="panel panel-info ">
                                                     <div class="panel-heading">
-                                                        <a data-toggle="collapse" href="#collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}"> <i class="fa fa-list"></i> Section : {{$v}}</a>
+                                                        <a data-toggle="collapse" href="#collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}"> <i class="fa fa-list"></i> Section : {{$k[0][0]->section_title}}</a>
                                                     </div>
                                                     <div id="collapse-{{$k[0][0]->level_id}}-{{preg_replace('/\s+/', '', $v)}}" class="panel-collapse collapse in">
                                                         <div class="panel-body">

@@ -37,7 +37,8 @@ class ClassController extends Controller
 
         $cList = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
+            ->select('sections.title as section_title','levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id')
             ->orderBy('classes.level_id', 'classes.section_id')
             ->get();
 
@@ -109,12 +110,15 @@ class ClassController extends Controller
     }
 
     public function joinClass(){
-        // if user is student, and have no join requests nor accepted requested
-
         if (!Auth::user()->can('JoinClass')) {
-            alert()->warning(trans('common.no_access'));
+            alert()->warning(trans('common.no_action'));
             return redirect('/class');
         }
+
+    }
+
+    public function formJoinClass(){
+
         $verify = DB::table('class_users')
             ->where('student_id','=',Auth::user()->id)
             ->get();
@@ -122,24 +126,44 @@ class ClassController extends Controller
         if ($verify) {
             // verify if user has no pending joins or already have a class
             if ($verify->status == 0) {
-                alert()->warning(trans('Level::backend/class.pending'));
+                alert()->warning(trans('Level::frontend/class.pending'));
                 return redirect('/class');
             }
             elseif ($verify->status == 1) {
-                alert()->warning(trans('Level::backend/class.already_join'));
+                alert()->warning(trans('Level::frontend/class.already_join'));
                 return redirect('/class');
             }
         }
+
         $module['Title'] = "Subject Manager";
         $module['SubTitle'] = "Subjects Dashboard";
-
         // list classes
         $classes = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id');
-        // build view
-    }
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
+               'sections.title as section_title')
+                ->orderBy('classes.level_id')
+                ->orderBy('classes.section_id')
+                ->orderBy('classes.id')
+                ->get();
 
+        $fcList = array();
+        foreach ($classes as $m) {
+            $array = array($m);
+            if($m->section_id) {
+                $fcList[$m->level_title][$m->section_id][] = $array;
+            } else {
+                $fcList[$m->level_title]['No Section'][] = $array;
+            }
+        }
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
+        $ComposedSubView = View::make('Level::frontend.study')
+            ->with('classes', $fcList);
+        $view->with('content', $ComposedSubView);
+        return $view;
+
+    }
     public function teachClass(){
 
     }
