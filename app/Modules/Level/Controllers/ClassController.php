@@ -110,11 +110,21 @@ class ClassController extends Controller
     }
 
     public function joinClass(){
+
         if (!Auth::user()->can('JoinClass')) {
             alert()->warning(trans('common.no_action'));
             return redirect('/class');
         }
 
+        $data = Input::all();
+        DB::table('class_users')->insert([
+            'student_id' => Auth::user()->id,
+            'class_id' => $data['class'],
+            'status' => 1
+        ]);
+        //add success text
+        alert()->success(trans('Level::frontend/class.join_success'));
+        return redirect('/class');
     }
 
     public function formJoinClass(){
@@ -135,8 +145,8 @@ class ClassController extends Controller
             }
         }
 
-        $module['Title'] = "Subject Manager";
-        $module['SubTitle'] = "Subjects Dashboard";
+        $module['Title'] = "Class Manager";
+        $module['SubTitle'] = "Join a Class";
         // list classes
         $classes = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
@@ -160,11 +170,13 @@ class ClassController extends Controller
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
         $ComposedSubView = View::make('Level::frontend.study')
             ->with('classes', $fcList);
-        $view->with('content', $ComposedSubView);
+        $view->with('content', $ComposedSubView)->with('module', $module);
         return $view;
 
     }
     public function teachClass(){
 
     }
+
+    // TODO : build a general frontend class view
 }

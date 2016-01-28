@@ -1,9 +1,8 @@
 <div class="row">
     <div class="col-md-12">
-        <form method="post" action="">
-            <h3>Join a class</h3>
+        <form method="POST" action="/class/join/post">
 
-
+            {!! csrf_field() !!}
             <div class="row">
                 @foreach($classes  as $m=>$value)
                     <div class="col-md-12">
@@ -45,9 +44,9 @@
 
 
                                                                             <td class="text-center">
-                                                                                <button type="button"
+                                                                                <button type="submit" name="class" value="{{$val->id}}"
                                                                                         class="btn btn-flat btn-success btn-xs"><i
-                                                                                            class="fa fa-edit"></i> Join</button>
+                                                                                            class="fa fa-edit"></i>Join</button>
                                                                             </td>
 
 
