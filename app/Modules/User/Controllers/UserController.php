@@ -14,6 +14,17 @@ class UserController extends Controller {
             $result = ViewBuilder::LoggedView();
 
         } else {
+            $result = redirect('guest');
+
+        }
+        return $result;
+    }
+    public function guest()
+    {
+        if (Auth::check()) {
+            $result = redirect('dashboard');
+
+        } else {
             $result = ViewBuilder::GuestView();
 
         }

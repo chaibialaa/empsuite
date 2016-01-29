@@ -12,7 +12,7 @@ class ClassController extends Controller
 {
     public function redirectClass()
     {
-        return redirect('/admin/level/class');
+        return redirect('admin/level/class');
     }
 
     public function listClass()
@@ -113,7 +113,7 @@ class ClassController extends Controller
 
         if (!Auth::user()->can('JoinClass')) {
             alert()->warning(trans('common.no_action'));
-            return redirect('/class');
+            return redirect('/dashboard');
         }
 
         $data = Input::all();
@@ -122,30 +122,34 @@ class ClassController extends Controller
             'class_id' => $data['class'],
             'status' => 1
         ]);
-        //add success text
+
         alert()->success(trans('Level::frontend/class.join_success'));
-        return redirect('/class');
+        return redirect('/dashboard');
     }
 
     public function formJoinClass(){
+        if (!Auth::user()->can('JoinClass')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('dashboard');
+        }
 
         $verify = DB::table('class_users')
             ->where('student_id','=',Auth::user()->id)
-            ->get();
+            ->first();
 
         if ($verify) {
             // verify if user has no pending joins or already have a class
-            if ($verify->status == 0) {
+            if ($verify->status == 1) {
                 alert()->warning(trans('Level::frontend/class.pending'));
-                return redirect('/class');
+                return redirect('dashboard');
             }
-            elseif ($verify->status == 1) {
+            elseif ($verify->status == 2) {
                 alert()->warning(trans('Level::frontend/class.already_join'));
-                return redirect('/class');
+                return redirect('dashboard');
             }
         }
 
-        $module['Title'] = "Class Manager";
+        $module['Title'] = "Dashboard";
         $module['SubTitle'] = "Join a Class";
         // list classes
         $classes = DB::table('classes')
@@ -175,8 +179,17 @@ class ClassController extends Controller
 
     }
     public function teachClass(){
+        if (!Auth::user()->can('TeachClass')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('dashboard');
+        }
+    }
+
+    public function indexClass(){
 
     }
+
+
 
     // TODO : build a general frontend class view
 }

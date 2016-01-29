@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <form method="POST" action="/class/join/post">
+        <form method="POST" action="/dashboard/class/study">
 
             {!! csrf_field() !!}
             <div class="row">

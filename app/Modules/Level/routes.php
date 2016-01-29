@@ -13,7 +13,9 @@ Route::group(array('module' => 'Level', 'namespace' => 'App\Modules\Level\Contro
 
     Route::get('admin/level/class/{id}',['middleware' => 'auth','uses'=>'ClassController@manageClass']);
 
-    Route::get('class/join',['middleware' => 'auth','uses'=>'ClassController@formJoinClass']);
-    Route::post('class/join/post',['middleware' => 'auth','uses'=>'ClassController@joinClass']);
+    Route::get('dashboard/class',['middleware' => 'auth','uses'=>'ClassController@indexClass']);
+    Route::get('dashboard/class/study',['middleware' => 'auth','uses'=>'ClassController@formJoinClass']);
+    Route::post('dashboard/class/study',['middleware' => 'auth','uses'=>'ClassController@joinClass']);
+
 
 });	

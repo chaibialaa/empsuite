@@ -12,7 +12,8 @@ Route::group(array('module' => 'User', 'namespace' => 'App\Modules\User\Controll
     Route::get('user/login', 'UserController@redirect');
     Route::post('user/login', 'Auth\AuthController@authenticate');
 
-    Route::get('user','UserController@index');
+    Route::get('dashboard','UserController@index');
+    Route::get('user','UserController@guest');
 
     Route::get('user/verify/{validation}', [
         'as' => 'confirmation_path',
