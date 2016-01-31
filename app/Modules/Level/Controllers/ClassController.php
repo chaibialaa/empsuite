@@ -3,7 +3,6 @@ namespace App\Modules\Level\Controllers;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
 use App\Modules\Level\Models\Classm;
 use App\Modules\Level\Models\Level;
 use App\Modules\Level\Models\Section;
@@ -14,6 +13,7 @@ class ClassController extends Controller
     {
         return redirect('admin/level/class');
     }
+
 
     public function listClass()
     {
@@ -123,14 +123,14 @@ class ClassController extends Controller
             'status' => 1
         ]);
 
-        alert()->success(trans('Level::frontend/class.join_success'));
+        alert()->success(trans('Level::class.join_success'));
         return redirect('/dashboard');
     }
 
     public function formJoinClass(){
         if (!Auth::user()->can('JoinClass')) {
             alert()->warning(trans('common.no_access'));
-            return redirect('dashboard');
+            return redirect('/dashboard');
         }
 
         $verify = DB::table('class_users')
@@ -140,17 +140,17 @@ class ClassController extends Controller
         if ($verify) {
             // verify if user has no pending joins or already have a class
             if ($verify->status == 1) {
-                alert()->warning(trans('Level::frontend/class.pending'));
+                alert()->warning(trans('Level::class.pending'));
                 return redirect('dashboard');
             }
             elseif ($verify->status == 2) {
-                alert()->warning(trans('Level::frontend/class.already_join'));
+                alert()->warning(trans('Level::class.already_join'));
                 return redirect('dashboard');
             }
         }
 
-        $module['Title'] = "Dashboard";
-        $module['SubTitle'] = "Join a Class";
+        $module['Title'] = trans('common.dashboard');
+        $module['SubTitle'] = trans('Level::class.join_class');
         // list classes
         $classes = DB::table('classes')
             ->join('levels', 'levels.id', '=', 'classes.level_id')
@@ -168,7 +168,7 @@ class ClassController extends Controller
             if($m->section_id) {
                 $fcList[$m->level_title][$m->section_id][] = $array;
             } else {
-                $fcList[$m->level_title]['No Section'][] = $array;
+                $fcList[$m->level_title][trans('Level::section.no_section')][] = $array;
             }
         }
         $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
@@ -178,11 +178,93 @@ class ClassController extends Controller
         return $view;
 
     }
-    public function teachClass(){
-        if (!Auth::user()->can('TeachClass')) {
+
+    public function formChooseClass(){
+
+        $module['Title'] = trans('common.dashboard');
+        $module['SubTitle'] = trans('Level::class.join_class');
+
+        if (!Auth::user()->can('TeachingStudents')) {
             alert()->warning(trans('common.no_access'));
             return redirect('dashboard');
         }
+
+        // We need available subjects not taken for classes, and not showing classes on which this prof has already a teaching sub
+
+
+        // list classes
+        $classes = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
+            ->leftjoin('subject_pc', 'subject_pc.class_id', '=', 'classes.id')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
+                'sections.title as section_title')
+
+            ->orderBy('classes.level_id')
+            ->orderBy('classes.section_id')
+            ->orderBy('classes.id')
+            ->get();
+//            ->where('subject_pc.professor_id','!=',Auth::user()->id)
+        //->orWhereNull('subject_pc.professor_id')
+
+        $fcList = array();
+        foreach ($classes as $m) {
+            $array = array($m);
+            if($m->section_id) {
+                $fcList[$m->level_title][$m->section_id][] = $array;
+            } else {
+                $fcList[$m->level_title][trans('Level::section.no_section')][] = $array;
+            }
+        }
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
+        $ComposedSubView = View::make('Level::frontend.teach_choose_class')
+            ->with('classes', $fcList);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        return $view;
+    }
+
+    public function formChooseSubject($class){
+
+        $module['Title'] = trans('common.dashboard');
+        $module['SubTitle'] = trans('Level::class.join_class');
+
+        if (!Auth::user()->can('TeachingStudents')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('dashboard');
+        }
+
+        // We need available subjects not taken for classes, and not showing classes on which this prof has already a teaching sub
+
+
+        // list classes
+        $classes = DB::table('classes')
+            ->join('levels', 'levels.id', '=', 'classes.level_id')
+            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
+            ->leftjoin('subject_pc', 'subject_pc.class_id', '=', 'classes.id')
+            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
+                'sections.title as section_title')
+
+            ->orderBy('classes.level_id')
+            ->orderBy('classes.section_id')
+            ->orderBy('classes.id')
+            ->get();
+//            ->where('subject_pc.professor_id','!=',Auth::user()->id)
+        //->orWhereNull('subject_pc.professor_id')
+
+        $fcList = array();
+        foreach ($classes as $m) {
+            $array = array($m);
+            if($m->section_id) {
+                $fcList[$m->level_title][$m->section_id][] = $array;
+            } else {
+                $fcList[$m->level_title][trans('Level::section.no_section')][] = $array;
+            }
+        }
+        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
+        $ComposedSubView = View::make('Level::frontend.teach_choose_class')
+            ->with('classes', $fcList);
+        $view->with('content', $ComposedSubView)->with('module', $module);
+        return $view;
     }
 
     public function indexClass(){

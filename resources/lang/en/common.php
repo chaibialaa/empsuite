@@ -32,7 +32,7 @@ return [
     'by' => 'by',
     'read_more' => 'Read more',
     'disconnect' => 'Log out',
-
+    'dashboard' => 'Dashboard',
 
     // Authorizations
     'no_access' => 'Unauthorized Access',

@@ -10,6 +10,7 @@ return [
     'move_to' => 'Move Notices to',
     'then_delete' => 'then Delete Category',
     'top_categories' => 'Top Used Categories',
+    'manage_notices' => 'Notices Categories Dashboard',
 
     //validator
 
