@@ -17,8 +17,5 @@ Route::group(array('module' => 'Level', 'namespace' => 'App\Modules\Level\Contro
     Route::get('dashboard/class/study',['middleware' => 'auth','uses'=>'ClassController@formJoinClass']);
     Route::post('dashboard/class/study',['middleware' => 'auth','uses'=>'ClassController@joinClass']);
 
-    Route::get('dashboard/class/teach',['middleware' => 'auth','uses'=>'ClassController@formChooseClass']);
-    Route::get('dashboard/class/teach/{id}',['middleware' => 'auth','uses'=>'ClassController@formChooseSubject']);
-
 
 });	

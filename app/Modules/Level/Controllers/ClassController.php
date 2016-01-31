@@ -109,6 +109,10 @@ class ClassController extends Controller
          */
     }
 
+    public function manageProf(){
+
+    }
+
     public function joinClass(){
 
         if (!Auth::user()->can('JoinClass')) {
@@ -177,94 +181,6 @@ class ClassController extends Controller
         $view->with('content', $ComposedSubView)->with('module', $module);
         return $view;
 
-    }
-
-    public function formChooseClass(){
-
-        $module['Title'] = trans('common.dashboard');
-        $module['SubTitle'] = trans('Level::class.join_class');
-
-        if (!Auth::user()->can('TeachingStudents')) {
-            alert()->warning(trans('common.no_access'));
-            return redirect('dashboard');
-        }
-
-        // We need available subjects not taken for classes, and not showing classes on which this prof has already a teaching sub
-
-
-        // list classes
-        $classes = DB::table('classes')
-            ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
-            ->leftjoin('subject_pc', 'subject_pc.class_id', '=', 'classes.id')
-            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
-                'sections.title as section_title')
-
-            ->orderBy('classes.level_id')
-            ->orderBy('classes.section_id')
-            ->orderBy('classes.id')
-            ->get();
-//            ->where('subject_pc.professor_id','!=',Auth::user()->id)
-        //->orWhereNull('subject_pc.professor_id')
-
-        $fcList = array();
-        foreach ($classes as $m) {
-            $array = array($m);
-            if($m->section_id) {
-                $fcList[$m->level_title][$m->section_id][] = $array;
-            } else {
-                $fcList[$m->level_title][trans('Level::section.no_section')][] = $array;
-            }
-        }
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
-        $ComposedSubView = View::make('Level::frontend.teach_choose_class')
-            ->with('classes', $fcList);
-        $view->with('content', $ComposedSubView)->with('module', $module);
-        return $view;
-    }
-
-    public function formChooseSubject($class){
-
-        $module['Title'] = trans('common.dashboard');
-        $module['SubTitle'] = trans('Level::class.join_class');
-
-        if (!Auth::user()->can('TeachingStudents')) {
-            alert()->warning(trans('common.no_access'));
-            return redirect('dashboard');
-        }
-
-        // We need available subjects not taken for classes, and not showing classes on which this prof has already a teaching sub
-
-
-        // list classes
-        $classes = DB::table('classes')
-            ->join('levels', 'levels.id', '=', 'classes.level_id')
-            ->leftjoin('sections', 'sections.id', '=', 'classes.section_id')
-            ->leftjoin('subject_pc', 'subject_pc.class_id', '=', 'classes.id')
-            ->select('levels.title as level_title', 'classes.title as title', 'classes.id as id', 'levels.id as level_id','classes.section_id as section_id',
-                'sections.title as section_title')
-
-            ->orderBy('classes.level_id')
-            ->orderBy('classes.section_id')
-            ->orderBy('classes.id')
-            ->get();
-//            ->where('subject_pc.professor_id','!=',Auth::user()->id)
-        //->orWhereNull('subject_pc.professor_id')
-
-        $fcList = array();
-        foreach ($classes as $m) {
-            $array = array($m);
-            if($m->section_id) {
-                $fcList[$m->level_title][$m->section_id][] = $array;
-            } else {
-                $fcList[$m->level_title][trans('Level::section.no_section')][] = $array;
-            }
-        }
-        $view = View::make('frontend.' . ConfigFromDB::setting('frontend_theme') . '.layout');
-        $ComposedSubView = View::make('Level::frontend.teach_choose_class')
-            ->with('classes', $fcList);
-        $view->with('content', $ComposedSubView)->with('module', $module);
-        return $view;
     }
 
     public function indexClass(){
