@@ -9,8 +9,11 @@
         <a class="" data-toggle="popover" data-placement="bottom" data-html="true" data-content="
 
 
-                                    <input placeholder=Email  required type='email'  name='email'  />
-                            <input placeholder='Password' required type='password' name='password' id='password'/>
+                                    <input placeholder='Email'  required type='email'  name='email' id='email' style='height: 36px;
+font-size: 16px;
+width: 100%;
+margin-bottom: 10px;' />
+                            <input placeholder='Password' required type='password' name='password' id='password' style='height:36px;border-color: #e1e4e6;!important'/>
                             <button type='submit' class='btn btn-default btn-block'><i class='fa fa-user'></i> Sign in
                             </button>
                             <a href='/user/social/google' type='submit' class='btn btn-danger btn-block'><i

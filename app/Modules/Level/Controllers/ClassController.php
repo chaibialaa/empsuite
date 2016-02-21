@@ -102,11 +102,13 @@ class ClassController extends Controller
     }
 
     public function manageClass($id){
-        /* TODO :
-         Subjects + Teachers + Students
-         subjects should be classified in a datatable of subjects with their appropriate teachers and students not
-         being a teachers
-         */
+        if (!Auth::user()->can('ManageLevelClass')) {
+            alert()->warning(trans('common.no_access'));
+            return redirect('/admin/level/');
+        }
+
+        $module['Title'] = "Class Manager";
+        $module['SubTitle'] = "Classes Dashboard";
     }
 
     public function manageProf(){
